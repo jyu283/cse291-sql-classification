@@ -5,7 +5,7 @@ Produce bag-of-words from query CSV files (see data/*.csv).
 import csv
 import sys
 
-from collections import namedtuple
+from collections import namedtuple, OrderedDict
 
 from typing import TextIO, List, Set, Tuple
 
@@ -29,8 +29,6 @@ class BagOfWords:
 
         print(f"{len(self.rows)} queries processed.")
 
-        self.bag: Set[str] = set()
-
     def tokenize_query(self, query_text: str) -> List[str]:
         """sanitize a query for tokenization."""
         return (
@@ -52,16 +50,35 @@ class BagOfWords:
             .split()
         )
 
-    def process(self):
+    def compute_bag(self) -> Set[str]:
+        bag: Set[str] = set()
         total_tokens = 0
         for _, text, _ in self.rows:
             tokens = self.tokenize_query(text)
             total_tokens += len(tokens)
-            self.bag.update(self.tokenize_query(text))
-        
+            bag.update(self.tokenize_query(text))
+
         print("Bag of words: ")
-        print(self.bag)
-        print(f"{len(self.bag)} unique tokens from {total_tokens} total.")
+        print(bag)
+        print(f"{len(bag)} unique tokens from {total_tokens} total.")
+
+        return bag
+
+    def vectorize_query(self, query: str) -> OrderedDict[str, int]:
+        tokens = self.tokenize_query(query)
+        vector: OrderedDict[str, int] = OrderedDict()
+        for token in sorted(self.bag):
+            vector[token] = 0
+        for token in tokens:
+            vector[token] += 1
+        return vector
+
+    def process(self):
+        self.bag = self.compute_bag()
+        for query_id, query_text, elapsed_time in self.rows:
+            vector = self.vectorize_query(query_text)
+            vectorstr = str(list(vector.values()))
+            print(query_id, vectorstr, elapsed_time)
 
 
 if __name__ == "__main__":
