@@ -7,7 +7,7 @@ import time
 import sys
 
 class SQLQueryClassifier:
-    def __init__(self, csv_path, threshold=60000):
+    def __init__(self, csv_path, threshold=14000):
         self.csv_path = csv_path
         self.threshold = threshold
         self.vectorizer = CountVectorizer()
