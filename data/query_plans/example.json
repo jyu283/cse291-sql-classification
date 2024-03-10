@@ -1,0 +1,174 @@
+{
+  "GlobalStats": {
+    "partitionsTotal": 72723,
+    "partitionsAssigned": 72723,
+    "bytesAssigned": 1251957573120
+  },
+  "Operations": [
+    [
+      {
+        "id": 0,
+        "operation": "Result",
+        "expressions": [
+          "ITEM.I_ITEM_ID",
+          "SCALED_ROUND_INT_DIVIDE(SUM(STORE_SALES.SS_QUANTITY), COUNT(STORE_SALES.SS_QUANTITY))",
+          "(SUM(STORE_SALES.SS_LIST_PRICE)) / (COUNT(STORE_SALES.SS_LIST_PRICE))",
+          "(SUM(STORE_SALES.SS_COUPON_AMT)) / (COUNT(STORE_SALES.SS_COUPON_AMT))",
+          "(SUM(STORE_SALES.SS_SALES_PRICE)) / (COUNT(STORE_SALES.SS_SALES_PRICE))"
+        ]
+      },
+      {
+        "id": 1,
+        "operation": "SortWithLimit",
+        "expressions": [
+          "sortKey: [ITEM.I_ITEM_ID ASC NULLS LAST]",
+          "rowCount: 100"
+        ],
+        "parentOperators": [0]
+      },
+      {
+        "id": 2,
+        "operation": "Aggregate",
+        "expressions": [
+          "aggExprs: [SUM(STORE_SALES.SS_QUANTITY), COUNT(STORE_SALES.SS_QUANTITY), SUM(STORE_SALES.SS_LIST_PRICE), COUNT(STORE_SALES.SS_LIST_PRICE), SUM(STORE_SALES.SS_COUPON_AMT), COUNT(STORE_SALES.SS_COUPON_AMT), SUM(STORE_SALES.SS_SALES_PRICE), COUNT(STORE_SALES.SS_SALES_PRICE)]",
+          "groupKeys: [ITEM.I_ITEM_ID]"
+        ],
+        "parentOperators": [1]
+      },
+      {
+        "id": 3,
+        "operation": "InnerJoin",
+        "expressions": [
+          "joinKey: (DATE_DIM.D_DATE_SK = STORE_SALES.SS_SOLD_DATE_SK)"
+        ],
+        "parentOperators": [2]
+      },
+      {
+        "id": 4,
+        "operation": "Filter",
+        "expressions": ["DATE_DIM.D_YEAR = 2001"],
+        "parentOperators": [3]
+      },
+      {
+        "id": 5,
+        "operation": "TableScan",
+        "objects": ["SNOWFLAKE_SAMPLE_DATA.TPCDS_SF10TCL.DATE_DIM"],
+        "expressions": ["D_DATE_SK", "D_YEAR"],
+        "partitionsAssigned": 1,
+        "partitionsTotal": 1,
+        "bytesAssigned": 2138624,
+        "parentOperators": [4]
+      },
+      {
+        "id": 6,
+        "operation": "InnerJoin",
+        "expressions": [
+          "joinKey: (PROMOTION.P_PROMO_SK = STORE_SALES.SS_PROMO_SK)"
+        ],
+        "parentOperators": [3]
+      },
+      {
+        "id": 7,
+        "operation": "Filter",
+        "expressions": [
+          "(PROMOTION.P_CHANNEL_EMAIL = 'N') OR (PROMOTION.P_CHANNEL_EVENT = 'N')"
+        ],
+        "parentOperators": [6]
+      },
+      {
+        "id": 8,
+        "operation": "TableScan",
+        "objects": ["SNOWFLAKE_SAMPLE_DATA.TPCDS_SF10TCL.PROMOTION"],
+        "expressions": ["P_PROMO_SK", "P_CHANNEL_EMAIL", "P_CHANNEL_EVENT"],
+        "partitionsAssigned": 1,
+        "partitionsTotal": 1,
+        "bytesAssigned": 85504,
+        "parentOperators": [7]
+      },
+      {
+        "id": 9,
+        "operation": "InnerJoin",
+        "expressions": ["joinKey: (ITEM.I_ITEM_SK = STORE_SALES.SS_ITEM_SK)"],
+        "parentOperators": [6]
+      },
+      {
+        "id": 10,
+        "operation": "TableScan",
+        "objects": ["SNOWFLAKE_SAMPLE_DATA.TPCDS_SF10TCL.ITEM"],
+        "expressions": ["I_ITEM_SK", "I_ITEM_ID"],
+        "partitionsAssigned": 2,
+        "partitionsTotal": 2,
+        "bytesAssigned": 23811584,
+        "parentOperators": [9]
+      },
+      {
+        "id": 11,
+        "operation": "InnerJoin",
+        "expressions": [
+          "joinKey: (CUSTOMER_DEMOGRAPHICS.CD_DEMO_SK = STORE_SALES.SS_CDEMO_SK)"
+        ],
+        "parentOperators": [9]
+      },
+      {
+        "id": 12,
+        "operation": "Filter",
+        "expressions": [
+          "(CUSTOMER_DEMOGRAPHICS.CD_GENDER = 'M') AND (CUSTOMER_DEMOGRAPHICS.CD_MARITAL_STATUS = 'D') AND (CUSTOMER_DEMOGRAPHICS.CD_EDUCATION_STATUS = 'College')"
+        ],
+        "parentOperators": [11]
+      },
+      {
+        "id": 13,
+        "operation": "TableScan",
+        "objects": [
+          "SNOWFLAKE_SAMPLE_DATA.TPCDS_SF10TCL.CUSTOMER_DEMOGRAPHICS"
+        ],
+        "expressions": [
+          "CD_DEMO_SK",
+          "CD_GENDER",
+          "CD_MARITAL_STATUS",
+          "CD_EDUCATION_STATUS"
+        ],
+        "partitionsAssigned": 1,
+        "partitionsTotal": 1,
+        "bytesAssigned": 7446528,
+        "parentOperators": [12]
+      },
+      {
+        "id": 14,
+        "operation": "Filter",
+        "expressions": [
+          "(STORE_SALES.SS_CDEMO_SK IS NOT NULL) AND (STORE_SALES.SS_PROMO_SK IS NOT NULL) AND (STORE_SALES.SS_SOLD_DATE_SK IS NOT NULL)"
+        ],
+        "parentOperators": [11]
+      },
+      {
+        "id": 15,
+        "operation": "JoinFilter",
+        "expressions": [
+          "joinKey: (DATE_DIM.D_DATE_SK = STORE_SALES.SS_SOLD_DATE_SK)"
+        ],
+        "parentOperators": [14]
+      },
+      {
+        "id": 16,
+        "operation": "TableScan",
+        "objects": ["SNOWFLAKE_SAMPLE_DATA.TPCDS_SF10TCL.STORE_SALES"],
+        "expressions": [
+          "SS_SOLD_DATE_SK",
+          "SS_ITEM_SK",
+          "SS_CDEMO_SK",
+          "SS_PROMO_SK",
+          "SS_QUANTITY",
+          "SS_LIST_PRICE",
+          "SS_SALES_PRICE",
+          "SS_COUPON_AMT"
+        ],
+        "partitionsAssigned": 72718,
+        "partitionsTotal": 72718,
+        "bytesAssigned": 1251924090880,
+        "parentOperators": [15]
+      }
+    ]
+  ]
+}
