@@ -12,6 +12,7 @@ if __name__ == "__main__":
         queries = []
         for line in lines:
             query_id = line.strip()
-            queries.append(f"SELECT * FROM TABLE(RESULT_SCAN(\'{query_id}\'))\n")
+            queries.append(
+                f"SELECT * FROM TABLE(RESULT_SCAN(\'{query_id}\')) JOIN (SELECT * FROM TABLE(INFORMATION_SCHEMA.QUERY_HISTORY()) WHERE query_id=\'{query_id}\')\n")
         query = "UNION\n".join(queries)
         print(query)
