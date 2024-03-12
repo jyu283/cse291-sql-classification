@@ -1,3 +1,7 @@
+"""
+python src/query_plan_parser.py data/query_plans/query_plans.csv
+"""
+
 import sys
 import csv
 import json
