@@ -2,7 +2,9 @@ import sys
 import csv
 import json
 import pprint
-from collections import namedtuple
+import pandas as pd
+from collections import namedtuple, defaultdict
+from typing import List
 
 QueryRecord = namedtuple("QueryRecord", ["id", "text", "time", "plan"])
 
@@ -26,10 +28,34 @@ class QueryPlanParser:
                         plan=query_plan,
                     )
                 )
-            pprint.pprint(self.queries)
+    
+    def extract_features(self, query_plan: dict) -> dict:
+        total_bytes = query_plan["GlobalStats"]["bytesAssigned"]
+        operations_count = defaultdict(int)
+        for operations in query_plan["Operations"]:
+            for op in operations:
+                operations_count[op['operation']] += 1
 
-    def vectorize_query(self, query: str, query_plan: dict):
-        pass
+        features = {
+            "total_bytes": total_bytes,
+        }
+        for op, count in operations_count.items():
+            features["num_" + op] = count
+        return features
+
+    def process(self) -> List[pd.DataFrame]:
+        dataset = []
+        for query_id, query_text, query_time, query_plan in self.queries:
+            data = {
+                "query_id": query_id,
+                "query_text": query_text,
+                "elapsed_time": query_time,
+                "features": self.extract_features(query_plan)
+            }
+            pprint.pprint(data)
+            df = pd.DataFrame(data)
+            dataset.append(df)
+        return dataset
 
 
 if __name__ == "__main__":
@@ -38,3 +64,4 @@ if __name__ == "__main__":
         exit(1)
 
     parser = QueryPlanParser(sys.argv[1])
+    parser.process()
