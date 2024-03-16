@@ -1,0 +1,2559 @@
+TOTAL_ELAPSED_TIME,QUERY_ID,QUERY_TEXT,DATABASE_NAME,SCHEMA_NAME,QUERY_TYPE,SESSION_ID,USER_NAME,ROLE_NAME,WAREHOUSE_NAME,WAREHOUSE_SIZE,WAREHOUSE_TYPE,CLUSTER_NUMBER,QUERY_TAG,EXECUTION_STATUS,ERROR_CODE,ERROR_MESSAGE,START_TIME,END_TIME,TOTAL_ELAPSED_TIME,BYTES_SCANNED,ROWS_PRODUCED,COMPILATION_TIME,EXECUTION_TIME,QUEUED_PROVISIONING_TIME,QUEUED_REPAIR_TIME,QUEUED_OVERLOAD_TIME,TRANSACTION_BLOCKED_TIME,OUTBOUND_DATA_TRANSFER_CLOUD,OUTBOUND_DATA_TRANSFER_REGION,OUTBOUND_DATA_TRANSFER_BYTES,INBOUND_DATA_TRANSFER_CLOUD,INBOUND_DATA_TRANSFER_REGION,INBOUND_DATA_TRANSFER_BYTES,CREDITS_USED_CLOUD_SERVICES,LIST_EXTERNAL_FILE_TIME,RELEASE_VERSION,EXTERNAL_FUNCTION_TOTAL_INVOCATIONS,EXTERNAL_FUNCTION_TOTAL_SENT_ROWS,EXTERNAL_FUNCTION_TOTAL_RECEIVED_ROWS,EXTERNAL_FUNCTION_TOTAL_SENT_BYTES,EXTERNAL_FUNCTION_TOTAL_RECEIVED_BYTES,IS_CLIENT_GENERATED_STATEMENT,QUERY_HASH,QUERY_HASH_VERSION,QUERY_PARAMETERIZED_HASH,QUERY_PARAMETERIZED_HASH_VERSION
+9269,01b30595-0002-318f-0051-ba870003b1ce,"SELECT COUNT(*) FROM (
+  SELECT DISTINCT c_last_name, c_first_name
+  FROM store_sales, date_dim, customer, customer_address
+  WHERE store_sales.ss_sold_date_sk = date_dim.d_date_sk
+  AND store_sales.ss_customer_sk = customer.c_customer_sk
+  AND customer.c_current_addr_sk = customer_address.ca_address_sk
+  AND ca_state IN ('CA', 'TX', 'NY')
+  AND d_month_seq BETWEEN 1176 AND 1176 + 11
+  INTERSECT
+  SELECT DISTINCT c_last_name, c_first_name
+  FROM catalog_sales, date_dim, customer, customer_address
+  WHERE catalog_sales.cs_sold_date_sk = date_dim.d_date_sk
+  AND catalog_sales.cs_bill_customer_sk = customer.c_customer_sk
+  AND customer.c_current_addr_sk = customer_address.ca_address_sk
+  AND ca_state IN ('CA', 'TX', 'NY')
+  AND d_month_seq BETWEEN 1176 AND 1176 + 11
+  INTERSECT
+  SELECT DISTINCT c_last_name, c_first_name
+  FROM web_sales, date_dim, customer, customer_address
+  WHERE web_sales.ws_sold_date_sk = date_dim.d_date_sk
+  AND web_sales.ws_bill_customer_sk = customer.c_customer_sk
+  AND customer.c_current_addr_sk = customer_address.ca_address_sk
+  AND ca_state IN ('CA', 'TX', 'NY')
+  AND d_month_seq BETWEEN 1176 AND 1176 + 11
+) hot_cust
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:49:27.972-07:00,2024-03-16T00:49:37.241-07:00,9269,523426223197,1,820,8449,0,0,0,0,,,0,,,0,0.000127000,0,8.10.1,0,0,0,0,0,FALSE,02390eac94c7d5778d5adf60af431e3f,2,02390eac94c7d5778d5adf60af431e3f,1
+10775,01b30595-0002-317c-0051-ba870003724e,"SELECT COUNT(*) FROM (
+  SELECT DISTINCT c_last_name, c_first_name
+  FROM store_sales JOIN date_dim ON store_sales.ss_sold_date_sk = date_dim.d_date_sk
+  JOIN customer ON store_sales.ss_customer_sk = customer.c_customer_sk
+  WHERE ss_net_profit > 1000
+  AND d_month_seq BETWEEN 1176 AND 1176 + 11
+  INTERSECT
+  SELECT DISTINCT c_last_name, c_first_name
+  FROM catalog_sales JOIN date_dim ON catalog_sales.cs_sold_date_sk = date_dim.d_date_sk
+  JOIN customer ON catalog_sales.cs_bill_customer_sk = customer.c_customer_sk
+  WHERE cs_net_profit > 1000
+  AND d_month_seq BETWEEN 1176 AND 1176 + 11
+  INTERSECT
+  SELECT DISTINCT c_last_name, c_first_name
+  FROM web_sales JOIN date_dim ON web_sales.ws_sold_date_sk = date_dim.d_date_sk
+  JOIN customer ON web_sales.ws_bill_customer_sk = customer.c_customer_sk
+  WHERE ws_net_profit > 1000
+  AND d_month_seq BETWEEN 1176 AND 1176 + 11
+) hot_cust
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:49:16.779-07:00,2024-03-16T00:49:27.554-07:00,10775,521096859229,1,719,10056,0,0,0,0,,,0,,,0,0.000112000,0,8.10.1,0,0,0,0,0,FALSE,d1f5f74c58d92e23715c07d49f672521,2,cfb0505b4dec1c6c84dcecd08a6a57ac,1
+10758,01b30595-0002-318f-0051-ba870003b1c6,"SELECT COUNT(*) FROM (
+  SELECT DISTINCT c_last_name, c_first_name
+  FROM store_sales, date_dim, customer
+  WHERE store_sales.ss_sold_date_sk = date_dim.d_date_sk
+  AND store_sales.ss_customer_sk = customer.c_customer_sk
+  AND d_year = 2000
+  INTERSECT
+  SELECT DISTINCT c_last_name, c_first_name
+  FROM catalog_sales, date_dim, customer
+  WHERE catalog_sales.cs_sold_date_sk = date_dim.d_date_sk
+  AND catalog_sales.cs_bill_customer_sk = customer.c_customer_sk
+  AND d_year = 2001
+  INTERSECT
+  SELECT DISTINCT c_last_name, c_first_name
+  FROM web_sales, date_dim, customer
+  WHERE web_sales.ws_sold_date_sk = date_dim.d_date_sk
+  AND web_sales.ws_bill_customer_sk = customer.c_customer_sk
+  AND d_year = 2002
+) hot_cust
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:49:05.657-07:00,2024-03-16T00:49:16.415-07:00,10758,526046257975,1,651,10107,0,0,0,0,,,0,,,0,0.000101000,0,8.10.1,0,0,0,0,0,FALSE,c33cd057ebee7ea5ed355a62d11ec8e1,2,3047c5a3aa280c5a37eb607a6552c800,1
+1975,01b30595-0002-318f-0051-ba870003b1be,"SELECT COUNT(*) FROM (
+  SELECT DISTINCT c_last_name, c_first_name
+  FROM store_sales, date_dim, customer
+  WHERE store_sales.ss_sold_date_sk = date_dim.d_date_sk
+  AND store_sales.ss_customer_sk = customer.c_customer_sk
+  AND d_date = CAST(c_birth_year || '-' || c_birth_month || '-' || c_birth_day AS DATE)
+  AND d_month_seq BETWEEN 1176 AND 1176 + 11
+  INTERSECT
+  SELECT DISTINCT c_last_name, c_first_name
+  FROM catalog_sales, date_dim, customer
+  WHERE catalog_sales.cs_sold_date_sk = date_dim.d_date_sk
+  AND catalog_sales.cs_bill_customer_sk = customer.c_customer_sk
+  AND d_date = CAST(c_birth_year || '-' || c_birth_month || '-' || c_birth_day AS DATE)
+  AND d_month_seq BETWEEN 1176 AND 1176 + 11
+  INTERSECT
+  SELECT DISTINCT c_last_name, c_first_name
+  FROM web_sales, date_dim, customer
+  WHERE web_sales.ws_sold_date_sk = date_dim.d_date_sk
+  AND web_sales.ws_bill_customer_sk = customer.c_customer_sk
+  AND d_date = CAST(c_birth_year || '-' || c_birth_month || '-' || c_birth_day AS DATE)
+  AND d_month_seq BETWEEN 1176 AND 1176 + 11
+) hot_cust
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:49:03.332-07:00,2024-03-16T00:49:05.307-07:00,1975,2335906335,1,720,1255,0,0,0,0,,,0,,,0,0.000112000,0,8.10.1,0,0,0,0,0,FALSE,0b5e18bebca654e7f793deee954e9f15,2,0b5e18bebca654e7f793deee954e9f15,1
+3636,01b30594-0002-326c-0051-ba870003c262,"SELECT COUNT(*) FROM (
+  SELECT DISTINCT c_last_name, c_first_name
+  FROM store_sales, date_dim, customer
+  WHERE store_sales.ss_sold_date_sk = date_dim.d_date_sk
+  AND store_sales.ss_customer_sk = customer.c_customer_sk
+  AND c_preferred_cust_flag = 'Y'
+  AND d_month_seq BETWEEN 1300 AND 1300 + 11
+  INTERSECT
+  SELECT DISTINCT c_last_name, c_first_name
+  FROM catalog_sales, date_dim, customer
+  WHERE catalog_sales.cs_sold_date_sk = date_dim.d_date_sk
+  AND catalog_sales.cs_bill_customer_sk = customer.c_customer_sk
+  AND c_preferred_cust_flag = 'Y'
+  AND d_month_seq BETWEEN 1300 AND 1300 + 11
+  INTERSECT
+  SELECT DISTINCT c_last_name, c_first_name
+  FROM web_sales, date_dim, customer
+  WHERE web_sales.ws_sold_date_sk = date_dim.d_date_sk
+  AND web_sales.ws_bill_customer_sk = customer.c_customer_sk
+  AND c_preferred_cust_flag = 'Y'
+  AND d_month_seq BETWEEN 1300 AND 1300 + 11
+) hot_cust
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:48:59.348-07:00,2024-03-16T00:49:02.984-07:00,3636,4660287628,1,787,2849,0,0,0,0,,,0,,,0,0.000122000,0,8.10.1,0,0,0,0,0,FALSE,a706565e00c2543ddd51b2e45464d246,2,ab3a5859727eea280915a8a350b6a02f,1
+20828,01b30594-0002-317c-0051-ba8700037242,"SELECT COUNT(*) FROM (
+  SELECT DISTINCT c_last_name, c_first_name
+  FROM store_sales JOIN date_dim ON store_sales.ss_sold_date_sk = date_dim.d_date_sk
+  JOIN customer ON store_sales.ss_customer_sk = customer.c_customer_sk
+  JOIN item ON store_sales.ss_item_sk = item.i_item_sk
+  WHERE i_category NOT IN ('Electronics', 'Clothing')
+  AND d_month_seq BETWEEN 1176 AND 1176 + 11
+  INTERSECT
+  SELECT DISTINCT c_last_name, c_first_name
+  FROM catalog_sales JOIN date_dim ON catalog_sales.cs_sold_date_sk = date_dim.d_date_sk
+  JOIN customer ON catalog_sales.cs_bill_customer_sk = customer.c_customer_sk
+  JOIN item ON catalog_sales.cs_item_sk = item.i_item_sk
+  WHERE i_category NOT IN ('Electronics', 'Clothing')
+  AND d_month_seq BETWEEN 1176 AND 1176 + 11
+  INTERSECT
+  SELECT DISTINCT c_last_name, c_first_name
+  FROM web_sales JOIN date_dim ON web_sales.ws_sold_date_sk = date_dim.d_date_sk
+  JOIN customer ON web_sales.ws_bill_customer_sk = customer.c_customer_sk
+  JOIN item ON web_sales.ws_item_sk = item.i_item_sk
+  WHERE i_category NOT IN ('Electronics', 'Clothing')
+  AND d_month_seq BETWEEN 1176 AND 1176 + 11
+) hot_cust
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:48:38.126-07:00,2024-03-16T00:48:58.954-07:00,20828,521168293981,1,1474,19354,0,0,0,0,,,0,,,0,0.000227000,0,8.10.1,0,0,0,0,0,FALSE,16f4a77030dc43d79f460c2d677a5244,2,16f4a77030dc43d79f460c2d677a5244,1
+119,01b30594-0002-318f-0051-ba870003b1b2,"SELECT COUNT(*) FROM (
+  SELECT DISTINCT c_last_name, c_first_name
+  FROM store_sales, date_dim, customer
+  WHERE store_sales.ss_sold_date_sk = date_dim.d_date_sk
+  AND store_sales.ss_customer_sk = customer.c_customer_sk
+  AND ss_sales_price > 500
+  AND d_month_seq BETWEEN 1176 AND 1176 + 11
+  INTERSECT
+  SELECT DISTINCT c_last_name, c_first_name
+  FROM catalog_sales, date_dim, customer
+  WHERE catalog_sales.cs_sold_date_sk = date_dim.d_date_sk
+  AND catalog_sales.cs_bill_customer_sk = customer.c_customer_sk
+  AND cs_sales_price > 500
+  AND d_month_seq BETWEEN 1176 AND 1176 + 11
+  INTERSECT
+  SELECT DISTINCT c_last_name, c_first_name
+  FROM web_sales, date_dim, customer
+  WHERE web_sales.ws_sold_date_sk = date_dim.d_date_sk
+  AND web_sales.ws_bill_customer_sk = customer.c_customer_sk
+  AND ws_sales_price > 500
+  AND d_month_seq BETWEEN 1176 AND 1176 + 11
+) hot_cust
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:48:37.676-07:00,2024-03-16T00:48:37.795-07:00,119,0,1,88,31,0,0,0,0,,,0,,,0,0.000016000,0,8.10.1,0,0,0,0,0,FALSE,19c0d1ea49473df03e79bdc6696f55ac,2,1f5136d5609ecc61fe88f5f5491e7f45,1
+6052,01b30594-0002-3144-0051-ba870003a292,"SELECT COUNT(*) FROM (
+  SELECT DISTINCT c_last_name, c_first_name, d_date
+  FROM store_sales, date_dim, customer
+  WHERE store_sales.ss_sold_date_sk = date_dim.d_date_sk
+  AND store_sales.ss_customer_sk = customer.c_customer_sk
+  AND d_month_seq = 1176
+  INTERSECT
+  SELECT DISTINCT c_last_name, c_first_name, d_date
+  FROM catalog_sales, date_dim, customer
+  WHERE catalog_sales.cs_sold_date_sk = date_dim.d_date_sk
+  AND catalog_sales.cs_bill_customer_sk = customer.c_customer_sk
+  AND d_month_seq = 1176
+  INTERSECT
+  SELECT DISTINCT c_last_name, c_first_name, d_date
+  FROM web_sales, date_dim, customer
+  WHERE web_sales.ws_sold_date_sk = date_dim.d_date_sk
+  AND web_sales.ws_bill_customer_sk = customer.c_customer_sk
+  AND d_month_seq = 1176
+) hot_cust
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:48:31.199-07:00,2024-03-16T00:48:37.251-07:00,6052,31560048733,1,802,5250,0,0,0,0,,,0,,,0,0.000125000,0,8.10.1,0,0,0,0,0,FALSE,ec093b80ca16fee4ae6635bb30adde5e,2,1dd56e9b403c2e4de0b5c882c5b6f3bd,1
+15547,01b30594-0002-326c-0051-ba870003c25a,"SELECT COUNT(*) FROM (
+  SELECT DISTINCT c_last_name, c_first_name, d_date
+  FROM store_sales, date_dim, customer
+  WHERE store_sales.ss_sold_date_sk = date_dim.d_date_sk
+  AND store_sales.ss_customer_sk = customer.c_customer_sk
+  AND d_month_seq BETWEEN 1200 AND 1200 + 11
+  INTERSECT
+  SELECT DISTINCT c_last_name, c_first_name, d_date
+  FROM catalog_sales, date_dim, customer
+  WHERE catalog_sales.cs_sold_date_sk = date_dim.d_date_sk
+  AND catalog_sales.cs_bill_customer_sk = customer.c_customer_sk
+  AND d_month_seq BETWEEN 1200 AND 1200 + 11
+  INTERSECT
+  SELECT DISTINCT c_last_name, c_first_name, d_date
+  FROM web_sales, date_dim, customer
+  WHERE web_sales.ws_sold_date_sk = date_dim.d_date_sk
+  AND web_sales.ws_bill_customer_sk = customer.c_customer_sk
+  AND d_month_seq BETWEEN 1200 AND 1200 + 11
+) hot_cust
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:48:15.275-07:00,2024-03-16T00:48:30.822-07:00,15547,527624640605,1,830,14717,0,0,0,0,,,0,,,0,0.000129000,0,8.10.1,0,0,0,0,0,FALSE,298cebd92827bf279f850dbc6023957e,2,298cebd92827bf279f850dbc6023957e,1
+21222,01b30593-0002-3095-0051-ba87000332e2,"SELECT *
+FROM (
+  SELECT i_category, i_class, i_brand,
+  s_store_name, s_company_name,
+  d_moy,
+  SUM(ss_sales_price) sum_sales,
+  AVG(SUM(ss_sales_price)) OVER
+  (PARTITION BY i_category, s_company_name)
+  avg_monthly_sales
+  FROM item, store_sales, date_dim, store
+  WHERE ss_item_sk = i_item_sk AND
+  ss_sold_date_sk = d_date_sk AND
+  ss_store_sk = s_store_sk AND
+  d_year IN (2000)
+  GROUP BY i_category, i_class, i_brand,
+  s_store_name, s_company_name, d_moy
+) tmp1
+WHERE CASE WHEN (avg_monthly_sales <> 0) THEN (ABS(sum_sales - avg_monthly_sales) / avg_monthly_sales) ELSE NULL END > 0.1
+ORDER BY ABS(sum_sales - avg_monthly_sales) DESC, i_category
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:47:53.695-07:00,2024-03-16T00:48:14.917-07:00,21222,243861228063,100,538,20684,0,0,0,0,,,0,,,0,0.000084000,0,8.10.1,0,0,0,0,0,FALSE,2537a01aac5a5b54105ee4eabbca4691,2,82496c0b6aacd0de89025ca60eb8062c,1
+21276,01b30593-0002-3095-0051-ba87000332d6,"SELECT *
+FROM (
+  SELECT i_category, i_class, i_brand,
+  s_store_name, s_company_name,
+  d_moy,
+  SUM(ss_sales_price) sum_sales,
+  AVG(SUM(ss_sales_price)) OVER
+  (PARTITION BY s_store_name)
+  avg_monthly_sales
+  FROM item, store_sales, date_dim, store
+  WHERE ss_item_sk = i_item_sk AND
+  ss_sold_date_sk = d_date_sk AND
+  ss_store_sk = s_store_sk AND
+  d_year IN (2000)
+  GROUP BY i_category, i_class, i_brand,
+  s_store_name, s_company_name, d_moy
+) tmp1
+WHERE CASE WHEN (avg_monthly_sales <> 0) THEN (ABS(sum_sales - avg_monthly_sales) / avg_monthly_sales) ELSE NULL END > 0.2
+ORDER BY avg_monthly_sales, s_store_name
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:47:32.047-07:00,2024-03-16T00:47:53.323-07:00,21276,243861228063,100,708,20568,0,0,0,0,,,0,,,0,0.000110000,0,8.10.1,0,0,0,0,0,FALSE,4ccc1a955ca9e1b606e8cf887656f2b8,2,da33a9ccc0e0358d35e7c13e8cc51371,1
+5214,01b30593-0002-3144-0051-ba870003a27a,"SELECT *
+FROM (
+  SELECT i_category, i_class, i_brand,
+  s_store_name, s_company_name,
+  d_moy,
+  SUM(ss_sales_price) sum_sales,
+  AVG(SUM(ss_sales_price)) OVER
+  (PARTITION BY i_category, s_company_name, d_moy)
+  avg_monthly_sales
+  FROM item, store_sales, date_dim, store
+  WHERE ss_item_sk = i_item_sk AND
+  ss_sold_date_sk = d_date_sk AND
+  ss_store_sk = s_store_sk AND
+  d_moy = 6 AND
+  d_year BETWEEN 1999 AND 2001
+  GROUP BY i_category, i_class, i_brand,
+  s_store_name, s_company_name, d_moy
+) tmp1
+WHERE CASE WHEN (avg_monthly_sales <> 0) THEN (ABS(sum_sales - avg_monthly_sales) / avg_monthly_sales) ELSE NULL END > 0.1
+ORDER BY sum_sales DESC, s_store_name
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:47:26.517-07:00,2024-03-16T00:47:31.731-07:00,5214,34511387679,100,572,4642,0,0,0,0,,,0,,,0,0.000090000,0,8.10.1,0,0,0,0,0,FALSE,6adab06f8e2c4f8fb1be2109e461d9ef,2,07de3f42dacfd2ac95227eac8b9c5e38,1
+112,01b30593-0002-318f-0051-ba870003b1a6,"SELECT *
+FROM (
+  SELECT i_category, i_class, i_brand,
+  s_store_name, s_company_name,
+  d_moy,
+  SUM(ss_sales_price) sum_sales,
+  AVG(SUM(ss_sales_price)) OVER
+  (PARTITION BY i_category, i_class, s_store_name)
+  avg_monthly_sales
+  FROM item, store_sales, date_dim, store
+  WHERE ss_item_sk = i_item_sk AND
+  ss_sold_date_sk = d_date_sk AND
+  ss_store_sk = s_store_sk AND
+  i_brand = 'Brand#123'
+  AND d_year IN (2000)
+  GROUP BY i_category, i_class, i_brand,
+  s_store_name, s_company_name, d_moy
+) tmp1
+WHERE CASE WHEN (avg_monthly_sales <> 0) THEN (ABS(sum_sales - avg_monthly_sales) / avg_monthly_sales) ELSE NULL END > 0.1
+ORDER BY sum_sales DESC, s_store_name
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:47:25.97-07:00,2024-03-16T00:47:26.082-07:00,112,0,0,80,32,0,0,0,0,,,0,,,0,0.000014000,0,8.10.1,0,0,0,0,0,FALSE,2f706d80af825dd730cc2f51388452dc,2,94213f73b876268eba2ed3400ea3a5e8,1
+21548,01b30593-0002-3099-0051-ba87000361a6,"SELECT *
+FROM (
+  SELECT i_category, i_class, i_brand,
+  s_store_name, s_company_name,
+  d_moy,
+  SUM(ss_sales_price) sum_sales,
+  AVG(SUM(ss_sales_price)) OVER
+  (PARTITION BY i_category, i_brand, s_store_name, s_company_name)
+  avg_monthly_sales
+  FROM item, store_sales, date_dim, store
+  WHERE ss_item_sk = i_item_sk AND
+  ss_sold_date_sk = d_date_sk AND
+  ss_store_sk = s_store_sk AND
+  d_year IN (2000)
+  GROUP BY i_category, i_class, i_brand,
+  s_store_name, s_company_name, d_moy
+) tmp1
+WHERE CASE WHEN (avg_monthly_sales <> 0) THEN (ABS(sum_sales - avg_monthly_sales) / avg_monthly_sales) ELSE NULL END > 0.5  -- Increased threshold for variance
+ORDER BY sum_sales DESC, s_store_name
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:47:04.05-07:00,2024-03-16T00:47:25.598-07:00,21548,243861228063,100,595,20953,0,0,0,0,,,0,,,0,0.000093000,0,8.10.1,0,0,0,0,0,FALSE,3c27d0650ed053cc7739eb0135460db0,2,93611d14566f6b3d6b7f284cfa576b7f,1
+193,01b30593-0002-326c-0051-ba870003c24a,"SELECT *
+FROM (
+  SELECT i_category, i_class, i_brand,
+  s_store_name, s_company_name,
+  d_moy,
+  SUM(ss_sales_price) sum_sales,
+  AVG(SUM(ss_sales_price)) OVER
+  (PARTITION BY i_category, i_brand, s_store_name, s_company_name)
+  avg_monthly_sales
+  FROM item, store_sales, date_dim, store
+  WHERE ss_item_sk = i_item_sk AND
+  ss_sold_date_sk = d_date_sk AND
+  ss_store_sk = s_store_sk AND
+  d_year IN (2000) AND
+  ss_sales_price > 200
+  GROUP BY i_category, i_class, i_brand,
+  s_store_name, s_company_name, d_moy
+) tmp1
+WHERE CASE WHEN (avg_monthly_sales <> 0) THEN (ABS(sum_sales - avg_monthly_sales) / avg_monthly_sales) ELSE NULL END > 0.1
+ORDER BY sum_sales DESC, s_store_name
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:47:03.556-07:00,2024-03-16T00:47:03.749-07:00,193,0,0,84,109,0,0,0,0,,,0,,,0,0.000015000,0,8.10.1,0,0,0,0,0,FALSE,514b9a5cb396d0bb2211667d5d1805a4,2,15a90ccf76cc804989e774a86af2babc,1
+4884,01b30592-0002-318f-0051-ba870003b19a,"SELECT *
+FROM (
+  SELECT i_category, i_class, i_brand,
+  s_store_name, s_company_name,
+  d_moy,
+  SUM(ss_sales_price) sum_sales,
+  AVG(SUM(ss_sales_price)) OVER
+  (PARTITION BY i_category, i_brand, s_store_name, s_company_name)
+  avg_monthly_sales
+  FROM item, store_sales, date_dim, store
+  WHERE ss_item_sk = i_item_sk AND
+  ss_sold_date_sk = d_date_sk AND
+  ss_store_sk = s_store_sk AND
+  d_moy = 12 AND
+  d_year IN (2000) AND
+  i_category NOT IN ('Electronics', 'Women')
+  GROUP BY i_category, i_class, i_brand,
+  s_store_name, s_company_name, d_moy
+) tmp1
+WHERE CASE WHEN (avg_monthly_sales <> 0) THEN (ABS(sum_sales - avg_monthly_sales) / avg_monthly_sales) ELSE NULL END > 0.1
+ORDER BY sum_sales DESC, s_store_name
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:46:58.363-07:00,2024-03-16T00:47:03.247-07:00,4884,41105602700,100,517,4367,0,0,0,0,,,0,,,0,0.000081000,0,8.10.1,0,0,0,0,0,FALSE,a5d60d407ff28432f33f2d45bed147c2,2,890482f081c5964f571d300aaa5ad6c3,1
+21011,01b30592-0002-3099-0051-ba870003619e,"SELECT *
+FROM (
+  SELECT i_category, i_class, i_brand,
+  s_store_name, s_company_name,
+  d_moy,
+  SUM(ss_sales_price) sum_sales,
+  AVG(SUM(ss_sales_price)) OVER
+  (PARTITION BY i_category, i_brand, s_store_name, s_company_name)
+  avg_monthly_sales
+  FROM item, store_sales, date_dim, store
+  WHERE ss_item_sk = i_item_sk AND
+  ss_sold_date_sk = d_date_sk AND
+  ss_store_sk = s_store_sk AND
+  d_year IN (2000)
+  GROUP BY i_category, i_class, i_brand,
+  s_store_name, s_company_name, d_moy
+) tmp1
+WHERE CASE WHEN (avg_monthly_sales <> 0) THEN (ABS(sum_sales - avg_monthly_sales) / avg_monthly_sales) ELSE NULL END <= 0.1  -- Focused on lower variance
+ORDER BY avg_monthly_sales DESC, s_store_name
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:46:36.987-07:00,2024-03-16T00:46:57.998-07:00,21011,243861228063,100,626,20385,0,0,0,0,,,0,,,0,0.000098000,0,8.10.1,0,0,0,0,0,FALSE,b52e1dfb3192c981f51205e358be4cbb,2,0b99431bc4fa98d90bf85317894fb3f0,1
+119,01b30592-0002-317c-0051-ba8700037236,"SELECT *
+FROM (
+  SELECT i_category, i_class, i_brand,
+  s_store_name, s_company_name,
+  d_moy,
+  SUM(ss_sales_price) sum_sales,
+  AVG(SUM(ss_sales_price)) OVER
+  (PARTITION BY i_category, i_brand, s_store_name, s_company_name)
+  avg_monthly_sales
+  FROM item, store_sales, date_dim, store
+  WHERE ss_item_sk = i_item_sk AND
+  ss_sold_date_sk = d_date_sk AND
+  ss_store_sk = s_store_sk AND
+  d_year BETWEEN 2000 AND 2002 AND
+  i_brand IN ('Brand#123', 'Brand#456', 'Brand#789')
+  GROUP BY i_category, i_class, i_brand,
+  s_store_name, s_company_name, d_moy
+) tmp1
+WHERE CASE WHEN (avg_monthly_sales <> 0) THEN (ABS(sum_sales - avg_monthly_sales) / avg_monthly_sales) ELSE NULL END > 0.2  -- Adjusted threshold
+ORDER BY sum_sales - avg_monthly_sales DESC, s_store_name  -- Changed order direction
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:46:36.584-07:00,2024-03-16T00:46:36.703-07:00,119,0,0,87,32,0,0,0,0,,,0,,,0,0.000015000,0,8.10.1,0,0,0,0,0,FALSE,7e274b114971aa2b5a95742defa8dab8,2,c1c5c0006ca33a8ff6ee8ebe5e62cdf6,1
+2543,01b30592-0002-326c-0051-ba870003c23e,"SELECT *
+FROM (
+  SELECT i_category, i_class, i_brand,
+  s_store_name, s_company_name,
+  d_moy,
+  SUM(ss_sales_price) sum_sales,
+  AVG(SUM(ss_sales_price)) OVER
+  (PARTITION BY i_category, i_brand, s_store_name, s_company_name)
+  avg_monthly_sales
+  FROM item, store_sales, date_dim, store
+  WHERE ss_item_sk = i_item_sk AND
+  ss_sold_date_sk = d_date_sk AND
+  ss_store_sk = s_store_sk AND
+  d_year IN (2001) AND
+  ((i_category IN ('Books','Men','Children') AND
+  i_class IN ('novels','pants','toys'))
+  OR (i_category IN ('Music','Accessories','Health') AND
+  i_class IN ('pop','watches','supplements')))
+  GROUP BY i_category, i_class, i_brand,
+  s_store_name, s_company_name, d_moy
+) tmp1
+WHERE CASE WHEN (avg_monthly_sales <> 0) THEN (ABS(sum_sales - avg_monthly_sales) / avg_monthly_sales) ELSE NULL END > 0.1
+ORDER BY sum_sales - avg_monthly_sales, s_store_name
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:46:33.471-07:00,2024-03-16T00:46:36.014-07:00,2543,241260930188,100,549,1994,0,0,0,0,,,0,,,0,0.000086000,0,8.10.1,0,0,0,0,0,FALSE,d1d4c00d8c5473c5a202523c5b1a1637,2,5ed178b975e513e282876eaf0aeb87c3,1
+2241,01b30592-0002-3095-0051-ba87000332c2,"SELECT ca_zip, SUM(cs_sales_price)
+FROM catalog_sales, customer, customer_address, date_dim
+WHERE cs_bill_customer_sk = c_customer_sk
+  AND c_current_addr_sk = ca_address_sk
+  AND d_date BETWEEN '2000-04-01' AND '2000-04-07'
+  AND cs_sold_date_sk = d_date_sk
+GROUP BY ca_zip
+ORDER BY SUM(cs_sales_price) DESC, ca_zip
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:46:30.905-07:00,2024-03-16T00:46:33.146-07:00,2241,5179338861,100,315,1926,0,0,0,0,,,0,,,0,0.000051000,0,8.10.1,0,0,0,0,0,FALSE,364542c0980d168f8c5f1989ef254ccc,2,364542c0980d168f8c5f1989ef254ccc,1
+3159,01b30592-0002-3095-0051-ba87000332ba,"SELECT ca_zip, COUNT(*) AS num_sales
+FROM catalog_sales, customer, customer_address, date_dim
+WHERE cs_bill_customer_sk = c_customer_sk
+  AND c_current_addr_sk = ca_address_sk
+  AND cs_sold_date_sk = d_date_sk
+  AND d_qoy = 2 AND d_year = 2000
+GROUP BY ca_zip
+HAVING COUNT(*) > 20
+ORDER BY num_sales DESC, ca_zip
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:46:27.377-07:00,2024-03-16T00:46:30.536-07:00,3159,29557703820,100,573,2586,0,0,0,0,,,0,,,0,0.000089000,0,8.10.1,0,0,0,0,0,FALSE,451bb238cc025301a9e3a5610a4ef875,2,52df261f6cf2a9afabe93a405e0925ff,1
+4223,01b30592-0002-318f-0051-ba870003b186,"SELECT ca_zip, SUM(cs_sales_price) AS total_sales
+FROM catalog_sales, customer, customer_address, date_dim
+WHERE cs_bill_customer_sk = c_customer_sk
+  AND c_current_addr_sk = ca_address_sk
+  AND (SUBSTR(ca_zip,1,5) IN ('10101', '20202', '30303')
+  OR ca_state IN ('NY', 'MA', 'CT')
+  OR cs_sales_price > 300)
+  AND cs_sold_date_sk = d_date_sk
+  AND d_qoy = 2 AND d_year = 2000
+GROUP BY ca_zip
+ORDER BY total_sales DESC, ca_zip
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:46:22.793-07:00,2024-03-16T00:46:27.016-07:00,4223,29557703820,100,364,3859,0,0,0,0,,,0,,,0,0.000057000,0,8.10.1,0,0,0,0,0,FALSE,c1217d94c373262ae20613167d692cfe,2,d77d2bf64052dbc889337cbe88fad391,1
+107,01b30592-0002-3144-0051-ba870003a26a,"SELECT ca_zip, SUM(cs_sales_price)
+FROM catalog_sales, customer, customer_address, date_dim
+WHERE cs_bill_customer_sk = c_customer_sk
+  AND c_current_addr_sk = ca_address_sk
+  AND cs_sales_price > 2000
+  AND cs_sold_date_sk = d_date_sk
+  AND d_qoy = 2 AND d_year = 2000
+GROUP BY ca_zip
+ORDER BY ca_zip
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:46:22.339-07:00,2024-03-16T00:46:22.446-07:00,107,0,0,78,29,0,0,0,0,,,0,,,0,0.000014000,0,8.10.1,0,0,0,0,0,FALSE,de81197b0d20403dbeac80bb1f2c72cb,2,ef2fb2734e9bdcdf4613e2c71d1f1177,1
+4260,01b30592-0002-326c-0051-ba870003c236,"SELECT ca_zip, SUM(cs_sales_price)
+FROM catalog_sales, customer, customer_address, date_dim
+WHERE cs_bill_customer_sk = c_customer_sk
+  AND c_current_addr_sk = ca_address_sk
+  AND (ca_state NOT IN ('NV', 'UT', 'AZ')
+  OR cs_sales_price > 1500)
+  AND cs_sold_date_sk = d_date_sk
+  AND d_qoy = 1 AND d_year = 2000
+GROUP BY ca_zip
+ORDER BY ca_zip
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:46:17.639-07:00,2024-03-16T00:46:21.899-07:00,4260,29510467615,100,551,3709,0,0,0,0,,,0,,,0,0.000086000,0,8.10.1,0,0,0,0,0,FALSE,9f51b6567b9dc9f239bf7c1438581ea5,2,2554a9acd120518955db44a8c7f3e8ed,1
+23987,01b30591-0002-318f-0051-ba870003b17e,"SELECT YEAR(d_date) as sale_year, SUM(cs_sales_price)
+FROM catalog_sales, customer, customer_address, date_dim
+WHERE cs_bill_customer_sk = c_customer_sk
+  AND c_current_addr_sk = ca_address_sk
+  AND (SUBSTR(ca_zip,1,5) IN ('11111', '22222', '33333')
+  OR ca_state IN ('MI', 'OH', 'IN')
+  OR cs_sales_price > 750)
+  AND cs_sold_date_sk = d_date_sk
+  AND d_year BETWEEN 1999 AND 2001
+GROUP BY YEAR(d_date)
+ORDER BY sale_year
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:45:53.231-07:00,2024-03-16T00:46:17.218-07:00,23987,553256284703,3,481,23506,0,0,0,0,,,0,,,0,0.000075000,0,8.10.1,0,0,0,0,0,FALSE,b412bac1385dbaae9d531e929ec4a8b0,2,2991cbc2eab6d160e454fd539cfbc90e,1
+5712,01b30591-0002-318f-0051-ba870003b176,"SELECT ca_zip, SUM(cs_sales_price)
+FROM catalog_sales, customer, customer_address, date_dim
+WHERE cs_bill_customer_sk = c_customer_sk
+  AND c_current_addr_sk = ca_address_sk
+  AND (SUBSTR(ca_zip,1,5) IN ('12345', '54321', '67890', '09876', '56789')
+  OR ca_state IN ('OR', 'MT', 'ID')
+  OR cs_sales_price BETWEEN 100 AND 500)
+  AND cs_sold_date_sk = d_date_sk
+  AND d_qoy = 3 AND d_year = 2000
+GROUP BY ca_zip
+ORDER BY ca_zip
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:45:47.14-07:00,2024-03-16T00:45:52.852-07:00,5712,52542400140,100,552,5160,0,0,0,0,,,0,,,0,0.000086000,0,8.10.1,0,0,0,0,0,FALSE,64662f8cdb0ae1e07f0f96aa087cfe4f,2,f1858b92007f96f76ec35da81d28b8d6,1
+7329,01b30591-0002-326c-0051-ba870003c22e,"SELECT ca_zip, SUM(cs_sales_price)
+FROM catalog_sales, customer, customer_address, date_dim
+WHERE cs_bill_customer_sk = c_customer_sk
+  AND c_current_addr_sk = ca_address_sk
+  AND (SUBSTR(ca_zip,1,5) NOT IN ('99999', '00000')
+  OR ca_state IN ('TX', 'FL', 'IL')
+  OR cs_sales_price > 250)
+  AND cs_sold_date_sk = d_date_sk
+  AND d_qoy = 4 AND d_year = 2000
+GROUP BY ca_zip
+ORDER BY ca_zip
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:45:39.37-07:00,2024-03-16T00:45:46.699-07:00,7329,84963102860,100,716,6613,0,0,0,0,,,0,,,0,0.000111000,0,8.10.1,0,0,0,0,0,FALSE,e86efcc2bcdb94f899d887b6ffc162ab,2,be8c2c410cf7b1d137b3470419596947,1
+4571,01b30591-0002-3144-0051-ba870003a25e,"SELECT ca_zip, SUM(cs_sales_price)
+FROM catalog_sales, customer, customer_address, date_dim
+WHERE cs_bill_customer_sk = c_customer_sk
+  AND c_current_addr_sk = ca_address_sk
+  AND (SUBSTR(ca_zip,1,5) IN ('85669', '86197', '88274', '83405', '86475')
+  OR ca_state IN ('CA', 'WA', 'GA')
+  OR cs_sales_price > 1000)
+  AND cs_sold_date_sk = d_date_sk
+  AND d_qoy = 1 AND d_year = 2001
+GROUP BY ca_zip
+ORDER BY ca_zip
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:45:34.45-07:00,2024-03-16T00:45:39.021-07:00,4571,29283220620,100,474,4097,0,0,0,0,,,0,,,0,0.000075000,0,8.10.1,0,0,0,0,0,FALSE,75508cd62c6cf92aa79d4ed757487810,2,529e1d4713756373c3133a0000c0319d,1
+4447,01b30591-0002-318f-0051-ba870003b16e,"SELECT ca_zip, SUM(cs_sales_price)
+FROM catalog_sales, customer, customer_address, date_dim
+WHERE cs_bill_customer_sk = c_customer_sk
+  AND c_current_addr_sk = ca_address_sk
+  AND (SUBSTR(ca_zip,1,5) IN ('12345', '67890', '54321', '98765', '24680',
+  '13579', '19283', '37465', '92837')
+  OR ca_state IN ('NY', 'NJ', 'PA', 'CT')
+  OR cs_sales_price > 500)
+  AND cs_sold_date_sk = d_date_sk
+  AND d_qoy = 2 AND d_year = 2000
+GROUP BY ca_zip
+ORDER BY ca_zip
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:45:29.649-07:00,2024-03-16T00:45:34.096-07:00,4447,29557703820,100,463,3984,0,0,0,0,,,0,,,0,0.000074000,0,8.10.1,0,0,0,0,0,FALSE,913dd786fbe1255fa97a5ee707257749,2,13edf95f8dd570268474b4ab0f89e6bb,1
+3505,01b30591-0002-3095-0051-ba87000332ae,"SELECT a.ca_state state, COUNT(*) cnt
+FROM customer_address a, customer c, store_sales s, date_dim d, item i
+WHERE a.ca_address_sk = c.c_current_addr_sk
+  AND c.c_customer_sk = s.ss_customer_sk
+  AND s.ss_sold_date_sk = d.d_date_sk
+  AND s.ss_item_sk = i.i_item_sk
+  AND d.d_month_seq =
+    (SELECT DISTINCT (d_month_seq)
+     FROM date_dim
+     WHERE d_year = 2002
+     AND d_moy = 7)
+  AND i.i_current_price > 1.2 *
+    (SELECT AVG(j.i_current_price)
+     FROM item j
+     WHERE j.i_category = i.i_category)
+GROUP BY a.ca_state
+HAVING COUNT(*) >= 10
+ORDER BY a.ca_state, cnt DESC
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:45:25.779-07:00,2024-03-16T00:45:29.284-07:00,3505,15035199628,53,891,2614,0,0,0,0,,,0,,,0,0.000139000,0,8.10.1,0,0,0,0,0,FALSE,7bdfb87ad85b1747efd188e326e84a65,2,b415687c2ec1d09ea7908661f824770c,1
+2565,01b30591-0002-318f-0051-ba870003b166,"SELECT a.ca_state state, COUNT(*) cnt
+FROM customer_address a, customer c, store_sales s, date_dim d, item i
+WHERE a.ca_address_sk = c.c_current_addr_sk
+  AND c.c_customer_sk = s.ss_customer_sk
+  AND s.ss_sold_date_sk = d.d_date_sk
+  AND s.ss_item_sk = i.i_item_sk
+  AND d.d_month_seq =
+    (SELECT DISTINCT (d_month_seq)
+     FROM date_dim
+     WHERE d_year = 2003
+     AND d_moy = 12)
+  AND i.i_current_price > 1.2 *
+    (SELECT AVG(j.i_current_price)
+     FROM item j
+     WHERE j.i_category = i.i_category)
+GROUP BY a.ca_state
+HAVING COUNT(*) >= 10
+ORDER BY cnt DESC, a.ca_state
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:45:22.846-07:00,2024-03-16T00:45:25.411-07:00,2565,3157965452,1,460,2105,0,0,0,0,,,0,,,0,0.000074000,0,8.10.1,0,0,0,0,0,FALSE,4bf49dfc75021c855063285344163d15,2,0034332b4ebd3d29c41c384098ad046f,1
+1655,01b30591-0002-318f-0051-ba870003b15e,"SELECT a.ca_state state, COUNT(*) cnt
+FROM customer_address a, customer c, store_sales s, date_dim d, item i
+WHERE a.ca_address_sk = c.c_current_addr_sk
+  AND c.c_customer_sk = s.ss_customer_sk
+  AND s.ss_sold_date_sk = d.d_date_sk
+  AND s.ss_item_sk = i.i_item_sk
+  AND a.ca_state IN ('CA', 'NY', 'TX')
+  AND d.d_month_seq =
+    (SELECT DISTINCT (d_month_seq)
+     FROM date_dim
+     WHERE d_year = 2002
+     AND d_moy = 7)
+  AND i.i_current_price > 1.2 *
+    (SELECT AVG(j.i_current_price)
+     FROM item j
+     WHERE j.i_category = i.i_category)
+GROUP BY a.ca_state
+HAVING COUNT(*) >= 10
+ORDER BY cnt DESC, a.ca_state
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:45:20.688-07:00,2024-03-16T00:45:22.343-07:00,1655,15035199628,4,540,1115,0,0,0,0,,,0,,,0,0.000084000,0,8.10.1,0,0,0,0,0,FALSE,e117c36977c3f3043096ebc1fe14e49a,2,f6945b3a90cf23fce4d8f238ce598b98,1
+3340,01b30591-0002-326c-0051-ba870003c21e,"SELECT a.ca_state state, COUNT(*) cnt
+FROM customer_address a, customer c, store_sales s, date_dim d, item i
+WHERE a.ca_address_sk = c.c_current_addr_sk
+  AND c.c_customer_sk = s.ss_customer_sk
+  AND s.ss_sold_date_sk = d.d_date_sk
+  AND s.ss_item_sk = i.i_item_sk
+  AND d.d_month_seq =
+    (SELECT DISTINCT (d_month_seq)
+     FROM date_dim
+     WHERE d_year = 2002
+     AND d_moy = 7)
+  AND i.i_current_price > 1.2 *
+    (SELECT AVG(j.i_current_price)
+     FROM item j
+     WHERE j.i_category = i.i_category)
+GROUP BY a.ca_state
+HAVING COUNT(*) >= 50
+ORDER BY cnt DESC, a.ca_state
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:45:17.029-07:00,2024-03-16T00:45:20.369-07:00,3340,15035199628,53,595,2745,0,0,0,0,,,0,,,0,0.000093000,0,8.10.1,0,0,0,0,0,FALSE,2bd20316a6dcf4573ef19b6de79cac57,2,322afd89d76276da2c3a6768723d689c,1
+3062,01b30591-0002-3099-0051-ba8700036192,"SELECT a.ca_state state, COUNT(*) cnt
+FROM customer_address a, customer c, store_sales s, date_dim d, item i
+WHERE a.ca_address_sk = c.c_current_addr_sk
+  AND c.c_customer_sk = s.ss_customer_sk
+  AND s.ss_sold_date_sk = d.d_date_sk
+  AND s.ss_item_sk = i.i_item_sk
+  AND i.i_category NOT IN ('Furniture', 'Home Appliances')
+  AND d.d_month_seq =
+    (SELECT DISTINCT (d_month_seq)
+     FROM date_dim
+     WHERE d_year = 2002
+     AND d_moy = 7)
+  AND i.i_current_price > 1.2 *
+    (SELECT AVG(j.i_current_price)
+     FROM item j
+     WHERE j.i_category = i.i_category)
+GROUP BY a.ca_state
+HAVING COUNT(*) >= 10
+ORDER BY cnt DESC, a.ca_state
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:45:13.503-07:00,2024-03-16T00:45:16.565-07:00,3062,15035199628,53,687,2375,0,0,0,0,,,0,,,0,0.000109000,0,8.10.1,0,0,0,0,0,FALSE,433a0ffb5d73f3f764324a838d6318d3,2,2487b4290e9af704271abffe47d8d1b3,1
+3200,01b30591-0002-3144-0051-ba870003a252,"SELECT a.ca_state state, SUM(s.ss_quantity) AS total_quantity
+FROM customer_address a, customer c, store_sales s, date_dim d, item i
+WHERE a.ca_address_sk = c.c_current_addr_sk
+  AND c.c_customer_sk = s.ss_customer_sk
+  AND s.ss_sold_date_sk = d.d_date_sk
+  AND s.ss_item_sk = i.i_item_sk
+  AND d.d_month_seq =
+    (SELECT DISTINCT (d_month_seq)
+     FROM date_dim
+     WHERE d_year = 2002
+     AND d_moy = 7)
+  AND i.i_current_price > 1.2 *
+    (SELECT AVG(j.i_current_price)
+     FROM item j
+     WHERE j.i_category = i.i_category)
+GROUP BY a.ca_state
+HAVING SUM(s.ss_quantity) > 100
+ORDER BY total_quantity DESC, a.ca_state
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:45:09.861-07:00,2024-03-16T00:45:13.061-07:00,3200,15035199628,53,581,2619,0,0,0,0,,,0,,,0,0.000091000,0,8.10.1,0,0,0,0,0,FALSE,6af09e6ab849fc17784e52e5c5dc646e,2,8d02b02b5a396f004cf8d39123ff4d8c,1
+105,01b30591-0002-3099-0051-ba8700036186,"SELECT a.ca_state state, COUNT(*) cnt
+FROM customer_address a, customer c, store_sales s, date_dim d, item i
+WHERE a.ca_address_sk = c.c_current_addr_sk
+  AND c.c_customer_sk = s.ss_customer_sk
+  AND s.ss_sold_date_sk = d.d_date_sk
+  AND s.ss_item_sk = i.i_item_sk
+  AND d.d_month_seq =
+    (SELECT DISTINCT (d_month_seq)
+     FROM date_dim
+     WHERE d_year = 2002
+     AND d_moy = 7)
+  AND i.i_current_price > 100
+GROUP BY a.ca_state
+HAVING COUNT(*) >= 10
+ORDER BY cnt DESC, a.ca_state
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:45:09.385-07:00,2024-03-16T00:45:09.49-07:00,105,0,0,80,25,0,0,0,0,,,0,,,0,0.000014000,0,8.10.1,0,0,0,0,0,FALSE,6e72a30187ce467e85e27dfd5361093f,2,bd330b66f06a435f0f112a6bd5bebcaf,1
+2667,01b30591-0002-3099-0051-ba870003617e,"SELECT a.ca_state state, COUNT(*) cnt
+FROM customer_address a, customer c, store_sales s, date_dim d, item i
+WHERE a.ca_address_sk = c.c_current_addr_sk
+  AND c.c_customer_sk = s.ss_customer_sk
+  AND s.ss_sold_date_sk = d.d_date_sk
+  AND s.ss_item_sk = i.i_item_sk
+  AND i.i_category = 'Electronics'
+  AND d.d_month_seq =
+    (SELECT DISTINCT (d_month_seq)
+     FROM date_dim
+     WHERE d_year = 2002
+     AND d_moy = 7)
+  AND i.i_current_price > 1.2 *
+    (SELECT AVG(j.i_current_price)
+     FROM item j
+     WHERE j.i_category = i.i_category)
+GROUP BY a.ca_state
+HAVING COUNT(*) >= 5
+ORDER BY cnt DESC, a.ca_state
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:45:06.368-07:00,2024-03-16T00:45:09.035-07:00,2667,15034127872,53,480,2187,0,0,0,0,,,0,,,0,0.000076000,0,8.10.1,0,0,0,0,0,FALSE,aacffc9ec24a615e67a2abd8a3891fcc,2,d03bd5692d69fdc117ae7d7df4b33a73,1
+2822,01b30591-0002-326c-0051-ba870003c216,"SELECT a.ca_state state, COUNT(*) cnt
+FROM customer_address a, customer c, store_sales s, date_dim d, item i
+WHERE a.ca_address_sk = c.c_current_addr_sk
+  AND c.c_customer_sk = s.ss_customer_sk
+  AND s.ss_sold_date_sk = d.d_date_sk
+  AND s.ss_item_sk = i.i_item_sk
+  AND i.i_category = 'Electronics'
+  AND d.d_month_seq =
+    (SELECT DISTINCT (d_month_seq)
+     FROM date_dim
+     WHERE d_year = 2002
+     AND d_moy = 7)
+  AND i.i_current_price > 1.2 *
+    (SELECT AVG(j.i_current_price)
+     FROM item j
+     WHERE j.i_category = i.i_category)
+GROUP BY a.ca_state
+HAVING COUNT(*) >= 5
+ORDER BY cnt DESC, a.ca_state
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:45:03.152-07:00,2024-03-16T00:45:05.974-07:00,2822,15035199628,53,519,2303,0,0,0,0,,,0,,,0,0.000081000,0,8.10.1,0,0,0,0,0,FALSE,aacffc9ec24a615e67a2abd8a3891fcc,2,d03bd5692d69fdc117ae7d7df4b33a73,1
+2694,01b30591-0002-318f-0051-ba870003b152,"SELECT a.ca_state state, COUNT(*) cnt
+FROM customer_address a, customer c, store_sales s, date_dim d, item i
+WHERE a.ca_address_sk = c.c_current_addr_sk
+  AND c.c_customer_sk = s.ss_customer_sk
+  AND s.ss_sold_date_sk = d.d_date_sk
+  AND s.ss_item_sk = i.i_item_sk
+  AND d.d_month_seq =
+    (SELECT DISTINCT (d_month_seq)
+     FROM date_dim
+     WHERE d_year = 2003
+     AND d_moy = 8)
+  AND i.i_current_price > 1.1 *
+    (SELECT AVG(j.i_current_price)
+     FROM item j
+     WHERE j.i_category = i.i_category)
+GROUP BY a.ca_state
+HAVING COUNT(*) >= 5
+ORDER BY cnt DESC, a.ca_state
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:45:00.094-07:00,2024-03-16T00:45:02.788-07:00,2694,3157965452,1,539,2155,0,0,0,0,,,0,,,0,0.000085000,0,8.10.1,0,0,0,0,0,FALSE,e4422efd1c6061ffc3ed13c2065e4715,2,e18a659e8fccca7b371f327b40d26141,1
+1976,01b30590-0002-3144-0051-ba870003a24a,"SELECT i_item_id, i_item_desc, i_category, i_class, i_current_price,
+  SUM(ws_ext_sales_price) AS itemrevenue,
+  SUM(ws_ext_sales_price)*100/SUM(SUM(ws_ext_sales_price)) OVER
+  (PARTITION BY i_class) AS revenueratio
+FROM web_sales, item, date_dim
+WHERE ws_item_sk = i_item_sk
+  AND i_category IN ('Shoes', 'Children', 'Electronics')
+  AND ws_sold_date_sk = d_date_sk
+  AND d_year = 2002
+GROUP BY i_item_id, i_item_desc, i_category, i_class, i_current_price
+ORDER BY i_category, i_class, i_item_id, i_item_desc, revenueratio
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:44:57.734-07:00,2024-03-16T00:44:59.71-07:00,1976,92230786188,100,308,1668,0,0,0,0,,,0,,,0,0.000049000,0,8.10.1,0,0,0,0,0,FALSE,3eff04dbb94ac52f7efa9d04b2cb12c6,2,c908713073f120de4c287c9b6efe87d1,1
+997,01b30590-0002-318f-0051-ba870003b146,"SELECT i_item_id, i_item_desc, i_category, i_class, i_current_price,
+  SUM(ws_ext_sales_price) AS itemrevenue,
+  SUM(ws_ext_sales_price)*100/SUM(SUM(ws_ext_sales_price)) OVER
+  (PARTITION BY i_class) AS revenueratio
+FROM web_sales, item, date_dim
+WHERE ws_item_sk = i_item_sk
+  AND i_category IN ('Shoes', 'Children', 'Electronics')
+  AND ws_sold_date_sk = d_date_sk
+  AND d_date BETWEEN CAST('2002-04-12' AS DATE)
+  AND DATEADD(day,30,TO_DATE('2002-04-12'))
+GROUP BY i_item_id, i_item_desc, i_category, i_class, i_current_price
+ORDER BY revenueratio, i_category
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:44:56.324-07:00,2024-03-16T00:44:57.321-07:00,997,4545357964,100,250,747,0,0,0,0,,,0,,,0,0.000040000,0,8.10.1,0,0,0,0,0,FALSE,790c6fedbdc8208f1cda4ee07323d3e6,2,790c6fedbdc8208f1cda4ee07323d3e6,1
+1262,01b30590-0002-3144-0051-ba870003a242,"SELECT i_item_id, i_item_desc, i_category, i_class, i_current_price,
+  SUM(ws_ext_sales_price) AS itemrevenue,
+  SUM(ws_ext_sales_price)*100/SUM(SUM(ws_ext_sales_price)) OVER
+  (PARTITION BY i_class) AS revenueratio
+FROM web_sales, item, date_dim
+WHERE ws_item_sk = i_item_sk
+  AND i_category IN ('Books', 'Home', 'Garden')
+  AND ws_sold_date_sk = d_date_sk
+  AND d_date BETWEEN CAST('2002-04-12' AS DATE)
+  AND DATEADD(day,30,TO_DATE('2002-04-12'))
+GROUP BY i_item_id, i_item_desc, i_category, i_class, i_current_price
+ORDER BY i_category, i_class, i_item_id, i_item_desc, revenueratio
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:44:54.618-07:00,2024-03-16T00:44:55.88-07:00,1262,4545357964,100,283,979,0,0,0,0,,,0,,,0,0.000045000,0,8.10.1,0,0,0,0,0,FALSE,d70b51bb3a40d8b927986bd976797734,2,d70b51bb3a40d8b927986bd976797734,1
+2026,01b30590-0002-3095-0051-ba8700033292,"SELECT i_item_id, i_item_desc, i_category, i_class, i_current_price,
+  SUM(ws_ext_sales_price) AS itemrevenue,
+  SUM(ws_ext_sales_price)*100/(SELECT SUM(ws_ext_sales_price) FROM web_sales) AS revenueratio
+FROM web_sales, item, date_dim
+WHERE ws_item_sk = i_item_sk
+  AND i_category IN ('Shoes', 'Children', 'Electronics')
+  AND ws_sold_date_sk = d_date_sk
+  AND d_date BETWEEN CAST('2002-04-12' AS DATE)
+  AND DATEADD(day,30,TO_DATE('2002-04-12'))
+GROUP BY i_item_id, i_item_desc, i_category, i_class, i_current_price
+ORDER BY i_category, i_class, i_item_id, i_item_desc, revenueratio
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:44:52.288-07:00,2024-03-16T00:44:54.314-07:00,2026,465586843788,101,325,1701,0,0,0,0,,,0,,,0,0.000052000,0,8.10.1,0,0,0,0,0,FALSE,801fc4991abd556cd533da96c5fe3482,2,801fc4991abd556cd533da96c5fe3482,1
+1024,01b30590-0002-3144-0051-ba870003a23a,"SELECT i_item_id, i_item_desc, i_category, i_class, i_current_price,
+  SUM(ws_ext_sales_price) AS itemrevenue,
+  SUM(ws_ext_sales_price)*100/SUM(SUM(ws_ext_sales_price)) OVER
+  (PARTITION BY i_class) AS revenueratio
+FROM web_sales, item, date_dim
+WHERE ws_item_sk = i_item_sk
+  AND i_category IN ('Shoes', 'Children', 'Electronics')
+  AND ws_sold_date_sk = d_date_sk
+  AND d_date BETWEEN CAST('2002-04-12' AS DATE)
+  AND DATEADD(day,30,TO_DATE('2002-04-12'))
+GROUP BY i_item_id, i_item_desc, i_category, i_class, i_current_price
+ORDER BY itemrevenue DESC
+LIMIT 50",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:44:50.89-07:00,2024-03-16T00:44:51.914-07:00,1024,4544286208,50,289,735,0,0,0,0,,,0,,,0,0.000047000,0,8.10.1,0,0,0,0,0,FALSE,305b11e37cfa5a78faa53b8edc576b6c,2,305b11e37cfa5a78faa53b8edc576b6c,1
+105,01b30590-0002-3099-0051-ba8700036172,"SELECT i_item_id, i_item_desc, i_category, i_class, i_current_price,
+  SUM(ws_ext_sales_price) AS itemrevenue,
+  SUM(ws_ext_sales_price)*100/SUM(SUM(ws_ext_sales_price)) OVER
+  (PARTITION BY i_class) AS revenueratio
+FROM web_sales, item, date_dim
+WHERE ws_item_sk = i_item_sk
+  AND i_category IN ('Shoes', 'Children', 'Electronics')
+  AND i_current_price > 100
+  AND ws_sold_date_sk = d_date_sk
+  AND d_date BETWEEN CAST('2002-04-12' AS DATE)
+  AND DATEADD(day,30,TO_DATE('2002-04-12'))
+GROUP BY i_item_id, i_item_desc, i_category, i_class, i_current_price
+ORDER BY i_category, i_class, i_item_id, i_item_desc, revenueratio
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:44:50.482-07:00,2024-03-16T00:44:50.587-07:00,105,0,0,76,29,0,0,0,0,,,0,,,0,0.000014000,0,8.10.1,0,0,0,0,0,FALSE,3ea14633b44210fbe3fc7ac19551b6ba,2,026c56d5c27e663308fea42e22db8311,1
+945,01b30590-0002-3095-0051-ba870003328a,"SELECT i_item_id, i_item_desc, i_category, i_class, i_current_price,
+  SUM(ws_ext_sales_price) AS itemrevenue,
+  SUM(ws_ext_sales_price)*100/SUM(SUM(ws_ext_sales_price)) OVER
+  (PARTITION BY i_class) AS revenueratio
+FROM web_sales, item, date_dim
+WHERE ws_item_sk = i_item_sk
+  AND i_category IN ('Shoes', 'Children', 'Electronics')
+  AND i_class NOT IN ('casual', 'portable')
+  AND ws_sold_date_sk = d_date_sk
+  AND d_date BETWEEN CAST('2002-04-12' AS DATE)
+  AND DATEADD(day,30,TO_DATE('2002-04-12'))
+GROUP BY i_item_id, i_item_desc, i_category, i_class, i_current_price
+ORDER BY i_category, i_class, i_item_id, i_item_desc, revenueratio
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:44:49.215-07:00,2024-03-16T00:44:50.16-07:00,945,4545357964,100,245,700,0,0,0,0,,,0,,,0,0.000039000,0,8.10.1,0,0,0,0,0,FALSE,b286fe75f6f46bfbf5e78e43c38fcf2d,2,b286fe75f6f46bfbf5e78e43c38fcf2d,1
+1140,01b30590-0002-318f-0051-ba870003b13e,"SELECT i_item_id, i_item_desc, i_category, i_class, i_current_price,
+  SUM(ws_ext_sales_price) AS itemrevenue,
+  SUM(ws_ext_sales_price)*100/SUM(SUM(ws_ext_sales_price)) OVER
+  (PARTITION BY i_category) AS revenueratio
+FROM web_sales, item, date_dim
+WHERE ws_item_sk = i_item_sk
+  AND i_category IN ('Shoes', 'Children', 'Electronics')
+  AND ws_sold_date_sk = d_date_sk
+  AND d_date BETWEEN CAST('2002-04-12' AS DATE)
+  AND DATEADD(day,30,TO_DATE('2002-04-12'))
+GROUP BY i_item_id, i_item_desc, i_category, i_class, i_current_price
+ORDER BY i_category, i_class, i_item_id, i_item_desc, revenueratio
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:44:47.727-07:00,2024-03-16T00:44:48.867-07:00,1140,4545357964,100,401,739,0,0,0,0,,,0,,,0,0.000064000,0,8.10.1,0,0,0,0,0,FALSE,52138a9a17c0d6a9b3d01ea88d637c82,2,52138a9a17c0d6a9b3d01ea88d637c82,1
+687,01b30590-0002-326c-0051-ba870003c206,"SELECT i_item_id, i_item_desc, i_category, i_class, i_current_price,
+  SUM(ws_ext_sales_price) AS itemrevenue,
+  SUM(ws_ext_sales_price)*100/SUM(SUM(ws_ext_sales_price)) OVER
+  (PARTITION BY i_class) AS revenueratio
+FROM web_sales, item, date_dim
+WHERE ws_item_sk = i_item_sk
+  AND i_category = 'Electronics'
+  AND ws_sold_date_sk = d_date_sk
+  AND d_date BETWEEN CAST('2002-04-12' AS DATE)
+  AND DATEADD(day,15,TO_DATE('2002-04-12'))
+GROUP BY i_item_id, i_item_desc, i_category, i_class, i_current_price
+ORDER BY i_category, i_class, i_item_id, i_item_desc, revenueratio
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:44:46.69-07:00,2024-03-16T00:44:47.377-07:00,687,2377617428,100,278,409,0,0,0,0,,,0,,,0,0.000044000,0,8.10.1,0,0,0,0,0,FALSE,34dd2c1e928ef244d94bd66b206add4a,2,daace858bdf84ab5c35bf36220c4fd60,1
+1337,01b30590-0002-326c-0051-ba870003c1fe,"SELECT i_item_id, i_item_desc, i_category, i_class, i_current_price,
+  SUM(ws_ext_sales_price) AS itemrevenue,
+  SUM(ws_ext_sales_price)*100/SUM(SUM(ws_ext_sales_price)) OVER
+  (PARTITION BY i_class) AS revenueratio
+FROM web_sales, item, date_dim
+WHERE ws_item_sk = i_item_sk
+  AND i_category IN ('Books', 'Sports', 'Home')
+  AND ws_sold_date_sk = d_date_sk
+  AND d_date BETWEEN CAST('2002-04-12' AS DATE)
+  AND DATEADD(month,1,TO_DATE('2002-04-12'))
+GROUP BY i_item_id, i_item_desc, i_category, i_class, i_current_price
+ORDER BY i_category, i_class, i_item_id, i_item_desc, revenueratio
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:44:44.974-07:00,2024-03-16T00:44:46.311-07:00,1337,4545357964,100,629,708,0,0,0,0,,,0,,,0,0.000098000,0,8.10.1,0,0,0,0,0,FALSE,4254050d6c68c18c7314f2d58fe4d7c5,2,4254050d6c68c18c7314f2d58fe4d7c5,1
+1138,01b30590-0002-326c-0051-ba870003c1f2,"SELECT i_item_id
+  ,i_item_desc
+  ,i_category
+  ,i_class
+  ,i_current_price
+  ,SUM(cs_ext_sales_price) AS itemrevenue
+  ,SUM(cs_ext_sales_price)*100/SUM(SUM(cs_ext_sales_price)) OVER
+  (PARTITION BY i_class) AS revenueratio
+FROM catalog_sales
+  ,item
+  ,date_dim
+WHERE cs_item_sk = i_item_sk
+  AND i_category IN ('Men', 'Electronics', 'Music')
+  AND cs_sold_date_sk = d_date_sk
+  AND d_date BETWEEN CAST('2001-03-09' AS DATE)
+  AND DATEADD(day, 30, TO_DATE('2001-03-09'))
+GROUP BY i_item_id
+  ,i_item_desc
+  ,i_category
+  ,i_class
+  ,i_current_price
+ORDER BY revenueratio, i_category
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:44:43.414-07:00,2024-03-16T00:44:44.552-07:00,1138,9067692684,100,320,818,0,0,0,0,,,0,,,0,0.000051000,0,8.10.1,0,0,0,0,0,FALSE,34891988841a3972fd11bd7cadf308b9,2,34891988841a3972fd11bd7cadf308b9,1
+2043,01b30590-0002-3144-0051-ba870003a222,"SELECT i_item_id
+  ,i_item_desc
+  ,i_category
+  ,i_class
+  ,i_current_price
+  ,SUM(cs_ext_sales_price) AS itemrevenue
+  ,SUM(cs_ext_sales_price)*100/SUM(SUM(cs_ext_sales_price)) OVER
+  (PARTITION BY i_class) AS revenueratio
+FROM catalog_sales
+  ,item
+  ,date_dim
+WHERE cs_item_sk = i_item_sk
+  AND cs_sold_date_sk = d_date_sk
+  AND d_date BETWEEN CAST('2001-03-09' AS DATE)
+  AND DATEADD(day, 30, TO_DATE('2001-03-09'))
+GROUP BY i_item_id
+  ,i_item_desc
+  ,i_category
+  ,i_class
+  ,i_current_price
+ORDER BY i_category
+  ,i_class
+  ,i_item_id
+  ,i_item_desc
+  ,revenueratio
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:44:40.975-07:00,2024-03-16T00:44:43.018-07:00,2043,9067692684,100,350,1693,0,0,0,0,,,0,,,0,0.000056000,0,8.10.1,0,0,0,0,0,FALSE,7ad4a213b46d4cfc37eb3ad5537f12fd,2,7ad4a213b46d4cfc37eb3ad5537f12fd,1
+1186,01b30590-0002-3099-0051-ba870003616a,"SELECT i_item_id
+  ,i_item_desc
+  ,i_category
+  ,i_class
+  ,i_current_price
+  ,SUM(cs_ext_sales_price) AS itemrevenue
+  ,SUM(cs_ext_sales_price)*100/SUM(SUM(cs_ext_sales_price)) OVER
+  (PARTITION BY i_class) AS revenueratio
+FROM catalog_sales
+  ,item
+  ,date_dim
+WHERE cs_item_sk = i_item_sk
+  AND i_category IN ('Men', 'Electronics', 'Music')
+  AND cs_sold_date_sk = d_date_sk
+  AND d_date BETWEEN DATEADD(day, -15, TO_DATE('2001-03-09'))
+  AND DATEADD(day, 15, TO_DATE('2001-03-09'))
+GROUP BY i_item_id
+  ,i_item_desc
+  ,i_category
+  ,i_class
+  ,i_current_price
+ORDER BY i_category
+  ,i_class
+  ,i_item_id
+  ,i_item_desc
+  ,revenueratio
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:44:39.439-07:00,2024-03-16T00:44:40.625-07:00,1186,8757492364,100,361,825,0,0,0,0,,,0,,,0,0.000058000,0,8.10.1,0,0,0,0,0,FALSE,4cf24edd1370da452f1f7244dd521f78,2,4cf24edd1370da452f1f7244dd521f78,1
+106,01b30590-0002-3144-0051-ba870003a216,"SELECT i_item_id
+  ,i_item_desc
+  ,i_category
+  ,i_class
+  ,i_current_price
+  ,SUM(cs_ext_sales_price) AS itemrevenue
+  ,SUM(cs_ext_sales_price)*100/SUM(SUM(cs_ext_sales_price)) OVER
+  (PARTITION BY i_class) AS revenueratio
+FROM catalog_sales
+  ,item
+  ,date_dim
+WHERE cs_item_sk = i_item_sk
+  AND i_category IN ('Men', 'Electronics', 'Music')
+  AND i_current_price > 100
+  AND cs_sold_date_sk = d_date_sk
+  AND d_date BETWEEN CAST('2001-03-09' AS DATE)
+  AND DATEADD(day, 30, TO_DATE('2001-03-09'))
+GROUP BY i_item_id
+  ,i_item_desc
+  ,i_category
+  ,i_class
+  ,i_current_price
+ORDER BY i_category
+  ,i_class
+  ,i_item_id
+  ,i_item_desc
+  ,revenueratio
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:44:38.976-07:00,2024-03-16T00:44:39.082-07:00,106,0,0,75,31,0,0,0,0,,,0,,,0,0.000014000,0,8.10.1,0,0,0,0,0,FALSE,aaa4a1bec181ee52df59326082931b11,2,026b8e87b6a50894980933809d8e51bc,1
+1176,01b30590-0002-318f-0051-ba870003b132,"SELECT i_item_id
+  ,i_item_desc
+  ,i_category
+  ,i_class
+  ,i_current_price
+  ,SUM(cs_ext_sales_price) AS itemrevenue
+  ,SUM(cs_ext_sales_price)*100/SUM(SUM(cs_ext_sales_price)) OVER
+  (PARTITION BY i_class) AS revenueratio
+FROM catalog_sales
+  ,item
+  ,date_dim
+WHERE cs_item_sk = i_item_sk
+  AND i_category IN ('Men', 'Electronics', 'Music')
+  AND i_class NOT IN ('portable', 'classical')
+  AND cs_sold_date_sk = d_date_sk
+  AND d_date BETWEEN CAST('2001-03-09' AS DATE)
+  AND DATEADD(day, 30, TO_DATE('2001-03-09'))
+GROUP BY i_item_id
+  ,i_item_desc
+  ,i_category
+  ,i_class
+  ,i_current_price
+ORDER BY i_category
+  ,i_class
+  ,i_item_id
+  ,i_item_desc
+  ,revenueratio
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:44:37.36-07:00,2024-03-16T00:44:38.536-07:00,1176,9067692684,100,405,771,0,0,0,0,,,0,,,0,0.000064000,0,8.10.1,0,0,0,0,0,FALSE,d260403e488ea0d57ff11b468d3d789c,2,d260403e488ea0d57ff11b468d3d789c,1
+1228,01b30590-0002-318f-0051-ba870003b12a,"SELECT i_item_id
+  ,i_item_desc
+  ,i_category
+  ,i_class
+  ,i_current_price
+  ,SUM(cs_ext_sales_price) AS itemrevenue
+  ,SUM(cs_ext_sales_price)*100/SUM(SUM(cs_ext_sales_price)) OVER
+  (PARTITION BY i_category) AS revenueratio
+FROM catalog_sales
+  ,item
+  ,date_dim
+WHERE cs_item_sk = i_item_sk
+  AND i_category IN ('Men', 'Electronics', 'Music')
+  AND cs_sold_date_sk = d_date_sk
+  AND d_date BETWEEN CAST('2001-03-09' AS DATE)
+  AND DATEADD(day, 30, TO_DATE('2001-03-09'))
+GROUP BY i_item_id
+  ,i_item_desc
+  ,i_category
+  ,i_class
+  ,i_current_price
+ORDER BY i_category
+  ,i_class
+  ,i_item_id
+  ,i_item_desc
+  ,revenueratio
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:44:35.791-07:00,2024-03-16T00:44:37.019-07:00,1228,9067692684,100,406,822,0,0,0,0,,,0,,,0,0.000066000,0,8.10.1,0,0,0,0,0,FALSE,6792f839f56a250ea4af8769f73038b8,2,6792f839f56a250ea4af8769f73038b8,1
+1166,01b30590-0002-3099-0051-ba8700036162,"SELECT i_item_id
+  ,i_item_desc
+  ,i_category
+  ,i_class
+  ,i_current_price
+  ,SUM(cs_ext_sales_price) AS itemrevenue
+  ,SUM(cs_ext_sales_price)*100/SUM(SUM(cs_ext_sales_price)) OVER
+  (PARTITION BY i_class) AS revenueratio
+FROM catalog_sales
+  ,item
+  ,date_dim
+WHERE cs_item_sk = i_item_sk
+  AND i_category IN ('Men', 'Electronics', 'Music')
+  AND cs_sold_date_sk = d_date_sk
+  AND d_date BETWEEN CAST('2001-03-09' AS DATE)
+  AND DATEADD(day, 30, TO_DATE('2001-03-09'))
+GROUP BY i_item_id
+  ,i_item_desc
+  ,i_category
+  ,i_class
+  ,i_current_price
+ORDER BY itemrevenue DESC
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:44:34.316-07:00,2024-03-16T00:44:35.482-07:00,1166,9067692684,100,380,786,0,0,0,0,,,0,,,0,0.000060000,0,8.10.1,0,0,0,0,0,FALSE,57a3b04b26727d52de3ac02a44eb0460,2,57a3b04b26727d52de3ac02a44eb0460,1
+2565,01b30590-0002-318f-0051-ba870003b122,"SELECT i_item_id
+  ,i_item_desc
+  ,i_category
+  ,i_class
+  ,i_current_price
+  ,SUM(cs_ext_sales_price) AS itemrevenue
+  ,SUM(cs_ext_sales_price)*100/SUM(SUM(cs_ext_sales_price)) OVER
+  (PARTITION BY i_class) AS revenueratio
+FROM catalog_sales
+  ,item
+  ,date_dim
+WHERE cs_item_sk = i_item_sk
+  AND i_category IN ('Jewelry', 'Home & Garden', 'Tools')
+  AND cs_sold_date_sk = d_date_sk
+  AND d_date BETWEEN CAST('2001-03-09' AS DATE)
+  AND DATEADD(day, 30, TO_DATE('2001-03-09'))
+GROUP BY i_item_id
+  ,i_item_desc
+  ,i_category
+  ,i_class
+  ,i_current_price
+ORDER BY i_category
+  ,i_class
+  ,i_item_id
+  ,i_item_desc
+  ,revenueratio
+LIMIT 200",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:44:31.434-07:00,2024-03-16T00:44:33.999-07:00,2565,9067692684,200,1563,1002,0,0,0,0,,,0,,,0,0.000241000,0,8.10.1,0,0,0,0,0,FALSE,0b6a16f76a309823424ffe90de72553f,2,0b6a16f76a309823424ffe90de72553f,1
+1172,01b30590-0002-326c-0051-ba870003c1ea,"SELECT i_item_id
+  ,i_item_desc
+  ,i_category
+  ,i_class
+  ,i_current_price
+  ,SUM(cs_ext_sales_price) AS itemrevenue
+  ,SUM(cs_ext_sales_price)*100/SUM(SUM(cs_ext_sales_price)) OVER
+  (PARTITION BY i_class) AS revenueratio
+FROM catalog_sales
+  ,item
+  ,date_dim
+WHERE cs_item_sk = i_item_sk
+  AND i_category = 'Electronics'
+  AND cs_sold_date_sk = d_date_sk
+  AND d_date BETWEEN CAST('2001-03-09' AS DATE)
+  AND DATEADD(day, 15, TO_DATE('2001-03-09'))
+GROUP BY i_item_id
+  ,i_item_desc
+  ,i_category
+  ,i_class
+  ,i_current_price
+ORDER BY i_category
+  ,i_class
+  ,i_item_id
+  ,i_item_desc
+  ,revenueratio
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:44:29.806-07:00,2024-03-16T00:44:30.978-07:00,1172,4695824524,100,316,856,0,0,0,0,,,0,,,0,0.000050000,0,8.10.1,0,0,0,0,0,FALSE,90b446f055e9bf850fe24716c6271cc5,2,f6b04aeb6c06ecb4852d657d8fa19b1c,1
+1878,01b30590-0002-317c-0051-ba8700037206,"SELECT i_item_id
+  ,i_item_desc
+  ,i_category
+  ,i_class
+  ,i_current_price
+  ,SUM(cs_ext_sales_price) AS itemrevenue
+  ,SUM(cs_ext_sales_price)*100/SUM(SUM(cs_ext_sales_price)) OVER
+  (PARTITION BY i_class) AS revenueratio
+FROM catalog_sales
+  ,item
+  ,date_dim
+WHERE cs_item_sk = i_item_sk
+  AND i_category IN ('Women', 'Sports', 'Books')
+  AND cs_sold_date_sk = d_date_sk
+  AND d_date BETWEEN CAST('2001-05-01' AS DATE)
+  AND DATEADD(day, 30, TO_DATE('2001-05-01'))
+GROUP BY i_item_id
+  ,i_item_desc
+  ,i_category
+  ,i_class
+  ,i_current_price
+ORDER BY i_category
+  ,i_class
+  ,i_item_id
+  ,i_item_desc
+  ,revenueratio
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:44:27.612-07:00,2024-03-16T00:44:29.49-07:00,1878,9072470156,100,326,1552,0,0,0,0,,,0,,,0,0.000051000,0,8.10.1,0,0,0,0,0,FALSE,ff5bae4d2803cb3061b2eb2ff2301d1c,2,ff5bae4d2803cb3061b2eb2ff2301d1c,1
+5645,01b30590-0002-3095-0051-ba870003327e,"WITH customer_total_return AS (
+  SELECT wr_returning_customer_sk AS ctr_customer_sk,
+  ca_state AS ctr_state,
+  SUM(wr_return_amt) AS ctr_total_return
+  FROM web_returns, date_dim, customer_address
+  WHERE wr_returned_date_sk = d_date_sk
+  AND d_year = 2003
+  AND wr_returning_addr_sk = ca_address_sk
+  GROUP BY wr_returning_customer_sk, ca_state
+)
+
+SELECT c_customer_id, c_salutation, c_first_name, c_last_name, c_preferred_cust_flag,
+  c_birth_day, c_birth_month, c_birth_year, c_birth_country, c_login, c_email_address,
+  c_last_review_date, ctr_total_return
+FROM customer_total_return ctr1, customer_address, customer
+WHERE ctr1.ctr_total_return > (SELECT AVG(ctr_total_return)*1.2
+  FROM customer_total_return ctr2
+  WHERE ctr1.ctr_state = ctr2.ctr_state)
+  AND ca_address_sk = c_current_addr_sk
+  AND ca_state NOT IN ('MI', 'CA')
+  AND ctr1.ctr_customer_sk = c_customer_sk
+ORDER BY c_customer_id, c_salutation, c_first_name, c_last_name, c_preferred_cust_flag,
+  c_birth_day, c_birth_month, c_birth_year, c_birth_country, c_login, c_email_address,
+  c_last_review_date, ctr_total_return
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:44:21.545-07:00,2024-03-16T00:44:27.19-07:00,5645,9010211980,100,268,5377,0,0,0,0,,,0,,,0,0.000046000,0,8.10.1,0,0,0,0,0,FALSE,f6b7a344780f061764724e498cc8c9f2,2,2e0907042e84b6b8818d591b311ffdb3,1
+5352,01b30590-0002-3095-0051-ba8700033276,"WITH customer_total_return AS (
+  SELECT wr_returning_customer_sk AS ctr_customer_sk,
+  ca_state AS ctr_state,
+  SUM(wr_return_amt) AS ctr_total_return
+  FROM web_returns, date_dim, customer_address
+  WHERE wr_returned_date_sk = d_date_sk
+  AND d_year = 2001
+  AND wr_returning_addr_sk = ca_address_sk
+  GROUP BY wr_returning_customer_sk, ca_state
+)
+
+SELECT c_customer_id, c_salutation, c_first_name, c_last_name, c_preferred_cust_flag,
+  c_birth_day, c_birth_month, c_birth_year, c_birth_country, c_login, c_email_address,
+  c_last_review_date, ctr_total_return
+FROM customer_total_return ctr1, customer_address, customer
+WHERE ctr1.ctr_total_return > (SELECT AVG(ctr_total_return)*1.2
+  FROM customer_total_return ctr2
+  WHERE ctr1.ctr_state = ctr2.ctr_state)
+  AND ca_address_sk = c_current_addr_sk
+  AND ca_state = 'MI'
+  AND ctr1.ctr_customer_sk = c_customer_sk
+ORDER BY c_customer_id, c_salutation, c_first_name, c_last_name, c_preferred_cust_flag,
+  c_birth_day, c_birth_month, c_birth_year, c_birth_country, c_login, c_email_address,
+  c_last_review_date, ctr_total_return
+LIMIT 200",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:44:15.845-07:00,2024-03-16T00:44:21.197-07:00,5352,11495229580,200,341,5011,0,0,0,0,,,0,,,0,0.000054000,0,8.10.1,0,0,0,0,0,FALSE,ece947887bfa09562f1ccdba071be96f,2,782a480dc3cf185c67066f759d80f463,1
+8424,01b30590-0002-326c-0051-ba870003c1da,"WITH customer_total_return AS (
+  SELECT wr_returning_customer_sk AS ctr_customer_sk,
+  ca_state AS ctr_state,
+  SUM(wr_return_amt) AS ctr_total_return
+  FROM web_returns, date_dim, customer_address
+  WHERE wr_returned_date_sk = d_date_sk
+  AND d_year = 2001
+  AND wr_returning_addr_sk = ca_address_sk
+  GROUP BY wr_returning_customer_sk, ca_state
+)
+
+SELECT c_customer_id, c_salutation, c_first_name, c_last_name, c_preferred_cust_flag,
+  c_birth_day, c_birth_month, c_birth_year, c_birth_country, c_login, c_email_address,
+  c_last_review_date, ctr_total_return
+FROM customer_total_return ctr1, customer_address, customer
+WHERE ctr1.ctr_total_return > (SELECT AVG(ctr_total_return)*1.2
+  FROM customer_total_return ctr2
+  WHERE ctr1.ctr_state = ctr2.ctr_state)
+  AND ca_address_sk = c_current_addr_sk
+  AND ca_state = 'MI'
+  AND ctr1.ctr_customer_sk = c_customer_sk
+  AND c_preferred_cust_flag = 'Y'
+ORDER BY c_customer_id, c_salutation, c_first_name, c_last_name, c_preferred_cust_flag,
+  c_birth_day, c_birth_month, c_birth_year, c_birth_country, c_login, c_email_address,
+  c_last_review_date, ctr_total_return
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:44:07.099-07:00,2024-03-16T00:44:15.523-07:00,8424,11495229580,100,433,7991,0,0,0,0,,,0,,,0,0.000068000,0,8.10.1,0,0,0,0,0,FALSE,68d7fb92f421a024ce676b45c3ddb0db,2,ba13f958ffb143ecb7f9c8edd3dfe579,1
+5306,01b30590-0002-318f-0051-ba870003b116,"WITH customer_total_return AS (
+  SELECT wr_returning_customer_sk AS ctr_customer_sk,
+  ca_state AS ctr_state,
+  SUM(wr_return_amt) AS ctr_total_return
+  FROM web_returns, date_dim, customer_address
+  WHERE wr_returned_date_sk = d_date_sk
+  AND d_year = 2001
+  AND wr_returning_addr_sk = ca_address_sk
+  GROUP BY wr_returning_customer_sk, ca_state
+)
+
+SELECT c_customer_id, c_salutation, c_first_name, c_last_name, c_preferred_cust_flag,
+  c_birth_day, c_birth_month, c_birth_year, c_birth_country, c_login, c_email_address,
+  c_last_review_date, ctr_total_return
+FROM customer_total_return ctr1, customer_address, customer
+WHERE ctr1.ctr_total_return > (SELECT AVG(ctr_total_return)*1.2
+  FROM customer_total_return ctr2
+  WHERE ctr1.ctr_state = ctr2.ctr_state)
+  AND ca_address_sk = c_current_addr_sk
+  AND ca_state = 'MI'
+  AND ctr1.ctr_customer_sk = c_customer_sk
+ORDER BY ctr_total_return ASC, c_customer_id
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:44:01.339-07:00,2024-03-16T00:44:06.645-07:00,5306,11495229580,100,301,5005,0,0,0,0,,,0,,,0,0.000048000,0,8.10.1,0,0,0,0,0,FALSE,dca1d109539a98a2c1a475b6518d39a9,2,94ea1ac7c7bbe8ea4c80719177fdf991,1
+5279,01b3058f-0002-317c-0051-ba87000371fa,"WITH customer_total_return AS (
+  SELECT wr_returning_customer_sk AS ctr_customer_sk,
+  ca_state AS ctr_state,
+  SUM(wr_return_amt) AS ctr_total_return
+  FROM web_returns, date_dim, customer_address
+  WHERE wr_returned_date_sk = d_date_sk
+  AND d_year = 2001
+  AND wr_returning_addr_sk = ca_address_sk
+  GROUP BY wr_returning_customer_sk, ca_state
+)
+
+SELECT c_customer_id, c_salutation, c_first_name, c_last_name, c_preferred_cust_flag,
+  c_birth_day, c_birth_month, c_birth_year, c_birth_country, c_login, c_email_address,
+  c_last_review_date, ctr_total_return
+FROM customer_total_return ctr1, customer_address, customer
+WHERE ctr1.ctr_total_return > (SELECT AVG(ctr_total_return)*1.2
+  FROM customer_total_return ctr2
+  WHERE ctr1.ctr_state = ctr2.ctr_state)
+  AND ca_address_sk = c_current_addr_sk
+  AND ca_state = 'MI'
+  AND ctr1.ctr_customer_sk = c_customer_sk
+  AND c_birth_year <> 1980
+ORDER BY c_customer_id, c_salutation, c_first_name, c_last_name, c_preferred_cust_flag,
+  c_birth_day, c_birth_month, c_birth_year, c_birth_country, c_login, c_email_address,
+  c_last_review_date, ctr_total_return
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:43:55.689-07:00,2024-03-16T00:44:00.968-07:00,5279,11495229580,100,276,5003,0,0,0,0,,,0,,,0,0.000044000,0,8.10.1,0,0,0,0,0,FALSE,2485e9b7da681bbd3b844892cfadee5c,2,3bf4403c738d4f3d5e2c5592a07a2794,1
+5460,01b3058f-0002-318f-0051-ba870003b10a,"WITH customer_total_return AS (
+  SELECT wr_returning_customer_sk AS ctr_customer_sk,
+  ca_state AS ctr_state,
+  SUM(wr_return_amt) AS ctr_total_return
+  FROM web_returns, date_dim, customer_address
+  WHERE wr_returned_date_sk = d_date_sk
+  AND d_year = 2001
+  AND wr_returning_addr_sk = ca_address_sk
+  GROUP BY wr_returning_customer_sk, ca_state
+)
+
+SELECT c_customer_id, c_salutation, c_first_name, c_last_name, c_preferred_cust_flag,
+  c_birth_day, c_birth_month, c_birth_year, c_birth_country, c_login, c_email_address,
+  c_last_review_date, ctr_total_return
+FROM customer_total_return ctr1, customer_address, customer
+WHERE ctr1.ctr_total_return < (SELECT AVG(ctr_total_return)*0.8
+  FROM customer_total_return ctr2
+  WHERE ctr1.ctr_state = ctr2.ctr_state)
+  AND ca_address_sk = c_current_addr_sk
+  AND ca_state = 'MI'
+  AND ctr1.ctr_customer_sk = c_customer_sk
+ORDER BY c_customer_id, c_salutation, c_first_name, c_last_name, c_preferred_cust_flag,
+  c_birth_day, c_birth_month, c_birth_year, c_birth_country, c_login, c_email_address,
+  c_last_review_date, ctr_total_return
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:43:49.858-07:00,2024-03-16T00:43:55.318-07:00,5460,11495229580,100,484,4976,0,0,0,0,,,0,,,0,0.000076000,0,8.10.1,0,0,0,0,0,FALSE,c75d29fc65504784ad1171f73c59c415,2,29aef0b0d64bc9460c032319e842e7b3,1
+5357,01b3058f-0002-3144-0051-ba870003a20a,"WITH customer_total_return AS (
+  SELECT wr_returning_customer_sk AS ctr_customer_sk,
+  ca_state AS ctr_state,
+  SUM(wr_return_amt) AS ctr_total_return
+  FROM web_returns, date_dim, customer_address
+  WHERE wr_returned_date_sk = d_date_sk
+  AND d_year = 2001
+  AND wr_returning_addr_sk = ca_address_sk
+  GROUP BY wr_returning_customer_sk, ca_state
+)
+
+SELECT c_customer_id, c_salutation, c_first_name, c_last_name, c_preferred_cust_flag,
+  c_birth_day, c_birth_month, c_birth_year, c_birth_country, c_login, c_email_address,
+  c_last_review_date, ctr_total_return
+FROM customer_total_return ctr1, customer_address, customer
+WHERE ctr1.ctr_total_return > (SELECT AVG(ctr_total_return)*1.2
+  FROM customer_total_return ctr2
+  WHERE ctr1.ctr_state = ctr2.ctr_state)
+  AND ca_address_sk = c_current_addr_sk
+  AND ca_state = 'MI'
+  AND ctr1.ctr_customer_sk = c_customer_sk
+ORDER BY ctr_total_return DESC
+LIMIT 50",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:43:44.184-07:00,2024-03-16T00:43:49.541-07:00,5357,11495229580,50,302,5055,0,0,0,0,,,0,,,0,0.000048000,0,8.10.1,0,0,0,0,0,FALSE,90be975f8d5ee90707fe3900d05c288d,2,f8874e9ee1943fedb8270cd080e24ba1,1
+5500,01b3058f-0002-3099-0051-ba870003614e,"WITH customer_total_return AS (
+  SELECT wr_returning_customer_sk AS ctr_customer_sk,
+  ca_state AS ctr_state,
+  SUM(wr_return_amt) AS ctr_total_return
+  FROM web_returns, date_dim, customer_address
+  WHERE wr_returned_date_sk = d_date_sk
+  AND d_year = 2001
+  AND wr_returning_addr_sk = ca_address_sk
+  GROUP BY wr_returning_customer_sk, ca_state
+)
+
+SELECT c_customer_id, c_salutation, c_first_name, c_last_name, c_preferred_cust_flag,
+  c_birth_day, c_birth_month, c_birth_year, c_birth_country, c_login, c_email_address,
+  c_last_review_date, ctr_total_return
+FROM customer_total_return ctr1, customer_address, customer
+WHERE ctr1.ctr_total_return > (SELECT AVG(ctr_total_return)*1.2
+  FROM customer_total_return ctr2
+  WHERE ctr1.ctr_state = ctr2.ctr_state)
+  AND ca_address_sk = c_current_addr_sk
+  AND ca_state IN ('TX', 'CA', 'NY')
+  AND ctr1.ctr_customer_sk = c_customer_sk
+ORDER BY c_customer_id, c_salutation, c_first_name, c_last_name, c_preferred_cust_flag,
+  c_birth_day, c_birth_month, c_birth_year, c_birth_country, c_login, c_email_address,
+  c_last_review_date, ctr_total_return
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:43:38.281-07:00,2024-03-16T00:43:43.781-07:00,5500,11495229580,100,481,5019,0,0,0,0,,,0,,,0,0.000076000,0,8.10.1,0,0,0,0,0,FALSE,e69da2f69f423c8e37b02289c91717fb,2,cc8a5357405912d79633101b65bb4eae,1
+5825,01b3058f-0002-326c-0051-ba870003c1ca,"WITH customer_total_return AS (
+  SELECT wr_returning_customer_sk AS ctr_customer_sk,
+  ca_state AS ctr_state,
+  SUM(wr_return_amt) AS ctr_total_return
+  FROM web_returns, date_dim, customer_address
+  WHERE wr_returned_date_sk = d_date_sk
+  AND d_year = 2001
+  AND wr_returning_addr_sk = ca_address_sk
+  GROUP BY wr_returning_customer_sk, ca_state
+)
+
+SELECT c_customer_id, c_salutation, c_first_name, c_last_name, c_preferred_cust_flag,
+  c_birth_day, c_birth_month, c_birth_year, c_birth_country, c_login, c_email_address,
+  c_last_review_date, ctr_total_return
+FROM customer_total_return ctr1, customer_address, customer
+WHERE ctr1.ctr_total_return > (SELECT AVG(ctr_total_return)*1.5
+  FROM customer_total_return ctr2
+  WHERE ctr1.ctr_state = ctr2.ctr_state)
+  AND ca_address_sk = c_current_addr_sk
+  AND ca_state = 'MI'
+  AND ctr1.ctr_customer_sk = c_customer_sk
+ORDER BY c_customer_id, c_salutation, c_first_name, c_last_name, c_preferred_cust_flag,
+  c_birth_day, c_birth_month, c_birth_year, c_birth_country, c_login, c_email_address,
+  c_last_review_date, ctr_total_return
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:43:32.013-07:00,2024-03-16T00:43:37.838-07:00,5825,11495229580,100,371,5454,0,0,0,0,,,0,,,0,0.000059000,0,8.10.1,0,0,0,0,0,FALSE,7d512eb11246ca38161c46d50e82ac5f,2,ea67ab5a0a8c7bec0b88d411fe091d1a,1
+6830,01b3058f-0002-3144-0051-ba870003a1fe,"WITH customer_total_return AS (
+  SELECT wr_returning_customer_sk AS ctr_customer_sk,
+  ca_state AS ctr_state,
+  SUM(wr_return_amt) AS ctr_total_return
+  FROM web_returns, date_dim, customer_address
+  WHERE wr_returned_date_sk = d_date_sk
+  AND d_year = 2002
+  AND wr_returning_addr_sk = ca_address_sk
+  GROUP BY wr_returning_customer_sk, ca_state
+)
+
+SELECT c_customer_id, c_salutation, c_first_name, c_last_name, c_preferred_cust_flag,
+  c_birth_day, c_birth_month, c_birth_year, c_birth_country, c_login, c_email_address,
+  c_last_review_date, ctr_total_return
+FROM customer_total_return ctr1, customer_address, customer
+WHERE ctr1.ctr_total_return > (SELECT AVG(ctr_total_return)*1.2
+  FROM customer_total_return ctr2
+  WHERE ctr1.ctr_state = ctr2.ctr_state)
+  AND ca_address_sk = c_current_addr_sk
+  AND ca_state = 'CA'
+  AND ctr1.ctr_customer_sk = c_customer_sk
+ORDER BY c_customer_id, c_salutation, c_first_name, c_last_name, c_preferred_cust_flag,
+  c_birth_day, c_birth_month, c_birth_year, c_birth_country, c_login, c_email_address,
+  c_last_review_date, ctr_total_return
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:43:24.761-07:00,2024-03-16T00:43:31.591-07:00,6830,11521007244,100,489,6341,0,0,0,0,,,0,,,0,0.000078000,0,8.10.1,0,0,0,0,0,FALSE,8ccd2d97a25b668a3de24823fd2b7247,2,8187ae0c043fc7cebdfc730ecdedc52e,1
+774,01b3058f-0002-326c-0051-ba870003c1c2,"SELECT i_brand_id brand_id, i_brand brand,
+  SUM(ss_ext_sales_price) ext_price
+FROM date_dim, store_sales, item
+WHERE d_date_sk = ss_sold_date_sk
+  AND ss_item_sk = i_item_sk
+  AND i_manager_id = 88
+  AND d_moy = 12
+  AND d_year = 2002
+  AND i_category = 'Electronics'
+GROUP BY i_brand, i_brand_id
+ORDER BY ext_price DESC, i_brand_id
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:43:23.64-07:00,2024-03-16T00:43:24.414-07:00,774,41134031253,75,390,384,0,0,0,0,,,0,,,0,0.000061000,0,8.10.1,0,0,0,0,0,FALSE,4bff13d31af8f74c90a0c5f27d0e98e6,2,a59591510ec405f9c83c91db4293cc25,1
+632,01b3058f-0002-326c-0051-ba870003c1ba,"SELECT i_brand_id brand_id, i_brand brand,
+  SUM(ss_ext_sales_price) ext_price
+FROM date_dim, store_sales, item
+WHERE d_date_sk = ss_sold_date_sk
+  AND ss_item_sk = i_item_sk
+  AND i_manager_id = 96
+  AND d_moy = 12
+  AND d_year = 2002
+  AND i_class = 'luxury'
+GROUP BY i_brand, i_brand_id
+ORDER BY ext_price DESC, i_brand_id
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:43:22.662-07:00,2024-03-16T00:43:23.294-07:00,632,27021964,0,423,209,0,0,0,0,,,0,,,0,0.000066000,0,8.10.1,0,0,0,0,0,FALSE,678008bed286fdd5913f3170833100d6,2,c7d30acac8a0976cd6cbedfcb05bfc8d,1
+787,01b3058f-0002-3095-0051-ba8700033266,"SELECT i_brand_id brand_id, i_brand brand,
+  SUM(ss_ext_sales_price) ext_price
+FROM date_dim, store_sales, item
+WHERE d_date_sk = ss_sold_date_sk
+  AND ss_item_sk = i_item_sk
+  AND i_manager_id = 96
+  AND d_moy = 12
+  AND d_year = 2002
+  AND i_brand NOT IN ('Brand#123', 'Brand#456')
+GROUP BY i_brand, i_brand_id
+ORDER BY ext_price DESC, i_brand_id
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:43:21.555-07:00,2024-03-16T00:43:22.342-07:00,787,41133985747,100,377,410,0,0,0,0,,,0,,,0,0.000059000,0,8.10.1,0,0,0,0,0,FALSE,773ecb31028e9c41ad02057f8c544140,2,446b5e1c85da4a116317f3c5abd054c5,1
+1387,01b3058f-0002-317c-0051-ba87000371ee,"SELECT i_brand_id brand_id, i_brand brand,
+  SUM(ss_ext_sales_price) ext_price
+FROM date_dim, store_sales, item
+WHERE d_date_sk = ss_sold_date_sk
+  AND ss_item_sk = i_item_sk
+  AND i_manager_id = 96
+  AND d_moy = 12
+  AND d_year BETWEEN 2000 AND 2002
+GROUP BY i_brand, i_brand_id
+ORDER BY ext_price DESC, i_brand_id
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:43:19.793-07:00,2024-03-16T00:43:21.18-07:00,1387,123405746643,100,387,1000,0,0,0,0,,,0,,,0,0.000061000,0,8.10.1,0,0,0,0,0,FALSE,871c1036ad973f91c667e8d09c9f7722,2,1afdb511b2cfaa57ed5e92ce9a8f0913,1
+880,01b3058f-0002-3095-0051-ba870003325e,"SELECT i_brand_id brand_id, i_brand brand,
+  SUM(ss_ext_sales_price) ext_price
+FROM date_dim, store_sales, item
+WHERE d_date_sk = ss_sold_date_sk
+  AND ss_item_sk = i_item_sk
+  AND i_manager_id = 96
+  AND d_moy = 12
+  AND d_year = 2002
+  AND i_color = 'red'
+GROUP BY i_brand, i_brand_id
+ORDER BY ext_price DESC, i_brand_id
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:43:18.609-07:00,2024-03-16T00:43:19.489-07:00,880,41137192951,16,480,400,0,0,0,0,,,0,,,0,0.000076000,0,8.10.1,0,0,0,0,0,FALSE,61b0e911af3db23854892e0e787f173d,2,03309834e625c08731124d5c603f6267,1
+805,01b3058f-0002-3095-0051-ba8700033256,"SELECT i_brand_id brand_id, i_brand brand,
+  SUM(ss_ext_sales_price) ext_price
+FROM date_dim, store_sales, item
+WHERE d_date_sk = ss_sold_date_sk
+  AND ss_item_sk = i_item_sk
+  AND i_manager_id = 96
+  AND d_moy = 12
+  AND d_year = 2002
+GROUP BY i_brand, i_brand_id
+ORDER BY ext_price DESC, i_brand_id
+LIMIT 50",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:43:17.441-07:00,2024-03-16T00:43:18.246-07:00,805,41133985747,50,450,355,0,0,0,0,,,0,,,0,0.000071000,0,8.10.1,0,0,0,0,0,FALSE,135a1907496488db937120128c7056ce,2,b8eca70fe6b3671a07609b580f099bba,1
+1230,01b3058f-0002-3144-0051-ba870003a1f6,"SELECT i_brand_id brand_id, i_brand brand,
+  SUM(ss_ext_sales_price) ext_price
+FROM date_dim, store_sales, item
+WHERE d_date_sk = ss_sold_date_sk
+  AND ss_item_sk = i_item_sk
+  AND i_manager_id = 96
+  AND d_moy = 12
+  AND d_year = 2002
+GROUP BY i_brand, i_brand_id
+ORDER BY i_brand, ext_price DESC
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:43:15.809-07:00,2024-03-16T00:43:17.039-07:00,1230,41133985747,100,575,655,0,0,0,0,,,0,,,0,0.000090000,0,8.10.1,0,0,0,0,0,FALSE,3c2d0aaa6a6dbc5ac5a7d32ee5cea6b9,2,45b348e01e27e2034da5addac68f9d35,1
+1359,01b3058f-0002-3095-0051-ba870003324e,"SELECT i_category category,
+  SUM(ss_ext_sales_price) ext_price
+FROM date_dim, store_sales, item
+WHERE d_date_sk = ss_sold_date_sk
+  AND ss_item_sk = i_item_sk
+  AND i_manager_id = 96
+  AND d_moy = 12
+  AND d_year = 2002
+GROUP BY i_category
+ORDER BY ext_price DESC
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:43:14.135-07:00,2024-03-16T00:43:15.494-07:00,1359,41133985747,10,522,837,0,0,0,0,,,0,,,0,0.000081000,0,8.10.1,0,0,0,0,0,FALSE,01c1c21a6ee3c380263d7dd5ef2d8b16,2,d939a77c3ea5d6a64bbd1194660ae93b,1
+50,01b3058f-0002-3144-0051-ba870003a1ea,"SELECT i_brand_id brand_id, i_brand brand,
+  SUM(ss_ext_sales_price) ext_price
+FROM date_dim, store_sales, item
+WHERE d_date_sk = ss_sold_date_sk
+  AND ss_item_sk = i_item_sk
+  AND i_manager_id = 96
+  AND d_moy = 6
+  AND d_year = 2002
+  AND d_day_of_week = 'Monday'
+GROUP BY i_brand, i_brand_id
+ORDER BY ext_price DESC, i_brand_id
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,UNKNOWN,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,,STANDARD,,,FAILED_WITH_ERROR,904,"SQL compilation error: error line 9 at position 6
+invalid identifier 'D_DAY_OF_WEEK'",2024-03-16T00:43:13.686-07:00,2024-03-16T00:43:13.736-07:00,50,0,0,50,0,0,0,0,0,,,0,,,0,0.000008000,0,8.10.1,0,0,0,0,0,FALSE,5e627e43d64495c6292a3691458aa39e,2,1b5d529257089b0441d0c16a81832b53,1
+844,01b3058f-0002-3095-0051-ba870003323e,"SELECT i_brand_id brand_id, i_brand brand,
+  SUM(ss_ext_sales_price) ext_price
+FROM date_dim, store_sales, item
+WHERE d_date_sk = ss_sold_date_sk
+  AND ss_item_sk = i_item_sk
+  AND i_manager_id = 85
+  AND d_moy = 11
+  AND d_year = 2003
+GROUP BY i_brand, i_brand_id
+ORDER BY ext_price DESC, i_brand_id
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:43:12.47-07:00,2024-03-16T00:43:13.314-07:00,844,27021964,0,527,317,0,0,0,0,,,0,,,0,0.000085000,0,8.10.1,0,0,0,0,0,FALSE,64c775a849ba21bd352c9b0c2c644fc4,2,279d4120ec520d9a94f05e360e88aeac,1
+824,01b3058f-0002-3099-0051-ba870003613e,"SELECT * FROM (
+  SELECT i_manufact_id,
+    SUM(ss_sales_price) sum_sales,
+    AVG(SUM(ss_sales_price)) OVER (PARTITION BY i_manufact_id) avg_quarterly_sales
+  FROM item, store_sales, date_dim, store
+  WHERE ss_item_sk = i_item_sk AND
+    ss_sold_date_sk = d_date_sk AND
+    ss_store_sk = s_store_sk AND
+    d_month_seq IN (1213,1214,1215,1216,1217,1218,1219,1220,1221,1222,1223,1224)
+    AND ((i_category IN ('Books','Children','Electronics', 'Toys', 'Fashion') AND
+    i_class IN ('personal','portable','reference','self-help') AND
+    i_brand IN ('brand #1', 'brand #2'))
+    OR (i_category IN ('Women','Music','Men', 'Sports', 'Outdoor') AND
+    i_class IN ('accessories','classical','fragrances','pants') AND
+    i_brand IN ('brand #3', 'brand #4')))
+  GROUP BY i_manufact_id, d_qoy
+) tmp1
+WHERE CASE WHEN avg_quarterly_sales > 0
+  THEN ABS(sum_sales - avg_quarterly_sales) / avg_quarterly_sales
+  ELSE NULL END > 0.1
+ORDER BY avg_quarterly_sales, sum_sales, i_manufact_id
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:43:11.266-07:00,2024-03-16T00:43:12.09-07:00,824,27157644,0,550,274,0,0,0,0,,,0,,,0,0.000086000,0,8.10.1,0,0,0,0,0,FALSE,05f90c11cb6601444794987142714650,2,e8da4b66e008dec9c6534a51a8167eab,1
+2083,01b3058f-0002-317c-0051-ba87000371da,"SELECT * FROM (
+  SELECT i_manufact_id,
+    SUM(ss_sales_price) sum_sales,
+    AVG(SUM(ss_sales_price)) OVER (PARTITION BY i_manufact_id) avg_quarterly_sales
+  FROM item, store_sales, date_dim, store
+  WHERE ss_item_sk = i_item_sk AND
+    ss_sold_date_sk = d_date_sk AND
+    ss_store_sk = s_store_sk AND
+    d_month_seq IN (1213,1214,1215,1216,1217,1218,1219,1220,1221,1222,1223,1224)
+    AND ((i_category IN ('Books','Children','Electronics') AND
+    i_class IN ('personal','portable','reference','self-help') AND
+    i_brand IN ('scholaramalgamalg #14','scholaramalgamalg #7',
+    'exportiunivamalg #9','scholaramalgamalg #9'))
+    OR (i_category IN ('Women','Music','Men') AND
+    i_class IN ('accessories','classical','fragrances','pants') AND
+    i_brand IN ('amalgimporto #1','edu packscholar #1','exportiimporto #1',
+    'importoamalg #1')))
+  GROUP BY i_manufact_id, d_qoy
+) tmp1
+WHERE CASE WHEN avg_quarterly_sales > 0
+  THEN ABS(sum_sales - avg_quarterly_sales) / avg_quarterly_sales
+  ELSE NULL END > 0.1
+ORDER BY i_manufact_id, avg_quarterly_sales, sum_sales
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:43:08.81-07:00,2024-03-16T00:43:10.893-07:00,2083,242603904652,100,626,1457,0,0,0,0,,,0,,,0,0.000098000,0,8.10.1,0,0,0,0,0,FALSE,e822766c62aa2e8bb7cd8d9f2268edd8,2,fc04a715fd4821c29607fdd150f5497b,1
+1497,01b3058f-0002-3095-0051-ba870003322e,"SELECT * FROM (
+  SELECT i_manufact_id,
+    SUM(ss_sales_price) sum_sales,
+    AVG(SUM(ss_sales_price)) OVER (PARTITION BY i_manufact_id) avg_quarterly_sales
+  FROM item, store_sales, date_dim, store
+  WHERE ss_item_sk = i_item_sk AND
+    ss_sold_date_sk = d_date_sk AND
+    ss_store_sk = s_store_sk AND
+    d_month_seq IN (1213,1214,1215)
+    AND ((i_category IN ('Books','Children','Electronics') AND
+    i_class IN ('personal','portable','reference','self-help') AND
+    i_brand IN ('scholaramalgamalg #14','scholaramalgamalg #7',
+    'exportiunivamalg #9','scholaramalgamalg #9'))
+    OR (i_category IN ('Women','Music','Men') AND
+    i_class IN ('accessories','classical','fragrances','pants') AND
+    i_brand IN ('amalgimporto #1','edu packscholar #1','exportiimporto #1',
+    'importoamalg #1')))
+  GROUP BY i_manufact_id, d_qoy
+) tmp1
+WHERE CASE WHEN avg_quarterly_sales > 0
+  THEN ABS(sum_sales - avg_quarterly_sales) / avg_quarterly_sales
+  ELSE NULL END > 0.1
+ORDER BY avg_quarterly_sales, sum_sales, i_manufact_id
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:43:06.846-07:00,2024-03-16T00:43:08.343-07:00,1497,33726569612,100,523,974,0,0,0,0,,,0,,,0,0.000082000,0,8.10.1,0,0,0,0,0,FALSE,6251de01774848a81373a623c35a85ce,2,58db4bf5e2f57cc4acd252c5b775df89,1
+1879,01b3058f-0002-3099-0051-ba8700036136,"SELECT * FROM (
+  SELECT i_manufact_id,
+    SUM(ss_sales_price) sum_sales,
+    AVG(SUM(ss_sales_price)) OVER (PARTITION BY i_manufact_id) avg_quarterly_sales
+  FROM item, store_sales, date_dim, store
+  WHERE ss_item_sk = i_item_sk AND
+    ss_sold_date_sk = d_date_sk AND
+    ss_store_sk = s_store_sk AND
+    d_month_seq IN (1213,1214,1215,1216,1217,1218,1219,1220,1221,1222,1223,1224)
+    AND ((i_category IN ('Books','Children','Electronics', 'Home & Garden') AND
+    i_class IN ('personal','portable','reference','self-help', 'gardening') AND
+    i_brand IN ('scholaramalgamalg #14','scholaramalgamalg #7',
+    'exportiunivamalg #9','scholaramalgamalg #9'))
+    OR (i_category IN ('Women','Music','Men', 'Sports') AND
+    i_class IN ('accessories','classical','fragrances','pants', 'athletic') AND
+    i_brand IN ('amalgimporto #1','edu packscholar #1','exportiimporto #1',
+    'importoamalg #1')))
+  GROUP BY i_manufact_id, d_qoy
+) tmp1
+WHERE CASE WHEN avg_quarterly_sales > 0
+  THEN ABS(sum_sales - avg_quarterly_sales) / avg_quarterly_sales
+  ELSE NULL END > 0.1
+ORDER BY avg_quarterly_sales, sum_sales, i_manufact_id
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:43:04.528-07:00,2024-03-16T00:43:06.407-07:00,1879,242603904652,100,557,1322,0,0,0,0,,,0,,,0,0.000087000,0,8.10.1,0,0,0,0,0,FALSE,ab8c75419822c77500bff708306e3088,2,cc57951e2f63906609b2dc22190972f7,1
+2222,01b3058f-0002-3144-0051-ba870003a1de,"SELECT * FROM (
+  SELECT i_manufact_id,
+    AVG(ss_sales_price) avg_sales,
+    AVG(AVG(ss_sales_price)) OVER (PARTITION BY i_manufact_id) avg_quarterly_sales
+  FROM item, store_sales, date_dim, store
+  WHERE ss_item_sk = i_item_sk AND
+    ss_sold_date_sk = d_date_sk AND
+    ss_store_sk = s_store_sk AND
+    d_month_seq IN (1213,1214,1215,1216,1217,1218,1219,1220,1221,1222,1223,1224)
+    AND ((i_category IN ('Books','Children','Electronics') AND
+    i_class IN ('personal','portable','reference','self-help') AND
+    i_brand IN ('scholaramalgamalg #14','scholaramalgamalg #7',
+    'exportiunivamalg #9','scholaramalgamalg #9'))
+    OR (i_category IN ('Women','Music','Men') AND
+    i_class IN ('accessories','classical','fragrances','pants') AND
+    i_brand IN ('amalgimporto #1','edu packscholar #1','exportiimporto #1',
+    'importoamalg #1')))
+  GROUP BY i_manufact_id, d_qoy
+) tmp1
+WHERE CASE WHEN avg_quarterly_sales > 0
+  THEN ABS(avg_sales - avg_quarterly_sales) / avg_quarterly_sales
+  ELSE NULL END > 0.1
+ORDER BY avg_quarterly_sales, avg_sales, i_manufact_id
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:43:01.896-07:00,2024-03-16T00:43:04.118-07:00,2222,242603904652,0,663,1559,0,0,0,0,,,0,,,0,0.000103000,0,8.10.1,0,0,0,0,0,FALSE,2f9c644bbbbc0b2369d6983347980165,2,9883225e0299fe4a425d969d44458615,1
+2955,01b3058e-0002-3099-0051-ba870003612e,"SELECT * FROM (
+  SELECT i_manufact_id,
+    SUM(ss_sales_price) sum_sales,
+    AVG(SUM(ss_sales_price)) OVER (PARTITION BY i_manufact_id) avg_quarterly_sales
+  FROM item, store_sales, date_dim, store
+  WHERE ss_item_sk = i_item_sk AND
+    ss_sold_date_sk = d_date_sk AND
+    ss_store_sk = s_store_sk AND
+    d_month_seq IN (1213,1214,1215,1216,1217,1218,1219,1220,1221,1222,1223,1224)
+    AND ((i_category IN ('Books','Children','Electronics') AND
+    i_class IN ('personal','portable','reference','self-help') AND
+    i_brand NOT IN ('scholaramalgamalg #14'))
+    OR (i_category IN ('Women','Music','Men') AND
+    i_class IN ('accessories','classical','fragrances','pants') AND
+    i_brand NOT IN ('edu packscholar #1')))
+  GROUP BY i_manufact_id, d_qoy
+) tmp1
+WHERE CASE WHEN avg_quarterly_sales > 0
+  THEN ABS(sum_sales - avg_quarterly_sales) / avg_quarterly_sales
+  ELSE NULL END > 0.1
+ORDER BY avg_quarterly_sales, sum_sales, i_manufact_id
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:42:58.574-07:00,2024-03-16T00:43:01.529-07:00,2955,242603904652,100,608,2347,0,0,0,0,,,0,,,0,0.000095000,0,8.10.1,0,0,0,0,0,FALSE,67ce1390bf3057f0a62ca91c9b44bdd5,2,36b331612541a005d5feb6fbadb9ecc7,1
+2097,01b3058e-0002-326c-0051-ba870003c1aa,"SELECT * FROM (
+  SELECT i_manufact_id,
+    SUM(ss_sales_price) sum_sales,
+    AVG(SUM(ss_sales_price)) OVER (PARTITION BY i_manufact_id) avg_quarterly_sales
+  FROM item, store_sales, date_dim, store
+  WHERE ss_item_sk = i_item_sk AND
+    ss_sold_date_sk = d_date_sk AND
+    ss_store_sk = s_store_sk AND
+    d_month_seq IN (1213,1214,1215,1216,1217,1218,1219,1220,1221,1222,1223,1224)
+    AND ((i_category IN ('Books','Children','Electronics') AND
+    i_class IN ('personal','portable','reference','self-help') AND
+    i_brand IN ('scholaramalgamalg #14','scholaramalgamalg #7',
+    'exportiunivamalg #9','scholaramalgamalg #9'))
+    OR (i_category IN ('Women','Music','Men') AND
+    i_class IN ('accessories','classical','fragrances','pants') AND
+    i_brand IN ('amalgimporto #1','edu packscholar #1','exportiimporto #1',
+    'importoamalg #1')))
+  GROUP BY i_manufact_id, d_qoy
+) tmp1
+WHERE CASE WHEN avg_quarterly_sales > 0
+  THEN ABS(sum_sales - avg_quarterly_sales) / avg_quarterly_sales
+  ELSE NULL END > 0.1
+ORDER BY avg_quarterly_sales, sum_sales, i_manufact_id
+LIMIT 50",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:42:56.106-07:00,2024-03-16T00:42:58.203-07:00,2097,242603904652,50,538,1559,0,0,0,0,,,0,,,0,0.000084000,0,8.10.1,0,0,0,0,0,FALSE,004d1cdb313b6a5f0196fc03782e2587,2,371574c734b69914940bf0ca2c23378a,1
+2138,01b3058e-0002-3095-0051-ba8700033226,"SELECT * FROM (
+  SELECT i_manufact_id,
+    SUM(ss_sales_price) sum_sales,
+    AVG(SUM(ss_sales_price)) OVER (PARTITION BY i_manufact_id) avg_quarterly_sales
+  FROM item, store_sales, date_dim, store
+  WHERE ss_item_sk = i_item_sk AND
+    ss_sold_date_sk = d_date_sk AND
+    ss_store_sk = s_store_sk AND
+    d_month_seq IN (1213,1214,1215,1216,1217,1218,1219,1220,1221,1222,1223,1224)
+    AND ((i_category IN ('Books','Children','Electronics') AND
+    i_class IN ('personal','portable','reference','self-help') AND
+    i_brand IN ('scholaramalgamalg #14','scholaramalgamalg #7',
+    'exportiunivamalg #9','scholaramalgamalg #9'))
+    OR (i_category IN ('Women','Music','Men') AND
+    i_class IN ('accessories','classical','fragrances','pants') AND
+    i_brand IN ('amalgimporto #1','edu packscholar #1','exportiimporto #1',
+    'importoamalg #1')))
+  GROUP BY i_manufact_id, d_qoy
+) tmp1
+WHERE CASE WHEN avg_quarterly_sales > 0
+  THEN ABS(sum_sales - avg_quarterly_sales) / avg_quarterly_sales
+  ELSE NULL END < 0.1
+ORDER BY avg_quarterly_sales, sum_sales, i_manufact_id
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:42:53.631-07:00,2024-03-16T00:42:55.769-07:00,2138,242603904652,100,528,1610,0,0,0,0,,,0,,,0,0.000083000,0,8.10.1,0,0,0,0,0,FALSE,280a3d2a4af7c1a7cf0f2fbf043f4a20,2,5047c2b6977e24532f5e7f7d29e3ed60,1
+2852,01b3058e-0002-317c-0051-ba87000371ce,"SELECT * FROM (
+  SELECT i_manufact_id,
+    SUM(ss_sales_price) sum_sales,
+    AVG(SUM(ss_sales_price)) OVER (PARTITION BY i_manufact_id) avg_quarterly_sales
+  FROM item, store_sales, date_dim, store
+  WHERE ss_item_sk = i_item_sk AND
+    ss_sold_date_sk = d_date_sk AND
+    ss_store_sk = s_store_sk AND
+    d_month_seq IN (1213,1214,1215,1216,1217,1218,1219,1220,1221,1222,1223,1224)
+    AND ((i_category IN ('Books','Electronics') AND
+    i_class IN ('portable','reference') AND
+    i_brand IN ('scholaramalgamalg #14','exportiunivamalg #9'))
+    OR (i_category IN ('Women','Men') AND
+    i_class IN ('accessories','fragrances') AND
+    i_brand IN ('amalgimporto #1','edu packscholar #1')))
+  GROUP BY i_manufact_id, d_qoy
+) tmp1
+WHERE CASE WHEN avg_quarterly_sales > 0
+  THEN ABS(sum_sales - avg_quarterly_sales) / avg_quarterly_sales
+  ELSE NULL END > 0.1
+ORDER BY avg_quarterly_sales, sum_sales, i_manufact_id
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:42:50.446-07:00,2024-03-16T00:42:53.298-07:00,2852,242603904652,100,653,2199,0,0,0,0,,,0,,,0,0.000102000,0,8.10.1,0,0,0,0,0,FALSE,03eb99a7414e673d4ea91a6b3026ed81,2,4a690a15538eb0be9da0648a1005cc58,1
+3434,01b3058e-0002-326c-0051-ba870003c19a,"SELECT * FROM (
+  SELECT i_manufact_id,
+    SUM(ss_sales_price) sum_sales,
+    AVG(SUM(ss_sales_price)) OVER (PARTITION BY i_manufact_id) avg_quarterly_sales
+  FROM item, store_sales, date_dim, store
+  WHERE ss_item_sk = i_item_sk AND
+    ss_sold_date_sk = d_date_sk AND
+    ss_store_sk = s_store_sk AND
+    d_month_seq IN (1201,1202,1203,1204,1205,1206,1207,1208,1209,1210,1211,1212)
+    AND ((i_category IN ('Books','Children','Electronics') AND
+    i_class IN ('personal','portable','reference','self-help') AND
+    i_brand IN ('scholaramalgamalg #14','scholaramalgamalg #7',
+    'exportiunivamalg #9','scholaramalgamalg #9'))
+    OR (i_category IN ('Women','Music','Men') AND
+    i_class IN ('accessories','classical','fragrances','pants') AND
+    i_brand IN ('amalgimporto #1','edu packscholar #1','exportiimporto #1',
+    'importoamalg #1')))
+  GROUP BY i_manufact_id, d_qoy
+) tmp1
+WHERE CASE WHEN avg_quarterly_sales > 0
+  THEN ABS(sum_sales - avg_quarterly_sales) / avg_quarterly_sales
+  ELSE NULL END > 0.1
+ORDER BY avg_quarterly_sales, sum_sales, i_manufact_id
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:42:46.651-07:00,2024-03-16T00:42:50.085-07:00,3434,242551865375,100,816,2618,0,0,0,0,,,0,,,0,0.000127000,0,8.10.1,0,0,0,0,0,FALSE,b87b16164f806f85e337b6b7a67d220d,2,7d3f8b25fe80b810345f32278563c97a,1
+19575,01b3058e-0002-317c-0051-ba87000371c2,"WITH ssales AS (
+  SELECT c_last_name, c_first_name, s_store_name, ca_state, s_state, i_color, i_current_price, i_manager_id, i_units, i_size, SUM(ss_net_paid_inc_tax) netpaid
+  FROM store_sales, store_returns, store, item, customer, customer_address
+  WHERE ss_ticket_number = sr_ticket_number
+    AND ss_item_sk = sr_item_sk
+    AND ss_customer_sk = c_customer_sk
+    AND ss_item_sk = i_item_sk
+    AND ss_store_sk = s_store_sk
+    AND c_current_addr_sk = ca_address_sk
+    AND c_birth_country <> 'USA'
+    AND s_zip = ca_zip
+    AND s_market_id = 8
+  GROUP BY c_last_name, c_first_name, s_store_name, ca_state, s_state, i_color, i_current_price, i_manager_id, i_units, i_size
+)
+
+SELECT c_last_name, c_first_name, s_store_name, SUM(netpaid) paid
+FROM ssales
+WHERE i_color = 'cornsilk'
+GROUP BY c_last_name, c_first_name, s_store_name
+HAVING SUM(netpaid) > (SELECT 0.05 * AVG(netpaid) FROM ssales)
+ORDER BY c_last_name, c_first_name, s_store_name",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:42:26.681-07:00,2024-03-16T00:42:46.256-07:00,19575,2759792735144,256,945,18630,0,0,0,0,,,0,,,0,0.000147000,0,8.10.1,0,0,0,0,0,FALSE,fd6387df9865d6a5209c4d37dd85821e,2,7d15737eb0d4bc41d3b66c1a10aba830,1
+19262,01b3058e-0002-326c-0051-ba870003c18e,"WITH ssales AS (
+  SELECT c_last_name, c_first_name, s_store_name, ca_state, s_state, i_color, i_current_price, i_manager_id, i_units, i_size, SUM(ss_net_paid_inc_tax) netpaid
+  FROM store_sales, store_returns, store, item, customer, customer_address
+  WHERE ss_ticket_number = sr_ticket_number
+    AND ss_item_sk = sr_item_sk
+    AND ss_customer_sk = c_customer_sk
+    AND ss_item_sk = i_item_sk
+    AND ss_store_sk = s_store_sk
+    AND c_current_addr_sk = ca_address_sk
+    AND c_birth_country <> UPPER(ca_country)
+    AND s_zip = ca_zip
+    AND s_market_id = 8
+  GROUP BY c_last_name, c_first_name, s_store_name, ca_state, s_state, i_color, i_current_price, i_manager_id, i_units, i_size
+)
+
+SELECT c_last_name, c_first_name, s_store_name, SUM(netpaid) paid
+FROM ssales
+WHERE i_color = 'cornsilk' OR i_color = 'azure'
+GROUP BY c_last_name, c_first_name, s_store_name
+HAVING SUM(netpaid) > (SELECT 0.05 * AVG(netpaid) FROM ssales)
+ORDER BY c_last_name, c_first_name, s_store_name",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:42:07.086-07:00,2024-03-16T00:42:26.348-07:00,19262,2759797253353,504,1030,18232,0,0,0,0,,,0,,,0,0.000160000,0,8.10.1,0,0,0,0,0,FALSE,1734c1ddb0e8dee228496580784ec8e5,2,f100255c2191feb9bb061ecbd36e05e8,1
+19114,01b3058d-0002-3095-0051-ba870003321a,"WITH ssales AS (
+  SELECT c_last_name, c_first_name, s_store_name, ca_state, s_state, i_color, i_current_price, i_manager_id, i_units, i_size, SUM(ss_net_paid_inc_tax) netpaid
+  FROM store_sales, store_returns, store, item, customer, customer_address
+  WHERE ss_ticket_number = sr_ticket_number
+    AND ss_item_sk = sr_item_sk
+    AND ss_customer_sk = c_customer_sk
+    AND ss_item_sk = i_item_sk
+    AND ss_store_sk = s_store_sk
+    AND c_current_addr_sk = ca_address_sk
+    AND c_birth_country <> UPPER(ca_country)
+    AND s_zip = ca_zip
+    AND s_market_id = 8
+  GROUP BY c_last_name, c_first_name, s_store_name, ca_state, s_state, i_color, i_current_price, i_manager_id, i_units, i_size
+)
+
+SELECT c_last_name, c_first_name, s_store_name, SUM(netpaid) paid
+FROM ssales
+WHERE i_color = 'cornsilk'
+GROUP BY c_last_name, c_first_name, s_store_name
+HAVING SUM(netpaid) > (SELECT 0.05 * AVG(netpaid) FROM ssales)
+ORDER BY SUM(netpaid) DESC",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:41:47.495-07:00,2024-03-16T00:42:06.609-07:00,19114,2759784877657,251,1170,17944,0,0,0,0,,,0,,,0,0.000181000,0,8.10.1,0,0,0,0,0,FALSE,697726d0fd81a9db88ac50a1b9a140f2,2,2a2c30155655bbde30164469b254318f,1
+13235,01b3058d-0002-3099-0051-ba870003611e,"WITH ssales AS (
+  SELECT c_last_name, c_first_name, s_store_name, ca_state, s_state, i_color, i_current_price, i_manager_id, i_units, i_size, SUM(ss_net_paid_inc_tax) netpaid
+  FROM store_sales, store_returns, store, item, customer, customer_address
+  WHERE ss_ticket_number = sr_ticket_number
+    AND ss_item_sk = sr_item_sk
+    AND ss_customer_sk = c_customer_sk
+    AND ss_item_sk = i_item_sk
+    AND ss_store_sk = s_store_sk
+    AND c_current_addr_sk = ca_address_sk
+    AND c_birth_country <> UPPER(ca_country)
+    AND s_zip = ca_zip
+    AND s_market_id = 8
+    AND i_manager_id = 10
+  GROUP BY c_last_name, c_first_name, s_store_name, ca_state, s_state, i_color, i_current_price, i_manager_id, i_units, i_size
+)
+
+SELECT c_last_name, c_first_name, s_store_name, SUM(netpaid) paid
+FROM ssales
+WHERE i_color = 'cornsilk'
+GROUP BY c_last_name, c_first_name, s_store_name
+HAVING SUM(netpaid) > (SELECT 0.05 * AVG(netpaid) FROM ssales)
+ORDER BY c_last_name, c_first_name, s_store_name",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:41:33.788-07:00,2024-03-16T00:41:47.023-07:00,13235,2759947682360,11,1107,12128,0,0,0,0,,,0,,,0,0.000171000,0,8.10.1,0,0,0,0,0,FALSE,0759581f12af760feb206f1d8ab50c45,2,73de2d8bbd0730f4347840351cf1cadf,1
+17888,01b3058d-0002-326c-0051-ba870003c186,"WITH ssales AS (
+  SELECT c_last_name, c_first_name, s_store_name, ca_state, s_state, i_color, i_current_price, i_manager_id, i_units, i_size, SUM(ss_net_paid_inc_tax) netpaid
+  FROM store_sales, store_returns, store, item, customer, customer_address
+  WHERE ss_ticket_number = sr_ticket_number
+    AND ss_item_sk = sr_item_sk
+    AND ss_customer_sk = c_customer_sk
+    AND ss_item_sk = i_item_sk
+    AND ss_store_sk = s_store_sk
+    AND c_current_addr_sk = ca_address_sk
+    AND c_birth_country <> UPPER(ca_country)
+    AND s_zip = ca_zip
+    AND s_market_id = 8
+    AND ca_state = s_state
+  GROUP BY c_last_name, c_first_name, s_store_name, ca_state, s_state, i_color, i_current_price, i_manager_id, i_units, i_size
+)
+
+SELECT c_last_name, c_first_name, s_store_name, SUM(netpaid) paid
+FROM ssales
+WHERE i_color = 'cornsilk'
+GROUP BY c_last_name, c_first_name, s_store_name
+HAVING SUM(netpaid) > (SELECT 0.05 * AVG(netpaid) FROM ssales)
+ORDER BY c_last_name, c_first_name, s_store_name",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:41:15.441-07:00,2024-03-16T00:41:33.329-07:00,17888,2759983616175,58,1325,16563,0,0,0,0,,,0,,,0,0.000205000,0,8.10.1,0,0,0,0,0,FALSE,5c20e6534561dd2ef43ea0f0421e4a84,2,3e2242de62f9e45842b7588119578bab,1
+23198,01b3058c-0002-3095-0051-ba8700033212,"WITH ssales AS (
+  SELECT c_last_name, c_first_name, s_store_name, ca_state, s_state, i_color, i_current_price, i_manager_id, i_units, i_size, SUM(ss_net_paid_inc_tax) netpaid
+  FROM store_sales, store_returns, store, item, customer, customer_address
+  WHERE ss_ticket_number = sr_ticket_number
+    AND ss_item_sk = sr_item_sk
+    AND ss_customer_sk = c_customer_sk
+    AND ss_item_sk = i_item_sk
+    AND ss_store_sk = s_store_sk
+    AND c_current_addr_sk = ca_address_sk
+    AND c_birth_country <> UPPER(ca_country)
+    AND s_state = 'TX'
+    AND s_market_id = 8
+  GROUP BY c_last_name, c_first_name, s_store_name, ca_state, s_state, i_color, i_current_price, i_manager_id, i_units, i_size
+)
+SELECT c_last_name, c_first_name, s_store_name, SUM(netpaid) paid
+FROM ssales
+WHERE i_color = 'cornsilk'
+GROUP BY c_last_name, c_first_name, s_store_name
+HAVING SUM(netpaid) > (SELECT 0.05 * AVG(netpaid) FROM ssales)
+ORDER BY c_last_name, c_first_name, s_store_name",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:40:51.795-07:00,2024-03-16T00:41:14.993-07:00,23198,2759693908377,29976,1465,21733,0,0,0,0,,,0,,,0,0.000226000,0,8.10.1,0,0,0,0,0,FALSE,9e1d0182275c7a1c4b9a0d78e8c627c4,2,bfc1c3ebad6b51e017545c13b0597c30,1
+18559,01b3058c-0002-317c-0051-ba87000371b6,"WITH ssales AS (
+  SELECT c_last_name, c_first_name, s_store_name, ca_state, s_state, i_color, i_current_price, i_manager_id, i_units, i_size, SUM(ss_net_paid_inc_tax) netpaid
+  FROM store_sales, store_returns, store, item, customer, customer_address
+  WHERE ss_ticket_number = sr_ticket_number
+    AND ss_item_sk = sr_item_sk
+    AND ss_customer_sk = c_customer_sk
+    AND ss_item_sk = i_item_sk
+    AND ss_store_sk = s_store_sk
+    AND c_current_addr_sk = ca_address_sk
+    AND c_birth_country <> UPPER(ca_country)
+    AND s_zip = ca_zip
+    AND s_market_id = 8
+    AND i_current_price BETWEEN 50 AND 100
+  GROUP BY c_last_name, c_first_name, s_store_name, ca_state, s_state, i_color, i_current_price, i_manager_id, i_units, i_size
+)
+
+SELECT c_last_name, c_first_name, s_store_name, SUM(netpaid) paid
+FROM ssales
+WHERE i_color = 'cornsilk'
+GROUP BY c_last_name, c_first_name, s_store_name
+HAVING SUM(netpaid) > (SELECT 0.05 * AVG(netpaid) FROM ssales)
+ORDER BY c_last_name, c_first_name, s_store_name",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:40:32.754-07:00,2024-03-16T00:40:51.313-07:00,18559,2759734032584,13,1240,17319,0,0,0,0,,,0,,,0,0.000205000,0,8.10.1,0,0,0,0,0,FALSE,603eb52f4acacab5eb506b395ee20557,2,b3de9fd81d2d1bd3829f9d620290ca28,1
+19770,01b3058c-0002-318f-0051-ba870003b0fa,"WITH ssales AS (
+  SELECT c_last_name, c_first_name, s_store_name, ca_state, s_state, i_color, i_current_price, i_manager_id, i_units, i_size, SUM(ss_net_paid_inc_tax) netpaid
+  FROM store_sales, store_returns, store, item, customer, customer_address
+  WHERE ss_ticket_number = sr_ticket_number
+    AND ss_item_sk = sr_item_sk
+    AND ss_customer_sk = c_customer_sk
+    AND ss_item_sk = i_item_sk
+    AND ss_store_sk = s_store_sk
+    AND c_current_addr_sk = ca_address_sk
+    AND c_birth_country <> UPPER(ca_country)
+    AND s_zip = ca_zip
+    AND s_market_id = 8
+  GROUP BY c_last_name, c_first_name, s_store_name, ca_state, s_state, i_color, i_current_price, i_manager_id, i_units, i_size
+)
+SELECT c_last_name, c_first_name, s_store_name, i_size, SUM(netpaid) paid
+FROM ssales
+WHERE i_color = 'cornsilk'
+GROUP BY c_last_name, c_first_name, s_store_name, i_size
+HAVING SUM(netpaid) > (SELECT 0.05 * AVG(netpaid) FROM ssales)
+ORDER BY c_last_name, c_first_name, s_store_name, i_size",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:40:12.676-07:00,2024-03-16T00:40:32.446-07:00,19770,2759790962339,252,1145,18625,0,0,0,0,,,0,,,0,0.000177000,0,8.10.1,0,0,0,0,0,FALSE,7f78f8b51a0fc8c6efaf96eaa752726d,2,aeb992b62d907ce54f212fab1c5f0ce9,1
+20782,01b3058b-0002-317c-0051-ba87000371ae,"WITH ssales AS (
+  SELECT c_last_name, c_first_name, s_store_name, ca_state, s_state, i_color, i_current_price, i_manager_id, i_units, i_size, SUM(ss_net_paid_inc_tax) netpaid
+  FROM store_sales, store_returns, store, item, customer, customer_address
+  WHERE ss_ticket_number = sr_ticket_number
+    AND ss_item_sk = sr_item_sk
+    AND ss_customer_sk = c_customer_sk
+    AND ss_item_sk = i_item_sk
+    AND ss_store_sk = s_store_sk
+    AND c_current_addr_sk = ca_address_sk
+    AND c_birth_country <> UPPER(ca_country)
+    AND s_zip = ca_zip
+    AND s_market_id = 8
+  GROUP BY c_last_name, c_first_name, s_store_name, ca_state, s_state, i_color, i_current_price, i_manager_id, i_units, i_size
+)
+SELECT c_last_name, c_first_name, s_store_name, SUM(netpaid) paid
+FROM ssales
+WHERE i_color = 'cornsilk'
+GROUP BY c_last_name, c_first_name, s_store_name
+HAVING SUM(netpaid) > (SELECT 0.1 * AVG(netpaid) FROM ssales)
+ORDER BY c_last_name, c_first_name, s_store_name",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:39:51.536-07:00,2024-03-16T00:40:12.318-07:00,20782,2759778764733,226,1731,19051,0,0,0,0,,,0,,,0,0.000266000,0,8.10.1,0,0,0,0,0,FALSE,71fb42437f370d0bb16059d3c829f5fe,2,7deb5e19fe9908f561dc6d0adc4522b3,1
+20093,01b3058b-0002-317c-0051-ba87000371a6,"WITH ssales AS (
+  SELECT c_last_name, c_first_name, s_store_name, ca_state, s_state, i_color, i_current_price, i_manager_id, i_units, i_size, SUM(ss_net_paid_inc_tax) netpaid
+  FROM store_sales, store_returns, store, item, customer, customer_address
+  WHERE ss_ticket_number = sr_ticket_number
+    AND ss_item_sk = sr_item_sk
+    AND ss_customer_sk = c_customer_sk
+    AND ss_item_sk = i_item_sk
+    AND ss_store_sk = s_store_sk
+    AND c_current_addr_sk = ca_address_sk
+    AND c_birth_country <> UPPER(ca_country)
+    AND s_zip = ca_zip
+    AND s_market_id = 5
+  GROUP BY c_last_name, c_first_name, s_store_name, ca_state, s_state, i_color, i_current_price, i_manager_id, i_units, i_size
+)
+SELECT c_last_name, c_first_name, s_store_name, SUM(netpaid) paid
+FROM ssales
+WHERE i_color = 'navy'
+GROUP BY c_last_name, c_first_name, s_store_name
+HAVING SUM(netpaid) > (SELECT 0.05 * AVG(netpaid) FROM ssales)
+ORDER BY c_last_name, c_first_name, s_store_name",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:39:31.067-07:00,2024-03-16T00:39:51.16-07:00,20093,2759669381467,963,806,19287,0,0,0,0,,,0,,,0,0.000125000,0,8.10.1,0,0,0,0,0,FALSE,0a9a64bdd9da3146c16e8802e80bec9d,2,75c2e4b35d7ca4ea20f4b502ba7bacc7,1
+19077,01b3058b-0002-318f-0051-ba870003b0ee,"WITH ssales AS (
+  SELECT c_last_name, c_first_name, s_store_name, ca_state, s_state, i_color, i_current_price, i_manager_id, SUM(ss_net_paid_inc_tax) netpaid
+  FROM store_sales, store_returns, store, item, customer, customer_address
+  WHERE ss_ticket_number = sr_ticket_number
+    AND ss_item_sk = sr_item_sk
+    AND ss_customer_sk = c_customer_sk
+    AND ss_item_sk = i_item_sk
+    AND ss_store_sk = s_store_sk
+    AND c_current_addr_sk = ca_address_sk
+    AND c_birth_country <> UPPER(ca_country)
+    AND s_zip = ca_zip
+    AND s_market_id = 8
+  GROUP BY c_last_name, c_first_name, s_store_name, ca_state, s_state, i_color, i_current_price, i_manager_id
+)
+SELECT c_last_name, c_first_name, s_store_name, SUM(netpaid) paid
+FROM ssales
+WHERE i_color = 'lime'
+GROUP BY c_last_name, c_first_name, s_store_name
+HAVING SUM(netpaid) > (SELECT 0.05 * AVG(netpaid) FROM ssales)
+ORDER BY c_last_name, c_first_name, s_store_name",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:39:11.604-07:00,2024-03-16T00:39:30.681-07:00,19077,2759724835966,740,1103,17974,0,0,0,0,,,0,,,0,0.000171000,0,8.10.1,0,0,0,0,0,FALSE,4b127daf3994c5d96f0919b1eec8fc25,2,de097941b538bc52f3a238baf56bea32,1
+18547,01b3058a-0002-3144-0051-ba870003a1ae,"WITH ssales AS (
+  SELECT c_last_name, c_first_name, s_store_name, ca_state, s_state, i_color, i_current_price, i_manager_id, i_units, i_size, SUM(ss_net_paid_inc_tax) netpaid
+  FROM store_sales, store_returns, store, item, customer, customer_address
+  WHERE ss_ticket_number = sr_ticket_number
+    AND ss_item_sk = sr_item_sk
+    AND ss_customer_sk = c_customer_sk
+    AND ss_item_sk = i_item_sk
+    AND ss_store_sk = s_store_sk
+    AND c_current_addr_sk = ca_address_sk
+    AND c_birth_country <> UPPER(ca_country)
+    AND s_zip = ca_zip
+    AND s_market_id = 8
+    AND c_birth_year > 1980  -- Filter for customers born after 1980
+  GROUP BY c_last_name, c_first_name, s_store_name, ca_state, s_state, i_color, i_current_price, i_manager_id, i_units, i_size
+)
+SELECT c_last_name, c_first_name, s_store_name, SUM(netpaid) paid
+FROM ssales
+WHERE i_color = 'lime'
+GROUP BY c_last_name, c_first_name, s_store_name
+HAVING SUM(netpaid) > (SELECT 0.05 * AVG(netpaid) FROM ssales)
+ORDER BY c_last_name, c_first_name, s_store_name",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:38:52.681-07:00,2024-03-16T00:39:11.228-07:00,18547,2759911162244,125,1185,17362,0,0,0,0,,,0,,,0,0.000184000,0,8.10.1,0,0,0,0,0,FALSE,4d05c845bd21957699942ee103afc112,2,a6e1b25f6793d1e96ccfb7d305c9f3d5,1
+19145,01b3058a-0002-3144-0051-ba870003a1a6,"WITH ssales AS (
+  SELECT c_last_name, c_first_name, s_store_name, ca_state, s_state, i_color, i_current_price, i_manager_id, i_units, i_size, SUM(ss_net_paid_inc_tax) netpaid
+  FROM store_sales, store_returns, store, item, customer, customer_address
+  WHERE ss_ticket_number = sr_ticket_number
+    AND ss_item_sk = sr_item_sk
+    AND ss_customer_sk = c_customer_sk
+    AND ss_item_sk = i_item_sk
+    AND ss_store_sk = s_store_sk
+    AND c_current_addr_sk = ca_address_sk
+    AND c_birth_country <> UPPER(ca_country)
+    AND s_zip = ca_zip
+    AND s_market_id = 8
+  GROUP BY c_last_name, c_first_name, s_store_name, ca_state, s_state, i_color, i_current_price, i_manager_id, i_units, i_size
+)
+SELECT c_last_name, c_first_name, s_store_name, SUM(netpaid) paid
+FROM ssales
+WHERE i_color = 'lime'
+GROUP BY c_last_name, c_first_name, s_store_name
+HAVING SUM(netpaid) > (SELECT 0.05 * AVG(netpaid) FROM ssales)
+ORDER BY s_store_name, c_last_name, c_first_name",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:38:33.144-07:00,2024-03-16T00:38:52.289-07:00,19145,2759728557527,740,1020,18125,0,0,0,0,,,0,,,0,0.000158000,0,8.10.1,0,0,0,0,0,FALSE,5b24bbb4e075eca7e399f0ad6293de76,2,96ef1118881ba26e412d765346ccbbfb,1
+14680,01b3058a-0002-318f-0051-ba870003b0e2,"WITH ssales AS (
+  SELECT c_last_name, c_first_name, s_store_name, ca_state, s_state, i_color, i_current_price, i_manager_id, i_units, i_size, SUM(ss_net_paid_inc_tax) netpaid
+  FROM store_sales, store_returns, store, item, customer, customer_address
+  WHERE ss_ticket_number = sr_ticket_number
+    AND ss_item_sk = sr_item_sk
+    AND ss_customer_sk = c_customer_sk
+    AND ss_item_sk = i_item_sk
+    AND ss_store_sk = s_store_sk
+    AND c_current_addr_sk = ca_address_sk
+    AND c_birth_country <> UPPER(ca_country)
+    AND s_zip = ca_zip
+    AND s_market_id = 8
+    AND i_manager_id = 5  -- Filter for a specific manager
+  GROUP BY c_last_name, c_first_name, s_store_name, ca_state, s_state, i_color, i_current_price, i_manager_id, i_units, i_size
+)
+SELECT c_last_name, c_first_name, s_store_name, SUM(netpaid) paid
+FROM ssales
+WHERE i_color = 'lime'
+GROUP BY c_last_name, c_first_name, s_store_name
+HAVING SUM(netpaid) > (SELECT 0.05 * AVG(netpaid) FROM ssales)
+ORDER BY c_last_name, c_first_name, s_store_name",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:38:18.001-07:00,2024-03-16T00:38:32.681-07:00,14680,2759937025526,19,994,13686,0,0,0,0,,,0,,,0,0.000154000,0,8.10.1,0,0,0,0,0,FALSE,d763d0129823fdaa2855fcf198293f4c,2,73de2d8bbd0730f4347840351cf1cadf,1
+14513,01b3058a-0002-326c-0051-ba870003c17a,"WITH ssales AS (
+  SELECT c_last_name, c_first_name, s_store_name, ca_state, s_state, i_color, i_current_price, i_manager_id, i_units, i_size, SUM(ss_net_paid_inc_tax) netpaid
+  FROM store_sales, store_returns, store, item, customer, customer_address
+  WHERE ss_ticket_number = sr_ticket_number
+    AND ss_item_sk = sr_item_sk
+    AND ss_customer_sk = c_customer_sk
+    AND ss_item_sk = i_item_sk
+    AND ss_store_sk = s_store_sk
+    AND c_current_addr_sk = ca_address_sk
+    AND c_birth_country <> UPPER(ca_country)
+    AND s_zip = ca_zip
+    AND s_market_id = 8
+    AND i_manager_id = 5
+  GROUP BY c_last_name, c_first_name, s_store_name, ca_state, s_state, i_color, i_current_price, i_manager_id, i_units, i_size
+)
+SELECT c_last_name, c_first_name, s_store_name, SUM(netpaid) paid
+FROM ssales
+WHERE i_color = 'lime'
+GROUP BY c_last_name, c_first_name, s_store_name
+HAVING SUM(netpaid) > (SELECT 0.05 * AVG(netpaid) FROM ssales)
+ORDER BY c_last_name, c_first_name, s_store_name",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:38:03.053-07:00,2024-03-16T00:38:17.566-07:00,14513,2759913679297,19,1037,13476,0,0,0,0,,,0,,,0,0.000161000,0,8.10.1,0,0,0,0,0,FALSE,d763d0129823fdaa2855fcf198293f4c,2,73de2d8bbd0730f4347840351cf1cadf,1
+19905,01b30589-0002-3144-0051-ba870003a19a,"WITH ssales AS (
+  SELECT c_last_name, c_first_name, s_store_name, i_color, i_current_price, i_manager_id, i_units, i_size, SUM(ss_net_paid_inc_tax) netpaid
+  FROM store_sales, store_returns, store, item, customer, customer_address
+  WHERE ss_ticket_number = sr_ticket_number
+    AND ss_item_sk = sr_item_sk
+    AND ss_customer_sk = c_customer_sk
+    AND ss_item_sk = i_item_sk
+    AND ss_store_sk = s_store_sk
+    AND c_current_addr_sk = ca_address_sk
+    AND c_birth_country <> UPPER(ca_country)
+    AND s_zip = ca_zip
+    AND s_market_id = 8
+  GROUP BY c_last_name, c_first_name, s_store_name, i_color, i_current_price, i_manager_id, i_units, i_size
+)
+
+SELECT c_last_name, c_first_name, s_store_name, SUM(netpaid) paid
+FROM ssales
+WHERE i_color = 'lime'
+GROUP BY c_last_name, c_first_name, s_store_name
+HAVING SUM(netpaid) > (SELECT 0.05 * AVG(netpaid) FROM ssales)
+ORDER BY c_last_name, c_first_name, s_store_name",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:37:42.588-07:00,2024-03-16T00:38:02.493-07:00,19905,2759729035229,740,1330,18575,0,0,0,0,,,0,,,0,0.000206000,0,8.10.1,0,0,0,0,0,FALSE,0c885a23191befb25e37e26035287339,2,a0e6a812c15a91e765484f05ae2a2bee,1
+3960,01b30589-0002-3095-0051-ba87000331fa,"WITH ssales AS (
+  SELECT c_last_name, c_first_name, s_store_name, ca_state, s_state, i_color, i_current_price, i_manager_id, i_units, i_size, SUM(ss_net_paid_inc_tax) netpaid
+  FROM store_sales
+  JOIN store_returns ON ss_ticket_number = sr_ticket_number AND ss_item_sk = sr_item_sk
+  JOIN store ON ss_store_sk = s_store_sk
+  JOIN item ON ss_item_sk = i_item_sk
+  JOIN customer ON ss_customer_sk = c_customer_sk
+  JOIN customer_address ON c_current_addr_sk = ca_address_sk
+  JOIN date_dim ON store_sales.ss_sold_date_sk = date_dim.d_date_sk AND d_year = 2020  -- Joined with date_dim for a specific year
+  WHERE c_birth_country <> UPPER(ca_country)
+    AND s_zip = ca_zip
+    AND s_market_id = 8
+  GROUP BY c_last_name, c_first_name, s_store_name, ca_state, s_state, i_color, i_current_price, i_manager_id, i_units, i_size
+)
+SELECT c_last_name, c_first_name, s_store_name, SUM(netpaid) paid
+FROM ssales
+WHERE i_color = 'lime'
+GROUP BY c_last_name, c_first_name, s_store_name
+HAVING SUM(netpaid) > (SELECT 0.05 * AVG(netpaid) FROM ssales)
+ORDER BY c_last_name, c_first_name, s_store_name",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:37:38.227-07:00,2024-03-16T00:37:42.187-07:00,3960,6264556857,1,1225,2735,0,0,0,0,,,0,,,0,0.000189000,0,8.10.1,0,0,0,0,0,FALSE,fffd63616d57dc97234f2fb8d837607b,2,0eb0ae6d1a3b1c8b3b30c6b7e87802a9,1
+10608,01b30589-0002-326c-0051-ba870003c16e,"WITH ssales AS (
+  SELECT c_last_name, c_first_name, s_store_name, ca_state, s_state, i_color, i_current_price, i_manager_id, i_units, i_size, SUM(ss_net_paid_inc_tax) netpaid
+  FROM store_sales, store_returns, store, item, customer, customer_address
+  WHERE ss_ticket_number = sr_ticket_number
+    AND ss_item_sk = sr_item_sk
+    AND ss_customer_sk = c_customer_sk
+    AND ss_item_sk = i_item_sk
+    AND ss_store_sk = s_store_sk
+    AND c_current_addr_sk = ca_address_sk
+    AND c_birth_country <> UPPER(ca_country)
+    AND s_zip = ca_zip
+    AND s_market_id = 8
+  GROUP BY c_last_name, c_first_name, s_store_name, ca_state, s_state, i_color, i_current_price, i_manager_id, i_units, i_size
+)
+
+SELECT c_last_name, c_first_name, s_store_name, SUM(netpaid) paid
+FROM ssales
+WHERE i_color = 'lime' AND i_size = 'M'  -- Filter for medium size
+GROUP BY c_last_name, c_first_name, s_store_name
+HAVING SUM(netpaid) > (SELECT 0.05 * AVG(netpaid) FROM ssales)
+ORDER BY c_last_name, c_first_name, s_store_name",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:37:27.219-07:00,2024-03-16T00:37:37.827-07:00,10608,1379821708045,1,878,9730,0,0,0,0,,,0,,,0,0.000136000,0,8.10.1,0,0,0,0,0,FALSE,03e93a9147f681a9d314c97a48d22d95,2,8e7200eb248b6d904b5da4bc7a5e8167,1
+19285,01b30589-0002-318f-0051-ba870003b0d2,"WITH ssales AS (
+  SELECT c_last_name, c_first_name, s_store_name, ca_state, s_state, i_color, i_current_price, i_manager_id, i_units, i_size, SUM(ss_net_paid_inc_tax) netpaid
+  FROM store_sales, store_returns, store, item, customer, customer_address
+  WHERE ss_ticket_number = sr_ticket_number
+    AND ss_item_sk = sr_item_sk
+    AND ss_customer_sk = c_customer_sk
+    AND ss_item_sk = i_item_sk
+    AND ss_store_sk = s_store_sk
+    AND c_current_addr_sk = ca_address_sk
+    AND c_birth_country <> UPPER(ca_country)
+    AND s_zip = ca_zip
+    AND s_market_id = 8
+  GROUP BY c_last_name, c_first_name, s_store_name, ca_state, s_state, i_color, i_current_price, i_manager_id, i_units, i_size
+)
+SELECT c_last_name, c_first_name, s_store_name, i_color, i_size, SUM(netpaid) paid
+FROM ssales
+WHERE i_color = 'lime'
+GROUP BY c_last_name, c_first_name, s_store_name, i_color, i_size
+HAVING SUM(netpaid) > (SELECT 0.05 * AVG(netpaid) FROM ssales)
+ORDER BY c_last_name, c_first_name, s_store_name, i_color, i_size",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:37:07.621-07:00,2024-03-16T00:37:26.906-07:00,19285,2759685244754,743,1007,18278,0,0,0,0,,,0,,,0,0.000156000,0,8.10.1,0,0,0,0,0,FALSE,c14de7424af0c3f03ea5413bd3f1befc,2,7a9c97244ea1be4fecf3badbd6e497ff,1
+20914,01b30588-0002-317c-0051-ba870003718a,"WITH ssales AS (
+  SELECT c_last_name, c_first_name, s_store_name, ca_state, s_state, i_color, i_current_price, i_manager_id, i_units, i_size, SUM(ss_net_paid_inc_tax) netpaid
+  FROM store_sales, store_returns, store, item, customer, customer_address
+  WHERE ss_ticket_number = sr_ticket_number
+    AND ss_item_sk = sr_item_sk
+    AND ss_customer_sk = c_customer_sk
+    AND ss_item_sk = i_item_sk
+    AND ss_store_sk = s_store_sk
+    AND c_current_addr_sk = ca_address_sk
+    AND c_birth_country <> UPPER(ca_country)
+    AND s_zip = ca_zip
+    AND s_market_id = 8
+  GROUP BY c_last_name, c_first_name, s_store_name, ca_state, s_state, i_color, i_current_price, i_manager_id, i_units, i_size
+)
+SELECT c_last_name, c_first_name, s_store_name, SUM(netpaid) paid
+FROM ssales
+WHERE i_color = 'lime'
+GROUP BY c_last_name, c_first_name, s_store_name
+HAVING SUM(netpaid) > (SELECT 0.1 * AVG(netpaid) FROM ssales)  -- Adjusted percentage
+ORDER BY c_last_name, c_first_name, s_store_name",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:36:46.319-07:00,2024-03-16T00:37:07.233-07:00,20914,2759733509338,673,941,19973,0,0,0,0,,,0,,,0,0.000146000,0,8.10.1,0,0,0,0,0,FALSE,0835fad496ffd3cf8510ec8a7f7536bd,2,7deb5e19fe9908f561dc6d0adc4522b3,1
+42340,01b30588-0002-318f-0051-ba870003b0c6,"WITH ssales AS (
+  SELECT c_last_name, c_first_name, s_store_name, ca_state, s_state, i_color, i_current_price, i_manager_id, i_units, i_size, SUM(ss_net_paid_inc_tax) netpaid
+  FROM store_sales, store_returns, store, item, customer, customer_address
+  WHERE ss_ticket_number = sr_ticket_number
+    AND ss_item_sk = sr_item_sk
+    AND ss_customer_sk = c_customer_sk
+    AND ss_item_sk = i_item_sk
+    AND ss_store_sk = s_store_sk
+    AND c_current_addr_sk = ca_address_sk
+    AND c_birth_country <> UPPER(ca_country)
+    AND s_zip = ca_zip
+    AND s_market_id = 7
+  GROUP BY c_last_name, c_first_name, s_store_name, ca_state, s_state, i_color, i_current_price, i_manager_id, i_units, i_size
+)
+SELECT c_last_name, c_first_name, s_store_name, SUM(netpaid) paid
+FROM ssales
+WHERE i_color = 'blue'
+GROUP BY c_last_name, c_first_name, s_store_name
+HAVING SUM(netpaid) > (SELECT 0.05 * AVG(netpaid) FROM ssales)
+ORDER BY c_last_name, c_first_name, s_store_name",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:36:03.506-07:00,2024-03-16T00:36:45.846-07:00,42340,2759668677958,262,1240,41100,0,0,0,0,,,0,,,0,0.000191000,0,8.10.1,0,0,0,0,0,FALSE,9c63494896b968f9c5ebd336a15fd173,2,75c2e4b35d7ca4ea20f4b502ba7bacc7,1
+6007,01b30587-0002-317c-0051-ba8700037182,"SELECT c_last_name, c_first_name, ca_city, bought_city, ss_ticket_number, extended_price, extended_tax, list_price
+FROM (
+  SELECT ss_ticket_number, ss_customer_sk, ca_city bought_city, sum(ss_ext_sales_price) extended_price, sum(ss_ext_list_price) list_price, sum(ss_ext_tax) extended_tax
+  FROM store_sales, date_dim, store, household_demographics, customer_address
+  WHERE store_sales.ss_sold_date_sk = date_dim.d_date_sk
+    AND store_sales.ss_store_sk = store.s_store_sk
+    AND store_sales.ss_hdemo_sk = household_demographics.hd_demo_sk
+    AND store_sales.ss_addr_sk = customer_address.ca_address_sk
+    AND date_dim.d_dom BETWEEN 1 AND 2
+    AND (household_demographics.hd_dep_count = 3 OR household_demographics.hd_vehicle_count= 3)
+    AND date_dim.d_year IN (2000,2001,2002)
+    AND store.s_city IN ('Walnut Grove','Enterprise')
+    AND store.s_gmt_offset = -8
+  GROUP BY ss_ticket_number, ss_customer_sk, ss_addr_sk, ca_city
+) dn, customer, customer_address current_addr
+WHERE ss_customer_sk = c_customer_sk
+  AND customer.c_current_addr_sk = current_addr.ca_address_sk
+  AND current_addr.ca_city <> bought_city
+ORDER BY c_last_name, ss_ticket_number
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:35:57.155-07:00,2024-03-16T00:36:03.162-07:00,6007,52117564447,100,955,5052,0,0,0,0,,,0,,,0,0.000150000,0,8.10.1,0,0,0,0,0,FALSE,520adf1717c522c2876ffce824ae45a4,2,181ba45971f5fcde61870e4e5be3e677,1
+4405,01b30587-0002-3144-0051-ba870003a18e,"SELECT c_last_name, c_first_name, ca_city, bought_city, ss_ticket_number, extended_price, extended_tax, list_price
+FROM (
+  SELECT ss_ticket_number, ss_customer_sk, ca_city bought_city, sum(ss_ext_sales_price) extended_price, sum(ss_ext_list_price) list_price, sum(ss_ext_tax) extended_tax
+  FROM store_sales, date_dim, store, household_demographics, customer_address
+  WHERE store_sales.ss_sold_date_sk = date_dim.d_date_sk
+    AND store_sales.ss_store_sk = store.s_store_sk
+    AND store_sales.ss_hdemo_sk = household_demographics.hd_demo_sk
+    AND store_sales.ss_addr_sk = customer_address.ca_address_sk
+    AND date_dim.d_dom BETWEEN 1 AND 2
+    AND (household_demographics.hd_dep_count = 3 OR household_demographics.hd_vehicle_count= 3)
+    AND date_dim.d_year IN (2000,2001,2002)
+    AND store.s_city IN ('Walnut Grove','Enterprise')
+    AND store.s_county = 'Springfield'
+  GROUP BY ss_ticket_number, ss_customer_sk, ss_addr_sk, ca_city
+) dn, customer, customer_address current_addr
+WHERE ss_customer_sk = c_customer_sk
+  AND customer.c_current_addr_sk = current_addr.ca_address_sk
+  AND current_addr.ca_city <> bought_city
+ORDER BY c_last_name, ss_ticket_number
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:35:52.1-07:00,2024-03-16T00:35:56.505-07:00,4405,1556166175,0,519,3886,0,0,0,0,,,0,,,0,0.000083000,0,8.10.1,0,0,0,0,0,FALSE,c3bdbc1f73cca4271a6b60904e198f77,2,b98933f6b584eddee201d167d0fa7b5a,1
+7005,01b30587-0002-3095-0051-ba87000331ee,"SELECT c_last_name, c_first_name, ca_city, bought_city, ss_ticket_number, extended_price, extended_tax, list_price
+FROM (
+  SELECT ss_ticket_number, ss_customer_sk, ca_city bought_city, sum(ss_ext_sales_price) extended_price, sum(ss_ext_list_price) list_price, sum(ss_ext_tax) extended_tax
+  FROM store_sales, date_dim, store, household_demographics, customer_address
+  WHERE store_sales.ss_sold_date_sk = date_dim.d_date_sk
+    AND store_sales.ss_store_sk = store.s_store_sk
+    AND store_sales.ss_hdemo_sk = household_demographics.hd_demo_sk
+    AND store_sales.ss_addr_sk = customer_address.ca_address_sk
+    AND date_dim.d_dom BETWEEN 1 AND 2
+    AND (household_demographics.hd_dep_count = 3 OR household_demographics.hd_vehicle_count= 3)
+    AND date_dim.d_year IN (2001,2002,2003)
+    AND store.s_city IN ('Walnut Grove','Enterprise')
+  GROUP BY ss_ticket_number, ss_customer_sk, ss_addr_sk, ca_city
+) dn, customer, customer_address current_addr
+WHERE ss_customer_sk = c_customer_sk
+  AND customer.c_current_addr_sk = current_addr.ca_address_sk
+  AND current_addr.ca_city <> bought_city
+ORDER BY c_last_name, ss_ticket_number
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:35:44.677-07:00,2024-03-16T00:35:51.682-07:00,7005,37439311125,100,1364,5641,0,0,0,0,,,0,,,0,0.000211000,0,8.10.1,0,0,0,0,0,FALSE,8cb75838bb940710e67a135f678a628a,2,b84c94ee3fe3f0caff1103fe87358f53,1
+54,01b30587-0002-317c-0051-ba8700037176,"SELECT c_last_name, c_first_name, ca_city, bought_city, ss_ticket_number, extended_price, extended_tax, list_price
+FROM (
+  SELECT ss_ticket_number, ss_customer_sk, ca_city bought_city, sum(ss_ext_sales_price) extended_price, sum(ss_ext_list_price) list_price, sum(ss_ext_tax) extended_tax
+  FROM store_sales, date_dim, store, household_demographics, customer_address
+  WHERE store_sales.ss_sold_date_sk = date_dim.d_date_sk
+    AND store_sales.ss_store_sk = store.s_store_sk
+    AND store_sales.ss_hdemo_sk = household_demographics.hd_demo_sk
+    AND store_sales.ss_addr_sk = customer_address.ca_address_sk
+    AND date_dim.d_dom BETWEEN 1 AND 2
+    AND (household_demographics.hd_dep_count = 3 OR household_demographics.hd_vehicle_count= 3)
+    AND household_demographics.hd_age BETWEEN 30 AND 40
+    AND date_dim.d_year IN (2000,2001,2002)
+    AND store.s_city IN ('Walnut Grove','Enterprise')
+  GROUP BY ss_ticket_number, ss_customer_sk, ss_addr_sk, ca_city
+) dn, customer, customer_address current_addr
+WHERE ss_customer_sk = c_customer_sk
+  AND customer.c_current_addr_sk = current_addr.ca_address_sk
+  AND current_addr.ca_city <> bought_city
+ORDER BY c_last_name, ss_ticket_number
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,UNKNOWN,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,,STANDARD,,,FAILED_WITH_ERROR,904,"SQL compilation error: error line 11 at position 8
+invalid identifier 'HOUSEHOLD_DEMOGRAPHICS.HD_AGE'",2024-03-16T00:35:44.091-07:00,2024-03-16T00:35:44.145-07:00,54,0,0,54,0,0,0,0,0,,,0,,,0,0.000008000,0,8.10.1,0,0,0,0,0,FALSE,41fcbf4955917700adc459e3316f3686,2,5fc7d7870ef2d1107002d8a79886d3f9,1
+5573,01b30587-0002-3144-0051-ba870003a186,"SELECT c_last_name, c_first_name, ca_city, bought_city, ss_ticket_number, extended_price, extended_tax, list_price
+FROM (
+  SELECT ss_ticket_number, ss_customer_sk, ca_city bought_city, sum(ss_ext_sales_price) extended_price, sum(ss_ext_list_price) list_price, sum(ss_ext_tax) extended_tax
+  FROM store_sales, date_dim, store, household_demographics, customer_address
+  WHERE store_sales.ss_sold_date_sk = date_dim.d_date_sk
+    AND store_sales.ss_store_sk = store.s_store_sk
+    AND store_sales.ss_hdemo_sk = household_demographics.hd_demo_sk
+    AND store_sales.ss_addr_sk = customer_address.ca_address_sk
+    AND date_dim.d_dom BETWEEN 1 AND 2
+    AND (household_demographics.hd_dep_count = 3 OR household_demographics.hd_vehicle_count= 3)
+    AND date_dim.d_year IN (2000,2001,2002)
+    AND store.s_city IN ('Walnut Grove','Enterprise')
+  GROUP BY ss_ticket_number, ss_customer_sk, ss_addr_sk, ca_city
+) dn, customer, customer_address current_addr
+WHERE ss_customer_sk = c_customer_sk
+  AND customer.c_current_addr_sk = current_addr.ca_address_sk
+  AND current_addr.ca_city <> bought_city
+ORDER BY c_last_name, ss_ticket_number
+LIMIT 50",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:35:37.756-07:00,2024-03-16T00:35:43.329-07:00,5573,52117564335,50,544,5029,0,0,0,0,,,0,,,0,0.000085000,0,8.10.1,0,0,0,0,0,FALSE,82aa9175158d7b3745aae236aa7f87c0,2,ff36cd10459863156773e0378b045343,1
+5654,01b30587-0002-326c-0051-ba870003c15e,"SELECT c_last_name, c_first_name, ca_city, bought_city, ss_ticket_number, extended_price, extended_tax, list_price
+FROM (
+  SELECT ss_ticket_number, ss_customer_sk, ca_city bought_city, sum(ss_ext_sales_price) extended_price, sum(ss_ext_list_price) list_price, sum(ss_ext_tax) extended_tax
+  FROM store_sales, date_dim, store, household_demographics, customer_address
+  WHERE store_sales.ss_sold_date_sk = date_dim.d_date_sk
+    AND store_sales.ss_store_sk = store.s_store_sk
+    AND store_sales.ss_hdemo_sk = household_demographics.hd_demo_sk
+    AND store_sales.ss_addr_sk = customer_address.ca_address_sk
+    AND date_dim.d_dom BETWEEN 1 AND 2
+    AND (household_demographics.hd_dep_count = 3 OR household_demographics.hd_vehicle_count= 3)
+    AND date_dim.d_year IN (2000,2001,2002)
+    AND store.s_city IN ('Springfield','Shelbyville')
+  GROUP BY ss_ticket_number, ss_customer_sk, ss_addr_sk, ca_city
+) dn, customer, customer_address current_addr
+WHERE ss_customer_sk = c_customer_sk
+  AND customer.c_current_addr_sk = current_addr.ca_address_sk
+  AND current_addr.ca_city <> bought_city
+ORDER BY c_last_name, ss_ticket_number
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:35:31.78-07:00,2024-03-16T00:35:37.434-07:00,5654,52117922511,100,567,5087,0,0,0,0,,,0,,,0,0.000088000,0,8.10.1,0,0,0,0,0,FALSE,babb699cb52de489cd592616abd6d941,2,8c8ce552b39852f1f38c819defb1ec5a,1
+6857,01b30587-0002-318f-0051-ba870003b0ba,"SELECT c_last_name, c_first_name, ca_city, bought_city, ss_ticket_number, avg_extended_price, extended_tax, list_price
+FROM (
+  SELECT ss_ticket_number, ss_customer_sk, ca_city bought_city, avg(ss_ext_sales_price) avg_extended_price, sum(ss_ext_tax) extended_tax, sum(ss_ext_list_price) list_price
+  FROM store_sales, date_dim, store, household_demographics, customer_address
+  WHERE store_sales.ss_sold_date_sk = date_dim.d_date_sk
+    AND store_sales.ss_store_sk = store.s_store_sk
+    AND store_sales.ss_hdemo_sk = household_demographics.hd_demo_sk
+    AND store_sales.ss_addr_sk = customer_address.ca_address_sk
+    AND date_dim.d_dom BETWEEN 1 AND 2
+    AND (household_demographics.hd_dep_count = 3 OR household_demographics.hd_vehicle_count= 3)
+    AND date_dim.d_year IN (2000,2001,2002)
+    AND store.s_city IN ('Walnut Grove','Enterprise')
+  GROUP BY ss_ticket_number, ss_customer_sk, ss_addr_sk, ca_city
+) dn, customer, customer_address current_addr
+WHERE ss_customer_sk = c_customer_sk
+  AND customer.c_current_addr_sk = current_addr.ca_address_sk
+  AND current_addr.ca_city <> bought_city
+ORDER BY c_last_name, ss_ticket_number
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:35:24.554-07:00,2024-03-16T00:35:31.411-07:00,6857,52117568820,100,1747,5110,0,0,0,0,,,0,,,0,0.000269000,0,8.10.1,0,0,0,0,0,FALSE,adac0db0a7c61ec517ed6d2375592cb3,2,ea09a4cba79763d4d7091d8660701961,1
+6752,01b30587-0002-3099-0051-ba87000360f6,"SELECT c_last_name, c_first_name, ca_city, bought_city, ss_ticket_number, extended_price, extended_tax, list_price
+FROM (
+  SELECT ss_ticket_number, ss_customer_sk, ca_city bought_city, sum(ss_ext_sales_price) extended_price, sum(ss_ext_list_price) list_price, sum(ss_ext_tax) extended_tax
+  FROM store_sales, date_dim, store, household_demographics, customer_address
+  WHERE store_sales.ss_sold_date_sk = date_dim.d_date_sk
+    AND store_sales.ss_store_sk = store.s_store_sk
+    AND store_sales.ss_hdemo_sk = household_demographics.hd_demo_sk
+    AND store_sales.ss_addr_sk = customer_address.ca_address_sk
+    AND date_dim.d_dom BETWEEN 1 AND 2
+    AND (household_demographics.hd_dep_count = 4 OR household_demographics.hd_vehicle_count= 4)
+    AND date_dim.d_year IN (2000,2001,2002)
+    AND store.s_city IN ('Walnut Grove','Enterprise')
+  GROUP BY ss_ticket_number, ss_customer_sk, ss_addr_sk, ca_city
+) dn, customer, customer_address current_addr
+WHERE ss_customer_sk = c_customer_sk
+  AND customer.c_current_addr_sk = current_addr.ca_address_sk
+  AND current_addr.ca_city <> bought_city
+ORDER BY c_last_name, ss_ticket_number
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:35:17.267-07:00,2024-03-16T00:35:24.019-07:00,6752,52117961152,100,1292,5460,0,0,0,0,,,0,,,0,0.000201000,0,8.10.1,0,0,0,0,0,FALSE,2f26ffa416c888d2e87a8d5b4164d93a,2,f79cc6af7955dba485dfdd14dfdcc527,1
+45,01b30587-0002-317c-0051-ba8700037166,"SELECT c_last_name, c_first_name, ca_city, bought_city, ss_ticket_number, extended_price, extended_tax, list_price, date_dim.d_year
+FROM (
+  SELECT ss_ticket_number, ss_customer_sk, ca_city bought_city, sum(ss_ext_sales_price) extended_price, sum(ss_ext_list_price) list_price, sum(ss_ext_tax) extended_tax, date_dim.d_year
+  FROM store_sales, date_dim, store, household_demographics, customer_address
+  WHERE store_sales.ss_sold_date_sk = date_dim.d_date_sk
+    AND store_sales.ss_store_sk = store.s_store_sk
+    AND store_sales.ss_hdemo_sk = household_demographics.hd_demo_sk
+    AND store_sales.ss_addr_sk = customer_address.ca_address_sk
+    AND date_dim.d_dom BETWEEN 1 AND 2
+    AND (household_demographics.hd_dep_count = 3 OR household_demographics.hd_vehicle_count= 3)
+    AND date_dim.d_year IN (2000,2001,2002)
+    AND store.s_city IN ('Walnut Grove','Enterprise')
+  GROUP BY ss_ticket_number, ss_customer_sk, ss_addr_sk, ca_city, date_dim.d_year
+) dn, customer, customer_address current_addr
+WHERE ss_customer_sk = c_customer_sk
+  AND customer.c_current_addr_sk = current_addr.ca_address_sk
+  AND current_addr.ca_city <> bought_city
+ORDER BY c_last_name, ss_ticket_number, date_dim.d_year
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,UNKNOWN,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,,STANDARD,,,FAILED_WITH_ERROR,904,"SQL compilation error: error line 1 at position 116
+invalid identifier 'DATE_DIM.D_YEAR'",2024-03-16T00:35:16.832-07:00,2024-03-16T00:35:16.877-07:00,45,0,0,45,0,0,0,0,0,,,0,,,0,0.000007000,0,8.10.1,0,0,0,0,0,FALSE,0af53f9c2556e3264782f5d9e6f59061,2,f93df997265ab35e874e5b3e7fa621fe,1
+9961,01b30587-0002-3144-0051-ba870003a17e,"SELECT c_last_name, c_first_name, ca_city, bought_city, ss_ticket_number, extended_price, extended_tax, list_price
+FROM (
+  SELECT ss_ticket_number, ss_customer_sk, ca_city bought_city, sum(ss_ext_sales_price) extended_price, sum(ss_ext_list_price) list_price, sum(ss_ext_tax) extended_tax
+  FROM store_sales, date_dim, store, household_demographics, customer_address
+  WHERE store_sales.ss_sold_date_sk = date_dim.d_date_sk
+    AND store_sales.ss_store_sk = store.s_store_sk
+    AND store_sales.ss_hdemo_sk = household_demographics.hd_demo_sk
+    AND store_sales.ss_addr_sk = customer_address.ca_address_sk
+    AND date_dim.d_dom BETWEEN 1 AND 5
+    AND (household_demographics.hd_dep_count = 3 OR household_demographics.hd_vehicle_count= 3)
+    AND date_dim.d_year IN (2000,2001,2002)
+    AND store.s_city IN ('Walnut Grove','Enterprise')
+  GROUP BY ss_ticket_number, ss_customer_sk, ss_addr_sk, ca_city
+) dn, customer, customer_address current_addr
+WHERE ss_customer_sk = c_customer_sk
+  AND customer.c_current_addr_sk = current_addr.ca_address_sk
+  AND current_addr.ca_city <> bought_city
+ORDER BY c_last_name, ss_ticket_number
+LIMIT 100",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:35:06.307-07:00,2024-03-16T00:35:16.268-07:00,9961,123583521689,100,600,9361,0,0,0,0,,,0,,,0,0.000094000,0,8.10.1,0,0,0,0,0,FALSE,ed2bb8d4ba01e8f502cbd5200a146353,2,e53c5e27918ee2f3ca88b67fddafa876,1
+1382,01b30587-0002-3144-0051-ba870003a176,"SELECT channel, col_name, d_year, d_qoy, i_category, COUNT(*) sales_cnt, SUM(ext_sales_price) sales_amt
+FROM (
+  SELECT 'store' AS channel, 'ss_hdemo_sk' col_name, d_year, d_qoy, i_category, ss_ext_sales_price ext_sales_price
+  FROM store_sales, item, date_dim
+  WHERE ss_hdemo_sk IS NULL AND d_year = 2020
+  AND ss_sold_date_sk=d_date_sk
+  AND ss_item_sk=i_item_sk
+  UNION ALL
+  SELECT 'web' AS channel, 'ws_ship_mode_sk' col_name, d_year, d_qoy, i_category, ws_ext_sales_price ext_sales_price
+  FROM web_sales, item, date_dim
+  WHERE ws_ship_mode_sk IS NULL AND d_year = 2020
+  AND ws_sold_date_sk=d_date_sk
+  AND ws_item_sk=i_item_sk
+  UNION ALL
+  SELECT 'catalog' AS channel, 'cs_ship_customer_sk' col_name, d_year, d_qoy, i_category, cs_ext_sales_price ext_sales_price
+  FROM catalog_sales, item, date_dim
+  WHERE cs_ship_customer_sk IS NULL AND d_year = 2020
+  AND cs_sold_date_sk=d_date_sk
+  AND cs_item_sk=i_item_sk
+) foo
+GROUP BY channel, col_name, d_year, d_qoy, i_category
+ORDER BY channel, col_name, d_year, d_qoy, i_category",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:35:04.636-07:00,2024-03-16T00:35:06.018-07:00,1382,81425643,0,648,734,0,0,0,0,,,0,,,0,0.000101000,0,8.10.1,0,0,0,0,0,FALSE,22ae34047e8944d816a4742c405c7c02,2,874b81830932c4bb93f8c8e8b0510cd4,1
+10826,01b30586-0002-326c-0051-ba870003c14a,"SELECT channel, col_name, d_year, d_qoy, i_category, COUNT(*) sales_cnt, SUM(ext_sales_price) sales_amt
+FROM (
+  SELECT 'store' AS channel, 'ss_hdemo_sk' col_name, d_year, d_qoy, i_category, ss_ext_sales_price ext_sales_price
+  FROM store_sales, item, date_dim
+  WHERE ss_hdemo_sk IS NULL
+  AND ss_sold_date_sk=d_date_sk
+  AND ss_item_sk=i_item_sk
+  UNION
+  SELECT 'web' AS channel, 'ws_ship_mode_sk' col_name, d_year, d_qoy, i_category, ws_ext_sales_price ext_sales_price
+  FROM web_sales, item, date_dim
+  WHERE ws_ship_mode_sk IS NULL
+  AND ws_sold_date_sk=d_date_sk
+  AND ws_item_sk=i_item_sk
+  UNION
+  SELECT 'catalog' AS channel, 'cs_ship_customer_sk' col_name, d_year, d_qoy, i_category, cs_ext_sales_price ext_sales_price
+  FROM catalog_sales, item, date_dim
+  WHERE cs_ship_customer_sk IS NULL
+  AND cs_sold_date_sk=d_date_sk
+  AND cs_item_sk=i_item_sk
+) foo
+GROUP BY channel, col_name, d_year, d_qoy, i_category
+ORDER BY channel, col_name, d_year, d_qoy, i_category",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:34:53.444-07:00,2024-03-16T00:35:04.27-07:00,10826,2593864235840,693,900,9926,0,0,0,0,,,0,,,0,0.000140000,0,8.10.1,0,0,0,0,0,FALSE,7464e651fc74934c8d066fbd4401dd09,2,7464e651fc74934c8d066fbd4401dd09,1
+78,01b30586-0002-3095-0051-ba87000331e2,"SELECT channel, col_name, d_year, d_qoy, i_category, c_customer_id, COUNT(*) sales_cnt, SUM(ext_sales_price) sales_amt
+FROM (
+  SELECT 'store' AS channel, 'ss_hdemo_sk' col_name, d_year, d_qoy, i_category, ss_ext_sales_price ext_sales_price, ss_customer_sk
+  FROM store_sales, item, date_dim, customer
+  WHERE ss_hdemo_sk IS NULL
+  AND ss_sold_date_sk=d_date_sk
+  AND ss_item_sk=i_item_sk
+  AND ss_customer_sk=c_customer_sk
+  UNION ALL
+  SELECT 'web' AS channel, 'ws_ship_mode_sk' col_name, d_year, d_qoy, i_category, ws_ext_sales_price ext_sales_price, ws_bill_customer_sk
+  FROM web_sales, item, date_dim, customer
+  WHERE ws_ship_mode_sk IS NULL
+  AND ws_sold_date_sk=d_date_sk
+  AND ws_item_sk=i_item_sk
+  AND ws_bill_customer_sk=c_customer_sk
+  UNION ALL
+  SELECT 'catalog' AS channel, 'cs_ship_customer_sk' col_name, d_year, d_qoy, i_category, cs_ext_sales_price ext_sales_price, cs_bill_customer_sk
+  FROM catalog_sales, item, date_dim, customer
+  WHERE cs_ship_customer_sk IS NULL
+  AND cs_sold_date_sk=d_date_sk
+  AND cs_item_sk=i_item_sk
+  AND cs_bill_customer_sk=c_customer_sk
+) foo
+GROUP BY channel, col_name, d_year, d_qoy, i_category, c_customer_id
+ORDER BY channel, col_name, d_year, d_qoy, i_category, c_customer_id",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,UNKNOWN,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,,STANDARD,,,FAILED_WITH_ERROR,904,"SQL compilation error: error line 1 at position 53
+invalid identifier 'C_CUSTOMER_ID'",2024-03-16T00:34:52.974-07:00,2024-03-16T00:34:53.052-07:00,78,0,0,78,0,0,0,0,0,,,0,,,0,0.000012000,0,8.10.1,0,0,0,0,0,FALSE,02b7e95a46909f3cd97ed8cc1c170c84,2,02b7e95a46909f3cd97ed8cc1c170c84,1
+8021,01b30586-0002-326c-0051-ba870003c13a,"SELECT channel, d_year, COUNT(*) sales_cnt, SUM(ext_sales_price) sales_amt
+FROM (
+  SELECT 'store' AS channel, d_year, ss_ext_sales_price ext_sales_price
+  FROM store_sales, item, date_dim
+  WHERE ss_hdemo_sk IS NULL
+  AND ss_sold_date_sk=d_date_sk
+  AND ss_item_sk=i_item_sk
+  UNION ALL
+  SELECT 'web' AS channel, d_year, ws_ext_sales_price ext_sales_price
+  FROM web_sales, item, date_dim
+  WHERE ws_ship_mode_sk IS NULL
+  AND ws_sold_date_sk=d_date_sk
+  AND ws_item_sk=i_item_sk
+  UNION ALL
+  SELECT 'catalog' AS channel, d_year, cs_ext_sales_price ext_sales_price
+  FROM catalog_sales, item, date_dim
+  WHERE cs_ship_customer_sk IS NULL
+  AND cs_sold_date_sk=d_date_sk
+  AND cs_item_sk=i_item_sk
+) foo
+GROUP BY channel, d_year
+ORDER BY channel, d_year",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:34:44.472-07:00,2024-03-16T00:34:52.493-07:00,8021,2593859080792,18,592,7429,0,0,0,0,,,0,,,0,0.000092000,0,8.10.1,0,0,0,0,0,FALSE,bfc997bf01f5e0f14bc2c4910ab790f4,2,bfc997bf01f5e0f14bc2c4910ab790f4,1
+8731,01b30586-0002-3099-0051-ba87000360e2,"SELECT channel, col_name, d_year, d_qoy, i_category, COUNT(*) sales_cnt, SUM(ext_sales_price) sales_amt
+FROM (
+  SELECT 'store' AS channel, 'ss_hdemo_sk' col_name, d_year, d_qoy, i_category, ss_ext_sales_price ext_sales_price
+  FROM store_sales, item, date_dim
+  WHERE ss_hdemo_sk IS NULL
+  AND ss_sold_date_sk=d_date_sk
+  AND ss_item_sk=i_item_sk
+  UNION ALL
+  SELECT 'web' AS channel, 'ws_ship_mode_sk' col_name, d_year, d_qoy, i_category, ws_ext_sales_price ext_sales_price
+  FROM web_sales, item, date_dim
+  WHERE ws_ship_mode_sk IS NULL
+  AND ws_sold_date_sk=d_date_sk
+  AND ws_item_sk=i_item_sk
+  UNION ALL
+  SELECT 'catalog' AS channel, 'cs_ship_customer_sk' col_name, d_year, d_qoy, i_category, cs_ext_sales_price ext_sales_price
+  FROM catalog_sales, item, date_dim
+  WHERE cs_ship_customer_sk IS NULL
+  AND cs_sold_date_sk=d_date_sk
+  AND cs_item_sk=i_item_sk
+) foo
+GROUP BY channel, col_name, d_year, d_qoy, i_category
+HAVING COUNT(*) > 50
+ORDER BY channel, col_name, d_year, d_qoy, i_category",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:34:35.368-07:00,2024-03-16T00:34:44.099-07:00,8731,2593863033096,690,674,8057,0,0,0,0,,,0,,,0,0.000105000,0,8.10.1,0,0,0,0,0,FALSE,5774b9f85ae6133c8fbebf8f1321f44a,2,5774b9f85ae6133c8fbebf8f1321f44a,1
+9326,01b30586-0002-3144-0051-ba870003a162,"SELECT channel, col_name, d_year, d_qoy, i_category, COUNT(*) sales_cnt, AVG(ext_sales_price) sales_amt_avg
+FROM (
+  SELECT 'store' AS channel, 'ss_hdemo_sk' col_name, d_year, d_qoy, i_category, ss_ext_sales_price ext_sales_price
+  FROM store_sales, item, date_dim
+  WHERE ss_hdemo_sk IS NULL
+  AND ss_sold_date_sk=d_date_sk
+  AND ss_item_sk=i_item_sk
+  UNION ALL
+  SELECT 'web' AS channel, 'ws_ship_mode_sk' col_name, d_year, d_qoy, i_category, ws_ext_sales_price ext_sales_price
+  FROM web_sales, item, date_dim
+  WHERE ws_ship_mode_sk IS NULL
+  AND ws_sold_date_sk=d_date_sk
+  AND ws_item_sk=i_item_sk
+  UNION ALL
+  SELECT 'catalog' AS channel, 'cs_ship_customer_sk' col_name, d_year, d_qoy, i_category, cs_ext_sales_price ext_sales_price
+  FROM catalog_sales, item, date_dim
+  WHERE cs_ship_customer_sk IS NULL
+  AND cs_sold_date_sk=d_date_sk
+  AND cs_item_sk=i_item_sk
+) foo
+GROUP BY channel, col_name, d_year, d_qoy, i_category
+ORDER BY channel, col_name, d_year, d_qoy, i_category",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:34:25.588-07:00,2024-03-16T00:34:34.914-07:00,9326,2593863244992,693,1056,8270,0,0,0,0,,,0,,,0,0.000169000,0,8.10.1,0,0,0,0,0,FALSE,64d40d20cd99987f7257664973329acd,2,64d40d20cd99987f7257664973329acd,1
+35229,01b30585-0002-326c-0051-ba870003c132,"SELECT channel, col_name, d_year, d_qoy, i_category, COUNT(*) sales_cnt, SUM(ext_sales_price) sales_amt
+FROM (
+  SELECT 'store' AS channel, 'ss_hdemo_sk' col_name, d_year, d_qoy, i_category, ss_ext_sales_price ext_sales_price
+  FROM store_sales, item, date_dim
+  WHERE ss_sold_date_sk=d_date_sk
+  AND ss_item_sk=i_item_sk
+  UNION ALL
+  SELECT 'web' AS channel, 'ws_ship_mode_sk' col_name, d_year, d_qoy, i_category, ws_ext_sales_price ext_sales_price
+  FROM web_sales, item, date_dim
+  WHERE ws_ship_mode_sk IS NULL
+  AND ws_sold_date_sk=d_date_sk
+  AND ws_item_sk=i_item_sk
+  UNION ALL
+  SELECT 'catalog' AS channel, 'cs_ship_customer_sk' col_name, d_year, d_qoy, i_category, cs_ext_sales_price ext_sales_price
+  FROM catalog_sales, item, date_dim
+  WHERE cs_ship_customer_sk IS NULL
+  AND cs_sold_date_sk=d_date_sk
+  AND cs_item_sk=i_item_sk
+) foo
+GROUP BY channel, col_name, d_year, d_qoy, i_category
+ORDER BY channel, col_name, d_year, d_qoy, i_category",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:33:49.097-07:00,2024-03-16T00:34:24.326-07:00,35229,2593872989192,693,611,34618,0,0,0,0,,,0,,,0,0.000096000,0,8.10.1,0,0,0,0,0,FALSE,a5eae1fb1987c87b8284671ac757b2a4,2,a5eae1fb1987c87b8284671ac757b2a4,1
+12967,01b30585-0002-326c-0051-ba870003c12a,"SELECT channel, col_name, d_year, d_qoy, i_category, COUNT(*) sales_cnt, SUM(ext_sales_price) sales_amt
+FROM (
+  SELECT 'store' AS channel, 'ss_hdemo_sk' col_name, d_year, d_qoy, i_category, ss_ext_sales_price ext_sales_price
+  FROM store_sales, item, date_dim
+  WHERE ss_hdemo_sk IS NULL AND i_category = 'Electronics'
+  AND ss_sold_date_sk=d_date_sk
+  AND ss_item_sk=i_item_sk
+  UNION ALL
+  SELECT 'web' AS channel, 'ws_ship_mode_sk' col_name, d_year, d_qoy, i_category, ws_ext_sales_price ext_sales_price
+  FROM web_sales, item, date_dim
+  WHERE ws_ship_mode_sk IS NULL AND i_category = 'Electronics'
+  AND ws_sold_date_sk=d_date_sk
+  AND ws_item_sk=i_item_sk
+  UNION ALL
+  SELECT 'catalog' AS channel, 'cs_ship_customer_sk' col_name, d_year, d_qoy, i_category, cs_ext_sales_price ext_sales_price
+  FROM catalog_sales, item, date_dim
+  WHERE cs_ship_customer_sk IS NULL AND i_category = 'Electronics'
+  AND cs_sold_date_sk=d_date_sk
+  AND cs_item_sk=i_item_sk
+) foo
+GROUP BY channel, col_name, d_year, d_qoy, i_category
+ORDER BY channel, col_name, d_year, d_qoy, i_category",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:33:35.235-07:00,2024-03-16T00:33:48.202-07:00,12967,2594130794478,63,971,11996,0,0,0,0,,,0,,,0,0.000150000,0,8.10.1,0,0,0,0,0,FALSE,9ec29f345f806b310973dee123088579,2,ad57323cec5ffd4a2fd60797083d5360,1
+45,01b30585-0002-326c-0051-ba870003c122,"SELECT channel, col_name, d_year, d_qoy, d_month, i_category, COUNT(*) sales_cnt, SUM(ext_sales_price) sales_amt
+FROM (
+  SELECT 'store' AS channel, 'ss_hdemo_sk' col_name, d_year, d_qoy, d_month, i_category, ss_ext_sales_price ext_sales_price
+  FROM store_sales, item, date_dim
+  WHERE ss_hdemo_sk IS NULL
+  AND ss_sold_date_sk=d_date_sk
+  AND ss_item_sk=i_item_sk
+  UNION ALL
+  SELECT 'web' AS channel, 'ws_ship_mode_sk' col_name, d_year, d_qoy, d_month, i_category, ws_ext_sales_price ext_sales_price
+  FROM web_sales, item, date_dim
+  WHERE ws_ship_mode_sk IS NULL
+  AND ws_sold_date_sk=d_date_sk
+  AND ws_item_sk=i_item_sk
+  UNION ALL
+  SELECT 'catalog' AS channel, 'cs_ship_customer_sk' col_name, d_year, d_qoy, d_month, i_category, cs_ext_sales_price ext_sales_price
+  FROM catalog_sales, item, date_dim
+  WHERE cs_ship_customer_sk IS NULL
+  AND cs_sold_date_sk=d_date_sk
+  AND cs_item_sk=i_item_sk
+) foo
+GROUP BY channel, col_name, d_year, d_qoy, d_month, i_category
+ORDER BY channel, col_name, d_year, d_qoy, d_month, i_category",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,UNKNOWN,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,,STANDARD,,,FAILED_WITH_ERROR,904,"SQL compilation error: error line 3 at position 68
+invalid identifier 'D_MONTH'",2024-03-16T00:33:34.434-07:00,2024-03-16T00:33:34.479-07:00,45,0,0,45,0,0,0,0,0,,,0,,,0,0.000007000,0,8.10.1,0,0,0,0,0,FALSE,a334d2ae956e49c88ce75878fad44213,2,a334d2ae956e49c88ce75878fad44213,1
+57785,01b30584-0002-3099-0051-ba87000360d2,"SELECT channel, col_name, d_year, d_qoy, i_category, COUNT(*) sales_cnt, SUM(ext_sales_price) sales_amt
+FROM (
+  SELECT 'store' AS channel, 'ss_hdemo_sk' col_name, d_year, d_qoy, i_category, ss_ext_sales_price ext_sales_price
+  FROM store_sales, item, date_dim
+  WHERE ss_hdemo_sk IS NULL
+  AND ss_sold_date_sk=d_date_sk
+  AND ss_item_sk=i_item_sk
+  UNION ALL
+  SELECT 'web' AS channel, 'ws_ship_mode_sk' col_name, d_year, d_qoy, i_category, ws_ext_sales_price ext_sales_price
+  FROM web_sales, item, date_dim
+  WHERE ws_ship_mode_sk IS NULL
+  AND ws_sold_date_sk=d_date_sk
+  AND ws_item_sk=i_item_sk
+  UNION ALL
+  SELECT 'catalog' AS channel, 'cs_ship_customer_sk' col_name, d_year, d_qoy, i_category, cs_ext_sales_price ext_sales_price
+  FROM catalog_sales, item, date_dim
+  WHERE cs_ship_customer_sk IS NULL
+  AND cs_sold_date_sk=d_date_sk
+  AND cs_item_sk=i_item_sk
+) foo
+GROUP BY channel, col_name, d_year, d_qoy, i_category
+ORDER BY channel, col_name, d_year, d_qoy, i_category
+LIMIT 200",SNOWFLAKE_SAMPLE_DATA,TPCDS_SF10TCL,SELECT,23004562097102974,CS291JPROJECT,ACCOUNTADMIN,TPCDS_BENCH_10T,2X-Large,STANDARD,1,,SUCCESS,,,2024-03-16T00:32:33.027-07:00,2024-03-16T00:33:30.812-07:00,57785,2593861301384,200,1352,56433,0,0,0,0,,,0,,,0,0.000209000,0,8.10.1,0,0,0,0,0,FALSE,555421c8047b6cd5dcf937b473fee418,2,555421c8047b6cd5dcf937b473fee418,1
