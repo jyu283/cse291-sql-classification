@@ -16,6 +16,7 @@ QueryRecord = namedtuple("QueryRecord", ["id", "text", "time", "plan"])
 class QueryPlanParser:
     def __init__(self, csv_file: str):
         self.queries = []
+        self.all_features = set()
 
         with open(csv_file, "r") as csvfile:
             reader = csv.DictReader(csvfile)
@@ -45,22 +46,35 @@ class QueryPlanParser:
         }
         for op, count in operations_count.items():
             features["num_" + op] = count
+        
+        for feature in features:
+            self.all_features.add(feature)
+
         return features
 
-    def process(self) -> List[pd.DataFrame]:
+    def process(self) -> pd.DataFrame:
         dataset = []
         for query_id, query_text, query_time, query_plan in self.queries:
             data = {
-                "query_id": query_id,
-                "query_text": query_text,
+                # "query_id": query_id,
+                # "query_text": query_text,
                 "elapsed_time": query_time,
                 "features": self.extract_features(query_plan)
             }
-            pprint.pprint(data)
-            df = pd.DataFrame(data)
-            dataset.append(df)
-        return dataset
-
+            dataset.append(data)
+        
+        for data in dataset:
+            features = data["features"]
+            for feat in self.all_features:
+                if feat not in features:
+                    features[feat] = 0
+            for feat in sorted(data["features"].keys()):
+                data[feat] = data["features"][feat]
+            del data["features"]
+        
+        df = pd.DataFrame(dataset)
+        print(df)
+        return df
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:

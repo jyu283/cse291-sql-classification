@@ -5,8 +5,28 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.model_selection import train_test_split, cross_val_score
 from xgboost import XGBClassifier
 from sklearn.metrics import accuracy_score
+from query_plan_parser import QueryPlanParser
 import time
 
+class SQLQueryPlanClassifier:
+    def __init__(
+        self, csv_path, threshold=14000,
+        test_size=0.4,
+        valid_size_over_train=0.5,
+        random_state=42,
+    ):
+        self.csv_path = csv_path
+        self.threshold = threshold
+        self.test_size = test_size
+        self.valid_size_over_train = valid_size_over_train
+        self.random_state = random_state
+    
+    def load_and_preprocess(self):
+        parser = QueryPlanParser(self.csv_path)
+        df = parser.process()
+        df['execution_time_class'] = (df['elapsed_time'] > self.threshold).astype(int)
+        X = self.vectorizer.fit_transform(df['QUERY_TEXT']) # TODO: What is X here?
+        y = df['execution_time_class']
 
 class SQLQueryClassifier:
     def __init__(
@@ -69,7 +89,7 @@ class SQLQueryClassifier:
         return stat
 
 
-def main(csv_path, threshold):
+def main(csv_path, threshold, query_plan=False):
     classifier = SQLQueryClassifier(csv_path, threshold=threshold)
     X, y = classifier.load_and_preprocess()
     X_train, X_val, X_test, y_train, y_val, y_test = classifier.split_data(X, y)
@@ -79,6 +99,7 @@ def main(csv_path, threshold):
 def parse_args():
     parser = argparse.ArgumentParser(description="Train and evaluate a SQL query classifier.")
     parser.add_argument("csv_file", type=str, help="Path to the CSV file containing SQL queries.")
+    parser.add_argument("query_plan", type=bool, help="If CSV file contains query plan data.")
     parser.add_argument("--threshold", type=int, default=15000, help="Threshold for classifying queries as slow.")
     args = parser.parse_args()
     return args
@@ -86,4 +107,4 @@ def parse_args():
 
 if __name__ == "__main__":
     args = parse_args()
-    main(args.csv_file, args.threshold)
+    main(args.csv_file, args.threshold, args.query_plan)
