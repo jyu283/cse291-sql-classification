@@ -5,6 +5,19 @@ from src.decision_tree import SQLQueryClassifier
 
 
 def main():
+    """
+    Evaluate the decision tree with a grid of:
+    - Datasets: TPC-DS-10TB-Snowflake.csv, TPC-DS-100TB-Snowflake.csv
+    - Thresholds: 4000, 8000, 12000, 16000, 20000, 30000
+        (representing how many seconds the query takes to run as "long" or "short")
+    - Test sizes: 0.2, 0.4, 0.6, 0.8
+        (the proportion of the dataset to include in the test split)
+    - Valid sizes over train: 0.3
+    - Random state: 42
+    - Classifier: XGBClassifier
+    - Cross-validation: 5 folds
+    - Evaluation metrics: accuracy
+    """
     # Training data folder
     data_dir: Path = Path(__file__).parent.parent / "data"
     datasets = [
