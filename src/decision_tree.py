@@ -15,12 +15,14 @@ class SQLQueryPlanClassifier:
         test_size=0.4,
         valid_size_over_train=0.5,
         random_state=42,
+        features: list = None,
     ):
         self.csv_path = csv_path
         self.threshold = threshold
         self.test_size = test_size
         self.valid_size_over_train = valid_size_over_train
         self.random_state = random_state
+        self.features = features
 
     def load_and_preprocess(self):
         parser = QueryPlanParser(self.csv_path)
@@ -28,6 +30,9 @@ class SQLQueryPlanClassifier:
         df['execution_time_class'] = (df['elapsed_time'] > self.threshold).astype(int)
         # Prepare the X matrix
         X = df.drop(columns=['elapsed_time', 'execution_time_class'])
+        # TODO: Feature prunning. Only keep features that does not occur overfitting.
+        features = self.features or X.columns
+        X = df[features]
         X = X.fillna(0)
         # Prepare the y vector
         y = df['execution_time_class']
@@ -134,7 +139,10 @@ class SQLQueryClassifier:
 
 def main(csv_path, threshold, query_plan=False, verbose=False):
     if query_plan:
-        classifier = SQLQueryPlanClassifier(csv_path, threshold=threshold)
+        classifier = SQLQueryPlanClassifier(
+            csv_path, threshold=threshold,
+            features=[],
+        )
     else:
         classifier = SQLQueryClassifier(csv_path, threshold=threshold)
     X, y = classifier.load_and_preprocess()
