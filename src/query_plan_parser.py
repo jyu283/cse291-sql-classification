@@ -58,7 +58,7 @@ class QueryPlanParser:
             data = {
                 # "query_id": query_id,
                 # "query_text": query_text,
-                "elapsed_time": query_time,
+                "elapsed_time": int(query_time),
                 "features": self.extract_features(query_plan)
             }
             dataset.append(data)
@@ -73,7 +73,7 @@ class QueryPlanParser:
             del data["features"]
         
         df = pd.DataFrame(dataset)
-        print(df)
+        # print(df)
         return df
 
 if __name__ == "__main__":
